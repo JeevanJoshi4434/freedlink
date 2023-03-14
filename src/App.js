@@ -77,7 +77,7 @@ function App() {
       <BrowserRouter>
           {/* <Alert alert={alert}/> */}
         <Routes>
-          <Route element={userData?.verified === true ? <><Nav socket={socket} /><Home socket={socket} username={"Jeet Joshi"} /></>: <Login />} path="/"></Route>
+          <Route element={<><Nav socket={socket} /><Home socket={socket} /></>} path="/"></Route>
           <Route element={<><Nav socket={socket} /><Profile socket={socket} /></>} path="/profile/:id"></Route>
           <Route element={<><Nav socket={socket} /><Personal /></>} path="/settings/personal"></Route>
           <Route element={<><Nav socket={socket} /><Security  /></>} path="/settings/security"></Route>
@@ -105,8 +105,8 @@ function App() {
           <Route element={<><Nav socket={socket} /><React.Suspense fallback="Loading..."><Job /></React.Suspense></>} path="/jobs"></Route>
           <Route element={<><Nav socket={socket} /><React.Suspense fallback="Loading..."><JobPage /></React.Suspense></>} path="/jobs/:id"> </Route> 
           {/* <Route element={user!==null ? <Navigate to={'/'} /> :    <Login />} path="/login"></Route> */}
-          <Route element={<Login />} path="/login"></Route>
-          <Route element={<Verification />} path="/signup/email/verify"></Route>
+          <Route element={userData?.verified === true ? <><Nav socket={socket} /><Home socket={socket} username={"Jeet Joshi"} /></>: <Login />} path="/login"></Route>
+          <Route element={userData?.verified === true ? <><Nav socket={socket} /><Home socket={socket} username={"Jeet Joshi"} /></>: <Verification />} path="/signup/email/verify"></Route>
           {/* <Route element={user!==null ? <Navigate to={'/'} /> :   <><Signup /></>} path="/signup">     */}
           <Route element={<><Signup /></>} path="/signup"></Route>
           

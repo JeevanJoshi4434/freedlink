@@ -350,7 +350,7 @@ const Profile = (props) => {
           {/* <ProfileLeft username={userDetail?.name} bio={userDetail?.aboutBio} cover={userDetail.cover} profile={userDetail?.img} shortbio={userDetail?.shortBio}  /> */}
         </div>
         <div className='profileCenterBar'>
-          {/* {user.other?._id === userDetail?._id && <div className="messageSender">
+          {/* {user?.other?._id === userDetail?._id && <div className="messageSender">
             <div className="messageSender__top">
               <img
                 className="user__avatar"

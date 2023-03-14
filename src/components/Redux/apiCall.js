@@ -65,7 +65,7 @@ export const signup = async(dispatch, user)=>{
     dispatch(loginStart());
     try {
         const res = await axios.post(`/api/signup/User`, user);
-        dispatch(loginSuccess(res.data,toast.success('Signup Successfully! Check email to confirm your ID!', {
+        dispatch(loginSuccess(res.data,res.status,toast.success('Signup Successfully! Check email to confirm your ID!', {
             position: "top-center",
             autoClose: 2000,
             hideProgressBar: false,

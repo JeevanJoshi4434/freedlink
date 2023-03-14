@@ -13,7 +13,7 @@ const Sidebar = (props) => {
   const userDetails = useSelector((state) => state.user);
   const [currentChat, setCurrentChat] = useState(false);
   let user = userDetails.user;
-  let id = user.other?._id;
+  let id = user?.other?._id;
   useEffect(() => {
     const getUsers = async () => {
       try {

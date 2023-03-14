@@ -90,7 +90,7 @@ const ChatContainer = (props) => {
 
                     <div ref={scrollRef} className={`chat_message ${i?.myself && `chatSender`}`} >
                         <p>
-                            <span className='chat_name'>{i?.myself ? user.other?.name : props.currentUser?.name}</span>
+                            <span className='chat_name'>{i?.myself ? user?.other?.name : props.currentUser?.name}</span>
                             {i?.message}
                         </p>
                     </div>

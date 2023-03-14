@@ -33,7 +33,7 @@ const Home = (props) => {
   useEffect(() => {
     const getPost = async () => {
       try {
-        const res = await axios.get(`/api/feed/${user.other?._id}`, {
+        const res = await axios.get(`/api/feed/${user?.other?._id}`, {
           headers: {
             accessToken: accessToken
           }
@@ -47,7 +47,7 @@ const Home = (props) => {
   }, [])
   const Postget = async() => {
     try {
-        const res = await axios.get(`/api/get/feed/${user.other?._id}/posts?_limits=${limit}&_page=${page}`, {
+        const res = await axios.get(`/api/get/feed/${user?.other?._id}/posts?_limits=${limit}&_page=${page}`, {
           // method:"GET",
           headers: {
             accessToken: accessToken
@@ -145,7 +145,7 @@ const Home = (props) => {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           // // console.log('File available at', downloadURL);
-         fetch(`/api/create/post`, {method:"POST",headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: createPost.caption, image: downloadURL, userId: user.other?._id }) }).then((res)=>{
+         fetch(`/api/create/post`, {method:"POST",headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: createPost.caption, image: downloadURL, userId: user?.other?._id }) }).then((res)=>{
           // // console.log(res);
          })
         });
@@ -159,12 +159,12 @@ const Home = (props) => {
       <div className="main__body">
         {/* <!-- sidebar starts --> */}
         <div className="sidebar">
-          <Link to={`profile/${user.other?._id}`}><div className="sidebarRow">
+          <Link to={`profile/${user?.other?._id}`}><div className="sidebarRow">
             <img
               className="user__avatar"
-              src={user.other?.img} alt=""
+              src={user?.other?.img} alt=""
             />
-            <h4>{user.other?.name}</h4>
+            <h4>{user?.other?.name}</h4>
           </div></Link>
 
           {/* <div className="sidebarRow">
@@ -265,7 +265,7 @@ const Home = (props) => {
             <div className="messageSender__top">
               <img
                 className="user__avatar"
-                src={user.other?.img} alt=""
+                src={user?.other?.img} alt=""
               />
               <form>
                 <textarea style={{width:"95%",border:"none",height:"100%",outline:"none",marginLeft:"10px"}} className="messageSender__input" id='caption' placeholder="What's on your mind?" type="text" onChange={handleInputs} value={createPost.caption} />
@@ -278,10 +278,10 @@ const Home = (props) => {
                       <div className="post__top">
                         <img
                           className="user__avatar post__avatar"
-                          src={user.other?.img} alt=""
+                          src={user?.other?.img} alt=""
                         />
                         <div className="post__topInfo">
-                          <h3>{user.other?.name}-(Preview)</h3>
+                          <h3>{user?.other?.name}-(Preview)</h3>
                         </div>
                       </div>
 
@@ -316,10 +316,10 @@ const Home = (props) => {
               <div className="post__top">
                 <img
                   className="user__avatar post__avatar"
-                  src={user.other?.img} alt=""
+                  src={user?.other?.img} alt=""
                 />
                 <div className="post__topInfo">
-                  <h3>{user.other?.name}-(Preview)</h3>
+                  <h3>{user?.other?.name}-(Preview)</h3>
                 </div>
               </div>
 

@@ -127,14 +127,15 @@ const Nav = (props) => {
                 </div>
 
                 <div className="header__right">
-                    <div className="header__info pc-device">
+                    {user?.other ? <div className="header__info pc-device">
                         <img
                             className="user__avatar"
                             src={user?.other?.img}
                             alt=""
                         />
                         <h4>{username}</h4>
-                    </div>
+                    </div> : <Link to="/signup" >Create Account</Link>}
+
                     <div className='dropdown'>
                         <span className="material-icons dropbtn2" style={{ fontSize: "20px" }}> notifications_active</span>
                         <div className='dropdown-content2 button-hover' style={{ width: "260px", marginLeft: "-171px", height: "450px", overflow: "auto", justifyContent: "start", alignItems: "flex-start" }}>

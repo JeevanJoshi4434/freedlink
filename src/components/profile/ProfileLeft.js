@@ -212,7 +212,7 @@ const ProfileLeft = (props) => {
                                 </div>}
                             </div> :
                                 <div>
-                                    {userDetail.following.includes(id) ? <div className='profileControllers'>
+                                    {userDetail?.following?.includes(id) ? <div className='profileControllers'>
                                         <button className='EditProfilebtn' onClick={(e) => handleUnfollow(id)} >Unfollow</button>
                                         {(!userDetail?.followers.includes(id) && !userDetail?.following.includes(id)) ? <button className='EditProfilebtn' disabled={true} ><span className='material-icons' style={{ fontSize: "12px" }}  >lock</span>Message</button>
                                             : <button className='EditProfilebtn'>Message</button>}

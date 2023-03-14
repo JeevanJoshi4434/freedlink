@@ -96,7 +96,8 @@ console.log(country)
           <label className="messageSender__option inputText" htmlFor='file' >
                   <h3>Photo</h3>
                   <input type="file" accept="image/*" name="file" id="file" onChange={(e) => { setFile(e.target.files[0]); setPreImage(window.URL.createObjectURL(e.target.files[0])) }} />
-                </label>
+                 {preImage !== null && <img src={preImage} style={{width:"70px",height:"70px"}} />      }
+          </label>
           <input type="text" placeholder='Username' name='name' onChange={handleInputs} value={User.name} className='inputText'/>
           <input type="email" id="" placeholder='email' name='email' onChange={handleInputs} value={User.email} className='inputText'/>
           <input type="password" style={{outlineWidth:0}} placeholder='Password' name='password' onChange={handleInputs} value={User.password} id='' className='inputText'/>
