@@ -1,0 +1,161 @@
+.mainContainerForsignup{
+    background-color: #f0f2f5;
+    height: 100vh;
+}
+.submainContainer{
+    display: flex;
+    align-items: center;
+    padding-top: 200px;
+}
+
+input{
+    outline-width: 0;
+}
+
+.logoText{
+    font-size: 40px;
+    text-align: start;
+    padding-top: 200px;
+}
+
+.introtext{
+    font-size: 20px;
+    text-align: start;
+    
+}
+
+.createaccountTxt{
+    font-size: 20px;
+    margin-top: 10px;
+    text-align: start;
+    margin-left: 30%;
+}
+.inputText{
+    display: flex;
+    margin-left: 30%;
+    width: 50%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.btnforsignup{
+    margin-left: 30%;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 40px;
+    width: 50%;
+    cursor: pointer;
+}
+.mobileScreen{
+    margin-left: 150px;
+    margin-bottom: 170px;
+}
+.notMatch{
+    background-color: #DC4C64;
+    width: 38.5%;
+    height: 2px;
+    display: flex;
+    margin-left: 30.9%;
+    margin-top: -1px;
+    border: none;
+    border-radius: 10px;
+}
+.countrySelector{
+    display: flex;
+    margin-left: 30%;
+    width: 70%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.css-b62m3t-container {
+    position: relative;
+    box-sizing: border-box;
+    width: 40%;
+    margin-left: 30%;
+}
+
+.notMatchTxt{
+    color: #DC4C64;
+    width: 38%;
+    height: 2px;
+    display: flex;
+    margin-left: 30.9%;
+    margin-top: 1px;
+    margin-bottom:30px;
+    border: none;
+    border-radius: 10px;
+}
+
+.signinportalbtn{
+    margin-left: 30%;
+}
+
+.part{
+    color: rgb(167, 127, 127)
+}
+
+@media screen and (max-width:430px) {
+    .submainContainer{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .inputText{
+        width: 90%;
+        margin-left: 0px;
+    }
+    .btnforsignup{
+        width: 90%;
+        margin-left: 0px;
+    }
+    .mobileScreen{
+        flex: 0.5;
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+    .logoText{
+        padding-top: 0px;
+    }
+    .createaccountTxt{
+        font-size: 10px;
+        margin-left: 0px;
+    }
+    .mobileScreen2{
+        flex:3;
+    }
+    .signinportalbtn{
+        margin-left: 0px;
+    }
+    .submainContainer{
+        padding-top: 13px;
+    }
+    .notMatch {
+        background-color: #DC4C64;
+        width: 78.5%;
+        height: 2px;
+        display: flex;
+        margin-left: 10px;
+        margin-top: -1px;
+        border: none;
+        border-radius: 10px;
+    }
+    .notMatchTxt {
+        color: #DC4C64;
+        height: 2px;
+        display: flex;
+        margin-left: 6%;
+        margin-top: 1px;
+        margin-bottom: 15px;
+        border: none;
+        width: 100%;
+        font-size: 10px;
+        border-radius: 10px;
+    }
+}

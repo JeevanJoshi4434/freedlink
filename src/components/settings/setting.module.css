@@ -1,0 +1,139 @@
+.BrowserView {
+    display: flex;
+    flex-direction: row;
+}
+
+.MobileView {}
+
+.mobileSettingOptions {}
+
+.browserSettingOptions {
+    display: flex;
+    flex-direction: column;
+}
+
+.browserSettingOptions>div {
+    height: 95px;
+    background-color: white;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    justify-items: center;
+    align-content: start;
+}
+
+.browserSettingOptions>div:hover {
+    /* height: 95px; */
+    background-color: #f2f5f9;
+    cursor: pointer;
+    /* flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    justify-items: center;
+    align-content: start; */
+}
+
+.browserSettingOptions>div>span {
+    margin-left: 30px;
+}
+
+.BrowserRight {
+    flex: 0.60;
+}
+
+.BrowserLeft {
+    flex: 0.30;
+}
+
+.personalPanel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 43px;
+    background-color: #f6f6f6;
+    height: 297px;
+    border-radius: 7px;
+}
+
+.personalPanel>h4 {
+    font-size: 15px;
+}
+
+.personalPanel>div {
+    margin-bottom: 30px;
+    display: flex;
+}
+
+.personalPanel>div>input {
+    border-right: none;
+    border-top: none;
+    border-left: none;
+    background-color: rgba(123, 123, 123, 0);
+    border-bottom: 1px solid black;
+    width: 200px;
+    margin-left: 90px;
+    text-decoration: none;
+}
+
+.securityPanel>div {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 43px;
+    background-color: #f6f6f6;
+    height: 297px;
+    border-radius: 7px;
+}
+
+.securityPanel {
+    margin-left: 30px;
+}
+
+.securityPanel>h4 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.reportPanel>h4 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.securityPanel>div>input {
+    border-right: none;
+    border-top: none;
+    border-left: none;
+    background-color: rgba(123, 123, 123, 0);
+    border-bottom: 1px solid black;
+    width: 200px;
+    margin-left: 90px;
+    text-decoration: none;
+    margin-bottom: 40px;
+}
+
+.securityPanel>button {
+    background-color: rgba(123, 123, 123, );
+    border-radius: 6px;
+    margin-top: 5px;
+    width: 150px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+.reportPanel {
+    margin-left: 30px;
+}
+
+.reportPanel > button {
+    background-color: rgba(123, 123, 123, );
+    border-radius: 6px;
+    margin-top: 5px;
+    width: 150px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+.reportPanel > textarea {
+    width: 300px;
+    height: 130px;
+}

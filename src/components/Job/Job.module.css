@@ -1,0 +1,124 @@
+.mainPage{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.mainPage > main{
+    height: 100%;
+    width: 600px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.Image > img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #fff;
+    margin: 0px 5px;
+}
+
+.jobLeft{
+    display: flex;
+}
+.Detail{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.Detail > h4{
+    font-size: 10px;
+}
+.Detail > h6{
+    font-size: 9px;
+}
+
+.Detail > div > p{
+    color: #aaa;
+    font-size: 10px;
+
+}
+.jobRight > p{
+    font-size: 10px;
+    color: #aaa;
+}
+.mainElement{
+    height: 100%;
+    /* width: 600px; */
+    width: 1150px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+@media screen and (max-width: 429px) {
+    
+.mainElement{
+    height: 100%;
+    width: 600px;
+    /* width: 1150px; */
+    background-color: #fff;
+    padding: 10px;
+}
+.mainContent{
+    display: flex;
+    flex-direction: column;
+}
+
+}
+.jobNav{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #aaa;
+}
+.jobNavleft > div> h4{
+    font-weight: 500;
+    font-size: 20px;
+}
+.jobNavleft > div> h6{
+    font-weight: 400;
+    color: #aaa;
+    font-size: 12px;
+}
+
+.jobNavleft , .jobNavright {
+    margin-bottom: 10px;
+}
+.mainContent{
+    display: flex;
+    /* flex-direction: column; */
+}
+.jobHighlight > p,.DetailJob > p{
+        white-space: pre-wrap;
+        font-size: 14px;
+}       
+.DetailJob{
+    padding: 10px 0px;
+}
+.jobHighlight > p {
+    display: flex;
+    align-items: center;
+}
+.jobHighlight > p > span{
+        font-size: 30px;
+        margin: 15px 5px;
+        color: #aaa;
+}
+.jobHighlight{
+    padding: 10px 10px;
+    border-bottom: 1px solid #aaa;
+}
+.jobHighlight > button {
+    height: 40px;
+    width: 150px;
+    border-radius: 50px;
+    background-color: #fff;
+    border: 1px solid black;
+    margin: 10px 0px;
+}
+.jobHighlight > button:hover{
+    background-color: #aaa;
+}
