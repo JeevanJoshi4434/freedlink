@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ShareModal from "./ShareModal";
-import { Share } from '@capacitor/share';
 import { shareOnMobile } from "react-mobile-share";
 
 function ShareContent({ label, text, title,url }) {
@@ -35,17 +34,6 @@ function ShareContent({ label, text, title,url }) {
         );
       }
     };
-    useEffect(() => {
-        if (basicShare) {
-            Share.share({
-                title: `${title}`,
-                text: `${text}`,
-                url: `${url}`,
-                dialogTitle: 'Share',
-            });
-        }
-        setBasicShare(false)
-    }, [basicShare])
     
     return (
         <>
