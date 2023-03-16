@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../Redux/apiCall';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Auth.css";
 const Login = () => {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const notify = () => toast("Login Successfully!");
   const {isFetching , error} = useSelector((state)=>state.user);
   const [user, setUser] = useState({
@@ -23,15 +24,15 @@ const Login = () => {
 // login action
 const handleLogin = (e)=>{
   e.preventDefault();
-  login(dispatch, {email:user.email, password:user.password});
+  login(dispatch, {email:user.email.toLowerCase(), password:user.password},navigate);
 }
   return (
     <div className='mainContainerForsignup'>
       <ToastContainer />
       <div className='submainContainer'>
         <div className='mobileScreen' style={{flex:1}}>
-          <p className='logoText'>Freed<span className='part'>Link</span></p>
-          <p className='introtext'>Find the perfect <span className='part'>job & people</span>.</p>
+          <p className='logoText'>Freed<span  className='part' style={{color:"#0000a7"}}>Links</span></p>
+          <p className='introtext'>Connect with the <span style={{color:"#0000a7"}} className='part'>right people</span>.</p>
         </div>
         <div className='mobileScreen2' style={{flex:3}}>
           <p className='createaccountTxt'>Login To Your Account</p>

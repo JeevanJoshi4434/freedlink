@@ -32,7 +32,7 @@ const ChangePass = () => {
             <div className='mainContainerForsignup'>
                 <div className='submainContainer'>
                     <div className='mobileScreen' style={{ flex: 1 }}>
-                        <p className='logoText'>Freed<span className='part'>Link</span></p>
+                        <p className='logoText'>Freed<span className='part'style={{color:"#0000a7"}}>Links</span></p>
                         <p className='introtext'>Change Password <span className='part'> Privacy & Protection.</span></p>
                     </div>
                     <div className='mobileScreen2' style={{ flex: 3 }}>

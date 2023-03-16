@@ -5,6 +5,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { VerifyEmail } from '../Redux/apiCall';
 
 const Verification = () => {
+  let navigate = useNavigate();
     let dispatch = useDispatch();
     const [User, setUser] = useState({
         OTP:''
@@ -21,7 +22,7 @@ const Verification = () => {
 }
 
 const handleVerify = (e)=>{
-    VerifyEmail(dispatch, {user:userDetail,OTP:User.OTP});
+    VerifyEmail(dispatch, {user:userDetail,OTP:User.OTP},navigate);
        
 }
     return (
@@ -29,7 +30,7 @@ const handleVerify = (e)=>{
       <div className='mainContainerForsignup'>
       <div className='submainContainer'>
         <div className='mobileScreen' style={{flex:1}}>
-          <p className='logoText'>Freed<span className='part'>Link</span></p>
+          <p className='logoText'>Freed<span className='part'style={{color:"#0000a7"}}>Links</span></p>
           <p className='introtext'>Email <span className='part'>Verification.</span></p>
         </div>
         <div className='mobileScreen2' style={{flex:3}}>

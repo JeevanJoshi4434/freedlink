@@ -2,7 +2,7 @@ import axios from "axios";
 import {loginStart, loginSuccess, loginFailure, logout} from "./userReducer";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-export const login = async(dispatch, user)=>{
+export const login = async(dispatch, user,navigate)=>{
     dispatch(loginStart());
     try {
         const res = await axios.post(`/api/login`, user);
@@ -15,7 +15,7 @@ export const login = async(dispatch, user)=>{
             draggable: true,
             progress: undefined,
             theme: "light",
-            })));
+            }),navigate('/')));
     } catch (error) {
         dispatch(loginFailure(toast.error('Wrong Credentials! check Email & Password', {
             position: "top-center",
@@ -29,7 +29,7 @@ export const login = async(dispatch, user)=>{
             })));
     }
 }
-export const VerifyEmail = async(dispatch, user)=>{
+export const VerifyEmail = async(dispatch, user,navigate)=>{
     dispatch(loginStart());
     try {
         const res = await axios.post(`/api/verify/email`, user);
@@ -42,9 +42,9 @@ export const VerifyEmail = async(dispatch, user)=>{
             draggable: true,
             progress: undefined,
             theme: "light",
-            })));
+            }),navigate('/')));
     } catch (error) {
-        dispatch(loginFailure(toast.error('Already Confirmed!', {
+        dispatch(loginFailure(toast.error('Wrong OTP!', {
             position: "top-center",
             autoClose: 2000,
             hideProgressBar: false,
@@ -61,11 +61,11 @@ export const logoutUser = async(dispatch)=>{
     dispatch(logout());
 }
 
-export const signup = async(dispatch, user)=>{
+export const signup = async(dispatch, user,navigate)=>{
     dispatch(loginStart());
     try {
         const res = await axios.post(`/api/signup/User`, user);
-        dispatch(loginSuccess(res.data,res.status,toast.success('Signup Successfully! Check email to confirm your ID!', {
+        dispatch(loginSuccess(res.data,navigate('/signup/email/verify'),toast.success('Signup Successfully! Check email to confirm your ID!', {
             position: "top-center",
             autoClose: 2000,
             hideProgressBar: false,

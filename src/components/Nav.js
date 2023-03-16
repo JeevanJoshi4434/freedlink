@@ -79,8 +79,10 @@ const Nav = (props) => {
     }, [searchHistory]);
     useEffect(() => {
         const getNotify = async () => {
-            const res = await axios.get(`/api/get/notification/${id}`, { headers: { accessToken: accessToken } });
-            setNotification(res.data);
+            if(user?.other){
+                const res = await axios.get(`/api/get/notification/${id}`, { headers: { accessToken: accessToken } });
+                setNotification(res.data);
+            }
         }
         getNotify();
     }, [])
@@ -121,9 +123,13 @@ const Nav = (props) => {
                             <span className="material-icons"> card_travel </span>
                         </Link>
                     </div>
-                    <div className="header__option">
+                    {user?.other && <div className="header__option">
                         <Link to="/inbox"><span className="material-icons"> chat </span></Link>
-                    </div>
+                    </div>}
+                    {!user?.other && <>
+                    <Link to="/signup" className='mainScreen' style={{fontSize:"12px",marginRight:"5px"}} >Create Account</Link>
+                    <Link to="/login" className='mainScreen' style={{fontSize:"12px"}} >Login</Link></>}
+
                 </div>
 
                 <div className="header__right">
@@ -134,11 +140,21 @@ const Nav = (props) => {
                             alt=""
                         />
                         <h4>{username}</h4>
-                    </div> : <Link to="/signup" >Create Account</Link>}
+                    </div> : <>
+                    <Link to="/signup" className='pcScreen' style={{fontSize:"12px",marginRight:"5px"}} >Create Account</Link>
+                    <Link to="/login" className='pcScreen' style={{fontSize:"12px"}} >Login</Link></>}
 
                     <div className='dropdown'>
                         <span className="material-icons dropbtn2" style={{ fontSize: "20px" }}> notifications_active</span>
                         <div className='dropdown-content2 button-hover' style={{ width: "260px", marginLeft: "-171px", height: "450px", overflow: "auto", justifyContent: "start", alignItems: "flex-start" }}>
+                           {!user?.other && <>
+                            <div style={{ display: "flex" }} >
+                                <img src={logo} style={{ backgroundColor: "#aaa", height: "40px", width: "40px", borderRadius: "50px", marginRight: "5px" }} /><span><p style={{ fontSize: "12px", objectFit: "cover" }} >New here? Create Account.</p> </span><button style={{ height: "20px", width: "50px", backgroundColor: "rgba(123,123,123,0)", border: "1px solid black", borderRadius: "50px" }}>Signup</button>
+                            </div>
+                            <div style={{ display: "flex" }} >
+                                <img src={logo} style={{ backgroundColor: "#aaa", height: "40px", width: "40px", borderRadius: "50px", marginRight: "5px" }} /><span><p style={{ fontSize: "12px", objectFit: "cover" }} >Login and access all widgets.</p> </span><button style={{ height: "20px", width: "50px", backgroundColor: "rgba(123,123,123,0)", border: "1px solid black", borderRadius: "50px" }}>Login</button>
+                            </div>
+                           </>}
                             {notifications?.map((i) => {
                                 console.log(i)
                                 if (i?.type === 1) {
@@ -178,21 +194,21 @@ const Nav = (props) => {
                     <div className='dropdown'>
                         <span className="material-icons dropbtn2"> menu </span>
                         <div className='dropdown-content2 button-hover'>
-                            <Link to={`/profile/${id}`}><div>
+                            {user?.other && <Link to={`/profile/${id}`}><div>
                                 <span className="material-icons dropicon"> person</span><span>Profile</span>
-                            </div></Link>
-                            <div>
+                            </div></Link>}
+                            {user?.other && <div>
                                 <Link to="/settings" className='dropicon' style={{ display: "flex" }}  ><span className="material-icons"> settings</span><span>Settings</span></Link>
-                            </div>
+                            </div>}
                             <div>
                                 <span className="material-icons dropicon"> policy</span><span>Policies</span>
                             </div>
                             <div>
                                 <span className="material-icons dropicon"> feedback</span><span>Feedback</span>
                             </div>
-                            <div onClick={handleLogout}>
+                            {user?.other && <div onClick={handleLogout}>
                                 <span className="material-icons dropicon"> logout</span><span>Logout</span>
-                            </div>
+                            </div>}
                         </div>
 
                     </div>

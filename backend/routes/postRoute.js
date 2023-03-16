@@ -80,6 +80,19 @@ router.get("/get/feed/:id/posts", async (req, res) => {
     if (!feed) res.status(400).json("Connection refussed!");
 
 })
+router.get("/get/post", async (req, res) => {
+    // const me = await User.findById(req.params.id)
+    // const feed = await Post.find({ /user: me.following }).sort({createdAt:-1}).skip((_page-1)*_limits).limit(_limits);
+    try {
+        
+        const feeds = await Post.aggregate([{$sample:{size: 4}}]);
+    res.status(200).json({ feeds });
+    if (!feeds) res.status(400).json("Connection refussed!");
+} catch (error) {
+    console.log(error)
+}
+
+})
 
 
 

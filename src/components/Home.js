@@ -11,6 +11,10 @@ import { uploadPost } from './Redux/apiCall';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import image from './css/Welcome.png';
+import logo from "./css/logo.png";
+import { isMobileOnly } from 'react-device-detect';
+import GuestPost from './subcomponents/GuestPost';
 
 
 const Home = (props) => {
@@ -30,23 +34,60 @@ const Home = (props) => {
   const [createPost, setCreatePost] = useState({ caption: '' })
   const [preImage, setPreImage] = useState(null)
   const [Loading, setLoading] = useState(true);
-  useEffect(() => {
-    const getPost = async () => {
-      try {
-        const res = await axios.get(`/api/feed/${user?.other?._id}`, {
-          headers: {
-            accessToken: accessToken
-          }
-        })
-        
-      } catch (error) {
-        
-      }
+  // WELCOME UTILITIES
+  let caption = `Welcome to Freedlinks, "Connect with the Right People": With Freedlinks, you can easily find and connect with professionals who are the perfect fit for your organization.\n\n
+
+ "Simplify Your Hiring Process": Freedlinks streamlines the hiring process, making it faster and easier to find the right candidates for your job openings.\n\n
+ 
+ "Your One-Stop-Shop for Hiring": Freedlinks offers a comprehensive suite of tools to help you find, evaluate, and hire top talent for your company.\n\n
+ 
+ "Discover the Best Candidates": Freedlinks uses advanced algorithms and data analysis to help you identify the best candidates for your job openings.\n\n
+ 
+ "Save Time and Money": By using Freedlinks, you can reduce the time and costs associated with traditional recruiting methods and find the best hires faster.\n\n
+ 
+ "Connect, Collaborate, and Succeed": Freedlinks brings together job seekers and employers to create a dynamic community where everyone can achieve their goals.\n\n
+ 
+ "Find Your Perfect Match": Freedlinks matches job seekers with companies based on skills, experience, and other relevant factors, helping you find the best fit for your team.\n\n
+ 
+ "Hire with Confidence": Freedlinks provides employers with the information and tools they need to make informed hiring decisions and build successful teams.\n\n
+ 
+ "Join the Talent Revolution": Freedlinks is revolutionizing the way companies find and hire talent, making it easier and more efficient than ever before.\n\n
+ 
+ "Transform Your Hiring Experience": Freedlinkss offers a seamless, user-friendly platform that makes hiring faster, easier, and more effective.\n\n
+ 
+ "Find Your Tribe": Connect with like-minded people and build meaningful relationships with Freedlinks.\n\n
+ 
+ "Connect with Confidence": Freedlinks provides a safe, secure platform for making new connections and expanding your social circle.\n\n
+ 
+ "Discover New Connections": With Freedlinks, you can find and connect with people who share your interests, passions, and goals.\n\n
+ 
+ "Expand Your Network": Freedlinks helps you grow your network and forge new connections that can open doors to exciting opportunities.\n\n
+ 
+ "Connect Across Industries": Freedlinks connects professionals across a wide range of industries, making it easy to find people with the skills and expertise you need.\n\n
+ 
+ "Stay Connected with Your Team": Freedlinks makes it easy to stay connected with your colleagues, whether you're working in the office or remotely.\n\n
+ 
+ "Build Stronger Relationships": Freedlinks helps you build stronger, more meaningful relationships with the people in your company and beyond.\n\n
+ 
+ "Discover Hidden Talent": With Freedlinks, you can find and connect with talented professionals who might otherwise be overlooked.\n\n
+ 
+ "Connect for Success": Freedlinks helps you connect with the people who can help you achieve your personal and professional goals.\n\n
+ 
+ "Join the Community": Freedlinks is more than just a social network; it's a vibrant community of people who are passionate about connecting and collaborating.\n\n`
+  const about = caption.split(' ');
+  const aboutCount = about.length;
+  const [seeMore, setSeeMore] = useState(aboutCount > 80 ? true : false);
+  const seeMoreAction = () => {
+    if (seeMore) {
+      setSeeMore(false);
+      console.log("Clicked!")
     }
-    getPost();
-  }, [])
-  const Postget = async() => {
+  }
+  // WELCOME UTILITIES
+  const Postget = async () => {
     try {
+      if (user?.other) {
+
         const res = await axios.get(`/api/get/feed/${user?.other?._id}/posts?_limits=${limit}&_page=${page}`, {
           // method:"GET",
           headers: {
@@ -55,28 +96,56 @@ const Home = (props) => {
         });
         // setPost2(res.data);
         let dataPost = [res.data];
-        if(page === 1 ){
+        if (page === 1) {
           setPost2(dataPost);
-        }else{
-          setPost2((prev)=>[...prev,...dataPost]);
+        } else {
+          setPost2((prev) => [...prev, ...dataPost]);
         }
         setLoading(false);
-      } catch (error) {
-        console.log(error);
       }
+    } catch (error) {
+      console.log(error);
     }
-    useEffect(() => {
+  }
+  useEffect(() => {
     Postget();
   }, [page])
-  const hadleInfiniteScroll = async ()=>{
+  const GuestPostget = async () => {
+    try {
+      if (!user?.other) {
+
+        const res = await axios.get(`/api/get/post`, {
+          // method:"GET",
+          headers: {
+            accessToken: accessToken
+          }
+        });
+        // setPost2(res.data);
+        let dataPost = [res.data];
+        if (page === 1) {
+          setPost(dataPost);
+        } else {
+          setPost((prev) => [...prev, ...dataPost]);
+        }
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    GuestPostget();
+  }, [page])
+  console.log(post)
+  const hadleInfiniteScroll = async () => {
     // console.log("ScrollHeight" + document.documentElement.scrollHeight);
     // console.log("basicHeight" + window.innerHeight);
     // console.log("scrollTop" + document.documentElement.scrollTop);
     try {
-      if(window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight ) {
-          setLoading(true);
-        setPage((prev)=>prev+1);
+      if (window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight) {
+        setLoading(true);
+        setPage((prev) => prev + 1);
       }
     } catch (error) {
       console.log(error)
@@ -84,20 +153,23 @@ const Home = (props) => {
   }
   useEffect(() => {
     window.addEventListener("scroll", hadleInfiniteScroll);
-    return ()=> window.removeEventListener("scroll",hadleInfiniteScroll);
+    return () => window.removeEventListener("scroll", hadleInfiniteScroll);
   }, [])
-  
+
   // // console.log(post)
-  post2?.map((i)=>console.log(i))
+  post2?.map((i) => console.log(i))
   useEffect(() => {
     const getSuggestion = async () => {
       try {
-        const res = await axios.get(`/api/all/user`, {
-          headers: {
-            accessToken: accessToken
-          }
-        })
-        setSuggestion(res.data);
+        if (user?.other) {
+
+          const res = await axios.get(`/api/all/user`, {
+            headers: {
+              accessToken: accessToken
+            }
+          })
+          setSuggestion(res.data);
+        }
       } catch (error) {
 
       }
@@ -123,10 +195,10 @@ const Home = (props) => {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done',{
-          theme:"dark"
+        console.log('Upload is ' + progress + '% done', {
+          theme: "dark"
         });
-        toast.loading( `${progress} uploaded!`);
+        toast.loading(`${progress} uploaded!`);
         // console.log(progress)
         switch (snapshot.state) {
           case 'paused':
@@ -145,27 +217,27 @@ const Home = (props) => {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           // // console.log('File available at', downloadURL);
-         fetch(`/api/create/post`, {method:"POST",headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: createPost.caption, image: downloadURL, userId: user?.other?._id }) }).then((res)=>{
-          // // console.log(res);
-         })
+          fetch(`/api/create/post`, { method: "POST", headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: createPost.caption, image: downloadURL, userId: user?.other?._id }) }).then((res) => {
+            // // console.log(res);
+          })
         });
       }
     );
   }
- 
+
   return (
     <div>
       {/* <!-- main body starts --> */}
       <div className="main__body">
         {/* <!-- sidebar starts --> */}
         <div className="sidebar">
-          <Link to={`profile/${user?.other?._id}`}><div className="sidebarRow">
+          {user?.other && <Link to={`profile/${user?.other?._id}`}><div className="sidebarRow">
             <img
               className="user__avatar"
               src={user?.other?.img} alt=""
             />
             <h4>{user?.other?.name}</h4>
-          </div></Link>
+          </div></Link>}
 
           {/* <div className="sidebarRow">
           <span className="material-icons"> local_hospital </span>
@@ -177,12 +249,12 @@ const Home = (props) => {
           <h4>Pages</h4>
         </div> */}
 
-          <div className="sidebarRow" onClick={()=>navigate("/inbox")}>
+          {user?.other && <div className="sidebarRow" onClick={() => navigate("/inbox")}>
             <span className="material-icons"> chat </span>
             <h4>Chats</h4>
-          </div>
+          </div>}
 
-          <div className="sidebarRow" onClick={()=>navigate("/jobs")} >
+          <div className="sidebarRow" onClick={() => navigate("/jobs")} >
             <span className="material-icons"> business_center </span>
             <h4>Jobs</h4>
           </div>
@@ -261,40 +333,40 @@ const Home = (props) => {
         {/* <!-- feed starts --> */}
         <div className="feed">
           {/* <!-- message sender starts --> */}
-          <div className="messageSender">
+          {user?.other && <div className="messageSender">
             <div className="messageSender__top">
               <img
                 className="user__avatar"
                 src={user?.other?.img} alt=""
               />
               <form>
-                <textarea style={{width:"95%",border:"none",height:"100%",outline:"none",marginLeft:"10px"}} className="messageSender__input" id='caption' placeholder="What's on your mind?" type="text" onChange={handleInputs} value={createPost.caption} />
+                <textarea style={{ width: "95%", border: "none", height: "100%", outline: "none", marginLeft: "10px" }} className="messageSender__input" id='caption' placeholder="What's on your mind?" type="text" onChange={handleInputs} value={createPost.caption} />
               </form>
             </div>
 
-                  {preImage !== null &&
-                    <div className="post">
-                      
-                      <div className="post__top">
-                        <img
-                          className="user__avatar post__avatar"
-                          src={user?.other?.img} alt=""
-                        />
-                        <div className="post__topInfo">
-                          <h3>{user?.other?.name}-(Preview)</h3>
-                        </div>
-                      </div>
+            {preImage !== null &&
+              <div className="post">
 
-                      <div className="post__bottom">
-                        <p>{createPost.caption}</p>
-                      </div>
+                <div className="post__top">
+                  <img
+                    className="user__avatar post__avatar"
+                    src={user?.other?.img} alt=""
+                  />
+                  <div className="post__topInfo">
+                    <h3>{user?.other?.name}-(Preview) <span onClick={() => setPreImage(null)} style={{ color: "blue", marginRight: "10px" }} >Cancel &times;</span></h3>
+                  </div>
+                </div>
 
-                      <div className="post__image">
-                        <img src={preImage} alt=""/>
-                      </div>
+                <div className="post__bottom">
+                  <p>{createPost.caption}</p>
+                </div>
 
-                    </div>}
-                      <div className="messageSender__bottom">
+                <div className="post__image">
+                  <img src={preImage} alt="" />
+                </div>
+
+              </div>}
+            <div className="messageSender__bottom">
               <div className="messageSender__option">
                 <label className="messageSender__option" htmlFor='file' >
                   <span style={{ color: "green" }} className="material-icons"> photo_library </span>
@@ -308,7 +380,7 @@ const Home = (props) => {
                 <h3>Post</h3>
               </div>
             </div>
-          </div>
+          </div>}
           {/* <!-- message sender ends --> */}
           {/* preview Modal */}
           {/* {preImage !== null &&
@@ -333,25 +405,187 @@ const Home = (props) => {
 
             </div>} */}
           {/* <!-- post starts --> */}
-          {post2?.map((i)=>
-          i?.feed?.map((item) => (
-            <>
+          {post2?.map((i) =>
+            i?.feed?.map((item) =>{ 
+              let mo = item?.timestamp[0]?.month;
+                let time = item?.timestamp[0]?.hour;
+                console.log(mo)
+                let month = '';
+                if(mo == 1){
+                  month = 'Jan'
+                }else if(mo == 2){
+                  month = 'Feb';
+                }else if(mo == 3){
+                  month = 'March';
+                }else if(mo == 4){
+                  month = 'April';
+                }else if(mo == 5){
+                  month = 'May';
+                }else if(mo == 6){
+                  month = 'June';
+                }else if(mo == 7){
+                  month = 'July';
+                }else if(mo == 8){
+                  month = 'Aug';
+                }else if(mo == 9){
+                  month = 'Sep';
+                }else if(mo == 10){
+                  month = 'Oct';
+                }else if(mo == 11){
+                  month = 'Nov';
+                }else if(mo == 12){
+                  month = 'Dec';
+                }
+                if(time == 13){
+                  time = 1;
+                }else if(time == 14){
+                  time = 2;
+                }else if(time == 15){
+                  time = 3;
+                }else if(time == 16){
+                  time = 4;
+                }else if(time == 17){
+                  time = 5;
+                }else if(time == 18){
+                  time = 6;
+                }else if(time == 19){
+                  time = 7;
+                }else if(time == 20){
+                  time = 8;
+                }else if(time == 21){
+                  time = 9;
+                }else if(time == 22){
+                  time = 10;
+                }else if(time == 23){
+                  time = 11;
+                }else if(time == 0){
+                  time = 12;
+                }
+                let stamp = 'AM';
+                if(item?.timestamp[0]?.hour > 11 || item?.timestamp[0]?.hour < 0){
+                   stamp = 'PM';
+                  }
+
+              return(
+              <>
                 <Post key={item._id} socket={props?.socket} username={item.name} postId={item._id} like={item.like} likeNo={item.like.length} commentNo={item.comments.length} userId={item.user} caption={item.title} image={item.image} profile={item.avatar} comments={""}
-                  time={"2 AM"} date={"24 Aug"}
+                  time={`${time} ${stamp}`} date={`${item?.timestamp[0]?.day} ${month}`}
                 />
 
               </>
-          ))
+            )})
           )
-          
+
           }
+          {!user?.other && <>
+            <div style={{ width: "100%" }}>
+              <div className="post">
+                <div className="post__top">
+                  <img
+                    className="user__avatar post__avatar"
+                    src={logo} alt=""
+                  />
+                  <div className="post__topInfo">
+                    <Link to={`https://freedlinks.com/`} ><h3>Freedlinks</h3></Link>
+                    <p>Welcome, scroll down to view more posts.</p>
+                  </div>
+                  <div style={{ position: "absolute", right: "10px" }} className='dropdown' >
+                  </div>
+                </div>
+
+                {seeMore === true && <div className="post__bottom">
+                  {aboutCount > 80 && <p style={{ whiteSpace: "pre-wrap" }} >{caption.slice(0, 80)}...<span style={{ color: "#0000ff", cursor: "pointer" }} onClick={() => seeMoreAction()} >read more</span> </p>}
+
+                </div>}
+                {!seeMore && <div className="post__bottom">
+                  {<p style={{ whiteSpace: "pre-wrap" }} >{caption} </p>}
+                </div>}
+
+                <div className="post__image">
+                  <img style={{ objectFit: "contain", maxHeight: "640px" }} src={image} alt="" />
+                </div>
+              </div>
+            </div>
+            {post?.map((i) =>(
+              i?.feeds?.map((item) => {
+                let mo = item?.timestamp[0]?.month;
+                let time = item?.timestamp[0]?.hour;
+                console.log(mo)
+                let month = '';
+                if(mo == 1){
+                  month = 'Jan'
+                }else if(mo == 2){
+                  month = 'Feb';
+                }else if(mo == 3){
+                  month = 'March';
+                }else if(mo == 4){
+                  month = 'April';
+                }else if(mo == 5){
+                  month = 'May';
+                }else if(mo == 6){
+                  month = 'June';
+                }else if(mo == 7){
+                  month = 'July';
+                }else if(mo == 8){
+                  month = 'Aug';
+                }else if(mo == 9){
+                  month = 'Sep';
+                }else if(mo == 10){
+                  month = 'Oct';
+                }else if(mo == 11){
+                  month = 'Nov';
+                }else if(mo == 12){
+                  month = 'Dec';
+                }
+                if(time == 13){
+                  time = 1;
+                }else if(time == 14){
+                  time = 2;
+                }else if(time == 15){
+                  time = 3;
+                }else if(time == 16){
+                  time = 4;
+                }else if(time == 17){
+                  time = 5;
+                }else if(time == 18){
+                  time = 6;
+                }else if(time == 19){
+                  time = 7;
+                }else if(time == 20){
+                  time = 8;
+                }else if(time == 21){
+                  time = 9;
+                }else if(time == 22){
+                  time = 10;
+                }else if(time == 23){
+                  time = 11;
+                }else if(time == 0){
+                  time = 12;
+                }
+                let stamp = 'AM';
+                if(item?.timestamp[0]?.hour > 11 || item?.timestamp[0]?.hour < 0){
+                   stamp = 'PM';
+                  }
+
+                return (
+                <>
+                  <GuestPost key={item._id} socket={props?.socket} username={item.name} postId={item._id} like={item.like} likeNo={item.like.length} commentNo={item.comments.length} userId={item.user} caption={item.title} image={item.image} profile={item.avatar} comments={""}
+                    time={`${time} ${stamp}`} date={`${item?.timestamp[0]?.day} ${month}`}
+                  />
+                </>
+              )})
+            ))
+
+            }
+          </>}
         </div>
 
         {/* <!-- feed ends --> */}
 
         <div style={{ flex: "0.33" }} className="widgets">
           <div className='rightContainer-suggestion' style={{ overflowY: "scroll" }}>
-            <h3 style={{ marginLeft: "10px", marginTop: "20px", textAlign: "start" }}>Suggested for you</h3>
+            {user?.other && <h3 style={{ marginLeft: "10px", marginTop: "20px", textAlign: "start" }}>Suggested for you</h3>}
+            {!user?.other && <h3 style={{ marginLeft: "10px", marginTop: "20px", textAlign: "start" }}>Welcome To Freedlinks</h3>}
             <div >
               {suggestion?.map((i) => {
                 return (
@@ -359,6 +593,38 @@ const Home = (props) => {
                 )
               })}
             </div>
+            {!user?.other &&
+              <>
+                <div>
+                  <div >
+                    <div style={{ marginTop: "20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <div style={{ display: 'flex', alignItems: "center" }}>
+                        <div>
+                          <p style={{ marginLeft: "10px", textAlign: "start", fontSize: "12px" }}>• Find Your Tribe</p>
+                          <p style={{ marginLeft: "10px", textAlign: "start", marginTop: "5px", fontSize: "11px", color: "#aaa" }}></p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+                <div>
+                  <div >
+                    <div style={{ marginTop: "20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <div style={{ display: 'flex', alignItems: "center" }}>
+                        <div>
+                          <p style={{ marginLeft: "10px", textAlign: "start", fontSize: "12px" }}>• "Connect, Collaborate, and Succeed": FreedLink brings together job seekers and employers to create a dynamic community where everyone can achieve their goals. </p>
+                          <p style={{ marginLeft: "10px", textAlign: "start", marginTop: "5px", fontSize: "11px", color: "#aaa" }}></p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </>
+            }
           </div>
         </div>
       </div>

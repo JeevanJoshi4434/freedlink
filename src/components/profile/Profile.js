@@ -376,9 +376,68 @@ const Profile = (props) => {
           </div>} */}
           {!editProfile && userPosts?.map((i) => (
             i?.mypost?.map((item)=>{
+              let mo = item?.timestamp[0]?.month;
+                let time = item?.timestamp[0]?.hour;
+                console.log(mo)
+                let month = '';
+                if(mo == 1){
+                  month = 'Jan'
+                }else if(mo == 2){
+                  month = 'Feb';
+                }else if(mo == 3){
+                  month = 'March';
+                }else if(mo == 4){
+                  month = 'April';
+                }else if(mo == 5){
+                  month = 'May';
+                }else if(mo == 6){
+                  month = 'June';
+                }else if(mo == 7){
+                  month = 'July';
+                }else if(mo == 8){
+                  month = 'Aug';
+                }else if(mo == 9){
+                  month = 'Sep';
+                }else if(mo == 10){
+                  month = 'Oct';
+                }else if(mo == 11){
+                  month = 'Nov';
+                }else if(mo == 12){
+                  month = 'Dec';
+                }
+                if(time == 13){
+                  time = 1;
+                }else if(time == 14){
+                  time = 2;
+                }else if(time == 15){
+                  time = 3;
+                }else if(time == 16){
+                  time = 4;
+                }else if(time == 17){
+                  time = 5;
+                }else if(time == 18){
+                  time = 6;
+                }else if(time == 19){
+                  time = 7;
+                }else if(time == 20){
+                  time = 8;
+                }else if(time == 21){
+                  time = 9;
+                }else if(time == 22){
+                  time = 10;
+                }else if(time == 23){
+                  time = 11;
+                }else if(time == 0){
+                  time = 12;
+                }
+                let stamp = 'AM';
+                if(item?.timestamp[0]?.hour > 11 || item?.timestamp[0]?.hour < 0){
+                   stamp = 'PM';
+                  }
+
               return (
                 <Post socket={props?.socket} postId={item?._id} like={item?.like} likeNo={item?.like?.length} commentNo={item?.comments?.length} userId={item?.user} caption={item?.title} image={item?.image}
-                time={"2 AM"} date={"24 Aug"}
+                time={`${time} ${stamp}`} date={`${item?.timestamp[0]?.day} ${month}`}
                 />
                 )
               })

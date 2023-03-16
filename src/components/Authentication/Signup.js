@@ -75,7 +75,7 @@ var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            signup(dispatch, {name: User.name, img: downloadURL, email:User.email,password:User.password,country:country?.label});
+            signup(dispatch, {name: User.name, img: downloadURL, email:User.email,password:User.password,country:country?.label},navigator);
         });
       }
     );
@@ -88,20 +88,23 @@ console.log(country)
     <div className='mainContainerForsignup'>
       <div className='submainContainer'>
         <div className='mobileScreen' style={{flex:1}}>
-          <p className='logoText'>Freed<span className='part'>Link</span></p>
+          <p className='logoText'>Freed<span className='part'style={{color:"#0000a7"}}>Links</span></p>
           <p className='introtext'>Find the perfect <span className='part'>job & people</span>.</p>
         </div>
         <div className='mobileScreen2' style={{flex:3}}>
           <p className='createaccountTxt'>Create New Account</p>
           <label className="messageSender__option inputText" htmlFor='file' >
-                  <h3>Photo</h3>
-                  <input type="file" accept="image/*" name="file" id="file" onChange={(e) => { setFile(e.target.files[0]); setPreImage(window.URL.createObjectURL(e.target.files[0])) }} />
-                 {preImage !== null && <img src={preImage} style={{width:"70px",height:"70px"}} />      }
+                  <h3>Profile Image</h3>
+                  <input type="file" style={{display:"none"}} accept="image/*" name="file" id="file" onChange={(e) => { setFile(e.target.files[0]); setPreImage(window.URL.createObjectURL(e.target.files[0])) }} />
+                  {/* <input type="file" accept="image/*" name="file" id="file" onChange={(e) => { setFile(e.target.files[0]); setPreImage(window.URL.createObjectURL(e.target.files[0])) }} /> */}
+                 {preImage === null && <span style={{width:"70px",height:"70px",borderRadius:"50%",display:"flex",justifyContent:"center",alignItems:"center",marginLeft: "15px",backgroundColor: "#fff",fontSize: "10px",}} ><p style={{marginLeft:"10px"}}>Choose an image</p></span>      }
+                 {preImage !== null && <img src={preImage} style={{width:"70px",height:"70px",borderRadius:"50%",marginLeft: "15px"}} />      }
           </label>
           <input type="text" placeholder='Username' name='name' onChange={handleInputs} value={User.name} className='inputText'/>
           <input type="email" id="" placeholder='email' name='email' onChange={handleInputs} value={User.email} className='inputText'/>
           <input type="password" style={{outlineWidth:0}} placeholder='Password' name='password' onChange={handleInputs} value={User.password} id='' className='inputText'/>
           <input type="password" style={{outlineWidth:0}} placeholder='Confirm Password' name='cpassword' onChange={handleInputs} value={User.cpassword} id='' className='inputText'/>
+          <p className='signinportalbtn'>Password must contain Symbols & Numbers. </p>
           {User.cpassword !== User.password && User.password.length>6 && User.cpassword.length>6 &&
           <span className='notMatch'></span>
           }
