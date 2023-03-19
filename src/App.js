@@ -38,8 +38,14 @@ import Personal from './components/settings/Screens/Personal';
 import Security from './components/settings/Screens/Security';
 import Saved from './components/settings/Screens/Saved';
 import Help from './components/settings/Screens/Help';
-import { Report } from './components/APIs/UserControlCalls';
+// import { Report } from './components/settings/Screens/Reports';
 import CheckEmail from './components/subcomponents/CheckEmail';
+import AdminDashboard from './components/Admin/AdminDashboard';
+import Stats from './components/Admin/Stats';
+import HRSoon from './components/Authentication/HRSoon';
+import PageNotFound from './components/PageNotFound';
+import SinglePost from './components/subcomponents/SinglePost';
+import ReportScreen from './components/settings/Screens/Report';
 
 const Job = React.lazy(()=>import('./components/Job/Job')); 
 const JobPage = React.lazy(()=>import('./components/Job/JobPage')); 
@@ -64,14 +70,21 @@ function App() {
   }
   useEffect(() => {
     setSocket(io(process.env.PORT));
-    console.log(socket)
+    // console.log(socket)
   }, [])
   
   useEffect(() => {
     socket?.emit("addUser", id);
   }, [socket, id]);
+ useEffect(() => {
+   if(!user?.other){
+    const visitors = async()=>{
+        const getVisitors = await fetch(`/api/visitors`);
+    }
+    visitors();
+   }
+ }, [])
  
-
   return (
     <>
       <BrowserRouter>
@@ -83,7 +96,7 @@ function App() {
           <Route element={<><Nav socket={socket} /><Security  /></>} path="/settings/security"></Route>
           <Route element={<><Nav socket={socket} /><Saved socket={socket} /></>} path="/settings/saved"></Route>
           <Route element={<><Nav socket={socket} /><Help  /></>} path="/settings/help"></Route>
-          <Route element={<><Nav socket={socket} /><Report  /></>} path="/settings/report"></Route>
+          <Route element={<><Nav socket={socket} /><ReportScreen  /></>} path="/settings/report"></Route>
           <Route element={<><Nav socket={socket} /><Search /></>} path="/find?"></Route>
           <Route element={<><Nav socket={socket} /><Chat /></>} path="/inbox"></Route>
           <Route element={<><Nav socket={socket} /><ChangePass /></>} path="/settings/authentication/changepassword"></Route>
@@ -92,16 +105,20 @@ function App() {
           <Route element={<><PdfRendering/></>} path="/user/view?"></Route>
           <Route element={<><Nav socket={socket} /><Setting socket={socket} /></>} path="/settings"></Route>
           <Route element={<><AdminLogin /></>} path="/admin/login"></Route>
-          <Route element={<><AdminNav/><Admin /></>} path="/admin"></Route>
-          <Route element={<><AdminNav/><AdminReport /></>} path="/admin/reports"></Route>
-          <Route element={<><AdminNav/><AdminUsers /></>} path="/admin/users"></Route>
-          <Route element={<><AdminNav/></>} path="/admin/*"></Route>
+          <Route element={<><AdminDashboard /></>} path="/admin/dashboard"></Route>
+          <Route element={<><AdminReport /></>} path="/admin/reports"></Route>
+          <Route element={<><AdminUsers /></>} path="/admin/users"></Route>
+          <Route element={<><Nav  socket={socket} /><PageNotFound/></>} path="/*"></Route>
+          <Route element={<><Stats/></>} path="/admin/statistics"></Route>
+          <Route element={<><Nav  socket={socket} /><SinglePost socket={socket} /></>} path="/post/:id"></Route>
           <Route element={<><CheckEmail/></>} path="/checkemail"></Route>
           <Route element={<><HRForm/></>} path="/hr/getstarted"></Route>
-          <Route element={<><HRNav /><HRDashboard /></>} path="/hr/dashboard"></Route>
-            <Route element={<><HRNav /><HRCreate /></>} path="/hr/dashboard/create" ></Route>
-          <Route element={<><HRNav /><HRJobs /></>} path="/hr/dashboard/all"></Route>
-          <Route element={<><HRNav /><HRViewJob /></>} path="/hr/dashboard/all/job?"></Route>
+          <Route element={<><HRDashboard /></>} path="/hr/dashboard"></Route>
+            <Route element={<><HRCreate /></>} path="/hr/create" ></Route>
+          <Route element={<><HRJobs /></>} path="/hr/alljobs"></Route>
+          <Route element={<><AdminDashboard /></>} path="/test/admin/dashboard"></Route>
+          <Route element={<><HRViewJob /></>} path="/hr/dashboard/all/job?"></Route>
+          <Route element={<><HRSoon /></>} path="/hr/soon?"></Route>
           <Route element={<><Nav socket={socket} /><React.Suspense fallback="Loading..."><Job /></React.Suspense></>} path="/jobs"></Route>
           <Route element={<><Nav socket={socket} /><React.Suspense fallback="Loading..."><JobPage /></React.Suspense></>} path="/jobs/:id"> </Route> 
           {/* <Route element={user!==null ? <Navigate to={'/'} /> :    <Login />} path="/login"></Route> */}

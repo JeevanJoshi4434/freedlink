@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../model/userModal');
 const Notification = require('../model/NotificationModal');
+const Message = require('../model/MessageModal');
 const VerificationToken = require('../model/VerificationToken');
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -13,10 +14,12 @@ const { generateOTP } = require("./Extra/mail");
 const nodemailer = require('nodemailer');
 const ResetToken = require('../model/ResetToken');
 const crypto = require('crypto');
+const Job = require('../model/jobModal');
 const Report = require('../model/ReportModal');
 const { MailtrapClient } = require("mailtrap");
+const mongoose = require('mongoose');
+var bson = require('bson');
 console.log(`server type: ${process.env.SERVER}`);
-
 let success = false;
 //Route 1: create a user using: POST "/api/auth/createuser".No login required
 router.post("/signup/user",
@@ -982,7 +985,7 @@ router.get(`/reports/profile`, verifyToken, async (req, res) => {
 })
 router.get(`/users/all`, verifyToken, async (req, res) => {
   const user = await User.findById(req.user.id);
-  const access = user.role.includes("Admin");
+  const access = user?.role?.includes("Admin");
   if (!access) {
     return res.status(403).json("Unauthorized!");
   }
@@ -1133,4 +1136,110 @@ router.get("/get/notification/:user", async (req, res) => {
   }
 })
 
+
+const visitorSchema = new mongoose.Schema({
+  name:{
+    type:String,
+  },
+  count:{
+    type:Number,
+  }
+})
+const Visitor = mongoose.model("visitors", visitorSchema)
+router.get(`/visitors`, async(req,res)=>{
+  let visitors = await Visitor.findOne({name: 'Guest'})
+  
+  // If the app is being visited first
+  // time, so no records
+  if(visitors == null) {
+        
+      // Creating a new default record
+      const beginCount = new Visitor({
+          name : 'Guest',
+          count : 1
+      })
+
+      // Saving in the database
+      beginCount.save()
+
+      // Sending the count of visitor to the browser
+      res.send(`<h2>Counter: `+1+'</h2>')
+
+      // Logging when the app is visited first time
+      console.log("First visitor arrived")
+  }
+  else{
+        
+      // Incrementing the count of visitor by 1
+      visitors.count += 1;
+
+      // Saving to the database
+      visitors.save()
+
+      // Sending the count of visitor to the browser
+      res.send(`<h2>Counter: `+visitors.count+'</h2>')
+
+      // Logging the visitor count in the console
+      console.log("visitor arrived: ",visitors.count)
+  }
+})
+router.get(`/visitors/all`,async(req,res)=>{
+  const visitors = await Visitor.findOne({name:"Guest"});
+  if(visitors === null)return res.status(200).json(0);
+  res.status(200).json(visitors.count);
+})
+router.get(`/allusers`,async(req,res)=>{
+  const users = await User.countDocuments();
+  res.status(200).json(users);
+})
+router.get(`/allposts`,async(req,res)=>{
+  const posts = await Post.countDocuments();
+  res.status(200).json(posts);
+})
+router.get(`/totalreports`,async(req,res)=>{
+  const reports = await Report.countDocuments();
+  res.status(200).json(reports);
+})
+router.get(`/alljobs`,async(req,res)=>{
+  const jobs = await Job.countDocuments();
+  res.status(200).json(jobs);
+})
+router.get(`/allnotifications`,async(req,res)=>{
+  const notify = await Notification.countDocuments();
+  res.status(200).json(notify);
+})
+router.get(`/verifypendingusers`, async(req,res)=>{
+  const users = await User.countDocuments({verified:false});
+  res.status(200).json(users);
+})
+router.get(`/verifiedusers`, async(req,res)=>{
+  const users = await User.countDocuments({verified:true});
+  res.status(200).json(users);
+})
+router.get(`/post/all`, async(req,res)=>{
+  const {_month , _year }= req.query;
+
+  const posts = await Post.countDocuments({timestamp:{
+    year:_year
+  }});
+  res.status(200).json(posts);
+})
+router.get(`/databasesize`, async(req,res)=>{ 
+  const users = await User.countDocuments();
+  const posts = await Post.countDocuments();
+  const reports = await Report.countDocuments();
+  const notify = await Notification.countDocuments();
+  const jobs = await Job.countDocuments();
+  const token = await VerificationToken.countDocuments();
+  const message = await Message.countDocuments();
+  const totalmessage = await message *(220 * 0.001);
+  const totalJobs = await jobs * 1.32;
+  const totalUsers = await users * 1.32;
+  const totalNotify = await notify * (400 * 0.001);
+  const totalReports = await reports * (350 * 0.001);
+  const totalPosts = await posts * (607 * 0.001);
+  const totaltokens = await token * (122 * 0.001);
+  const totalStorage = await (totalJobs+totalNotify+totalmessage+totalUsers+totalReports+totalPosts+totaltokens ) * 0.001;
+  res.status(200).json(totalStorage);
+})
 module.exports = router;

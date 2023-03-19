@@ -269,11 +269,11 @@ getuserimg();
             <span className="material-icons"> near_me </span>
             {/* <p>Share</p> */}
             
-             {isMobileOnly ? <p onClick={()=>sharePost("Share Post",`post by @${user?.name}`,`http://192.168.1.5:3000/post/${props?.postId}`)} >Share</p> : <ShareContent
+             {isMobileOnly ? <p onClick={()=>sharePost("Share Post",`post by @${user?.name}`,`https://${process.env.REACT_APP_CLIENTPORT}/post/${props?.postId}`)} >Share</p> : <ShareContent
             label={"Share post"}
             title={`Post by ${user?.name}`}
             text={`Freedlink Post`}
-            url={`http://192.168.1.5:3000/post/${props?.postId}`}
+            url={`https://${process.env.REACT_APP_CLIENTPORT}/post/${props?.postId}`}
              /> }
           </div>
         </div>

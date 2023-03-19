@@ -65,10 +65,11 @@ const Nav = (props) => {
 
     const handleLogout = async(e) => {
         localStorage.clear();
-        await navigate('/');
         // cookies.remove("pokemon");
         // cookies.remove("searchHistory");
         logoutUser(dispatch);
+        await navigate('/');
+        await navigate(0);
     }
     useEffect(() => {
         const searchHistory = JSON.parse(localStorage.getItem('searchHistory'));

@@ -4,13 +4,13 @@ import settingStyle from '../setting.module.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-const Report = () => {
+const ReportScreen = () => {
 
     let navigate = useNavigate();
     const userDetails = useSelector((state) => state.user);
-    // // console.log()
     let user = userDetails?.user;
     let accessToken = user?.accessToken;
+    console.log(accessToken)
     const [currentOption, setCurrentOption] = useState('');
     const [reportTitle, setReportTitle] = useState('');
     const [reportDesc, setReportDesc] = useState('');
@@ -24,7 +24,7 @@ const Report = () => {
                 desc: reportDesc,
             })
         })
-        setData(res);
+        setData(res.json());
     }
     return (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100%" }}>
@@ -43,4 +43,4 @@ const Report = () => {
     )
 }
 
-export default Report
+export default ReportScreen

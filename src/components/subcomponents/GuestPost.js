@@ -105,11 +105,11 @@ const sharePost = (title,text,url)=>{
             <span className="material-icons"> near_me </span>
             {/* <p>Share</p> */}
             
-             {isMobileOnly ? <p onClick={()=>sharePost("Share Post",`post by @${user?.name}`,`http://${process.env.PORT}/post/${props?.postId}`)} >Share</p> : <ShareContent
+             {isMobileOnly ? <p onClick={()=>sharePost("Share Post",`post by @${user?.name}`,`https://${process.env.REACT_APP_CLIENTPORT}/post/${props?.postId}`)} >Share</p> : <ShareContent
             label={"Share post"}
             title={`Post by ${user?.name}`}
             text={`Freedlink Post`}
-            url={`http://${process.env.PORT}/post/${props?.postId}`}
+            url={`https://${process.env.REACT_APP_CLIENTPORT}/post/${props?.postId}`}
              /> }
           </div>
         </div>

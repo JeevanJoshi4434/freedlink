@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react'
+import { useEffect, useState } from 'react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from '../../firebase';
 import stylesheet from './HRCSS.module.css';
-import { useSelector,useDispatch } from 'react-redux';
-import { logoutUser } from '../Redux/apiCall';
-import { Link, useNavigate } from 'react-router-dom';
-import { CChart } from '@coreui/react-chartjs';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import style from '../Admin/Admindashboard.module.css';
-
+import UnderC from '../Assets/undraw_building_blocks_re_5ahy.svg';
 import jobStyle from '../Job/Job.module.css';
 import axios from 'axios';
-const HRDashboard = () => {
-    let dispatch = useDispatch();
+const HRSoon = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    let pagetype = searchParams.get('page');
     let navigate = useNavigate();
     const userDetails = useSelector((state) => state.user);
     let Cuser = userDetails?.user;
@@ -21,6 +21,7 @@ const HRDashboard = () => {
     const [currentMessage, setCurrentMessage] = useState('');
     let userID = Cuser?.other?._id;
     const [jobs, setJobs] = useState();
+    console.log({data:process.env.REACT_APP_DATA})
     useEffect(() => {
         const getJobs = async () => {
             const res = await axios.get(`/api/advance/jobs/hr/${userID}`);
@@ -86,13 +87,6 @@ const HRDashboard = () => {
             firstname[i] = name.charAt(i);
         }
     }
-    const handleLogout = async(e) => {
-        localStorage.clear();
-        // cookies.remove("pokemon");
-        // cookies.remove("searchHistory");
-        logoutUser(dispatch);
-        await navigate(0);
-    }
 
     if (Cuser?.other?.role === 'HR') {
         return (
@@ -107,14 +101,16 @@ const HRDashboard = () => {
                                     <span style={{ fontSize: "12px", color: "#aeaeae", marginRight: "5px" }} className="material-icons">web</span><span className={style.sidebarHeader} style={{ fontSize: "12px", color: "#aeaeae" }} >Pages</span>
                                 </div>
                                 <li className={style.sidebarItem} >
-                                    <Link to="/hr/dashboard" className={style.active}>
+                                    <Link to="/hr/dashboard">
                                         <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >dashboard</span> <p className={style.alignMiddle} >Dashboard</p>
                                     </Link>
                                 </li>
                                 <li className={style.sidebarItem} title='coming soon...' >
-                                    <Link to="/hr/soon?page=stats">
+                                    {pagetype === 'stats' ? <Link to="/hr/soon?page=stats" className={style.active}>
                                         <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >bar_chart</span> <p className={style.alignMiddle} >Charts & Stats</p> <p className={style.alignMiddle} ><span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginLeft: "3px" }} >lock</span> Pro</p>
-                                    </Link>
+                                    </Link> : <Link to="/hr/soon?page=stats">
+                                        <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >bar_chart</span> <p className={style.alignMiddle} >Charts & Stats</p> <p className={style.alignMiddle} ><span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginLeft: "3px" }} >lock</span> Pro</p>
+                                    </Link> }
                                 </li>
                                 <li className={style.sidebarItem} >
                                     <Link to="/">
@@ -127,7 +123,7 @@ const HRDashboard = () => {
                                     </Link>
                                 </li>
                                 {/* <li className={style.sidebarItem} >
-                                    <Link  onClick={()=>handleLogout()} to="/login" >
+                                    <Link to="#">
                                         <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >logout</span> <p className={style.alignMiddle} >Logout</p>
                                     </Link>
                                 </li> */}
@@ -149,9 +145,11 @@ const HRDashboard = () => {
                                     </Link>
                                 </li>
                                 <li className={style.sidebarItem}>
-                                    <Link to="/hr/soon?page=more">
+                                    {pagetype === 'more' ? <Link to="/hr/soon?page=more" className={style.active}>
                                         <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >warning</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >More Actions</p><p className={style.alignMiddle} ><span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginLeft: "3px" }} >lock</span> Pro</p>
-                                    </Link>
+                                    </Link>:<Link to="/hr/soon?page=more">
+                                        <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >warning</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >More Actions</p><p className={style.alignMiddle} ><span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginLeft: "3px" }} >lock</span> Pro</p>
+                                    </Link>}
                                 </li>
                             </ul>
                         </div>
@@ -161,24 +159,32 @@ const HRDashboard = () => {
                                     <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >workspace_premium</span><span className={style.sidebarHeader} style={{ fontSize: "12px", color: "#aeaeae" }} >Premium Actions <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginLeft: "3px" }} >lock</span> Pro </span>
                                 </div>
                                 <li className={style.sidebarItem} title="Payment system coming soon..." >
-                                    <Link to="/hr/soon?page=filter" title="Payment system coming soon...">
+                                    {pagetype === 'filter' ? <Link to="/hr/soon?page=filter" className={style.active}>
                                         <span className='material-icons' style={{ fontSize: "16px", color: "#aeaeae", marginRight: "5px" }} >construction</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >AI tools & filtering</p>
-                                    </Link>
+                                    </Link>:<Link to="/hr/soon?page=filter">
+                                        <span className='material-icons' style={{ fontSize: "16px", color: "#aeaeae", marginRight: "5px" }} >construction</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >AI tools & filtering</p>
+                                    </Link>}
                                 </li>
                                 <li className={style.sidebarItem} title="Payment system coming soon..." >
-                                    <Link to="/hr/soon?page=sponser">
+                                  {pagetype === 'sponser' ? <Link to="/hr/soon?page=sponser" className={style.active}>
                                         <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >workspace_premium</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >Sponser</p>
-                                    </Link>
+                                    </Link>: <Link to="/hr/soon?page=sponser">
+                                        <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >workspace_premium</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >Sponser</p>
+                                    </Link>}
                                 </li>
                                 <li className={style.sidebarItem} title="Payment system coming soon..." >
-                                    <Link to="/hr/soon?page=history">
+                                    {pagetype==='history' ? <Link to="/hr/soon?page=history" className={style.active}>
                                         <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >receipt_long</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} > Purchase History</p>
-                                    </Link>
+                                    </Link>:<Link to="/hr/soon?page=history">
+                                        <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >receipt_long</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} > Purchase History</p>
+                                    </Link>}
                                 </li>
                                 <li className={style.sidebarItem} title="Payment system coming soon..." >
-                                    <Link to="/hr/soon?page=livestats">
+                                    {pagetype === 'livestats' ? <Link to="/hr/soon?page=livestats" className={style.active} >
                                         <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >bar_chart</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >Live Stats</p>
-                                    </Link>
+                                    </Link>:<Link to="/hr/soon?page=livestats">
+                                        <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >bar_chart</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >Live Stats</p>
+                                    </Link>}
                                 </li>
                             </ul>
                         </div>
@@ -197,51 +203,17 @@ const HRDashboard = () => {
                                 </div>
                             </div>
                         </nav>
-                        <main>
+                        <main style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
 
                             <div>
-                                <h4 style={{ fontSize: "30px", fontWeight: "500" }} >{currentMessage}{firstname}!</h4>
-                                <p>Have a nice day!</p>
+                                <h4 style={{ fontSize: "30px", fontWeight: "500" }} >Stay tuned {firstname}!</h4>
+                                <p>coming soon...</p>
                             </div>
-                            <div style={{marginTop:"20px"}}>
-                                {/* <h4 style={{ fontSize: "30px", fontWeight: "500" }} >Recent Uploaded Jobs</h4> */}
-                               <div style={{display:'flex',alignItems:'center'}}><span className='material-icons' style={{ color: "#000", fontSize: "16px", marginRight: "5px" }} >description</span><p>Recent Uploaded Jobs</p></div> 
-                            </div>
-                            <div className={style.recentUploaded}>
-                                {arr2?.map((i) => {
-                                    var date = new Date();
-                                    date = i?.jobPostedAt;
-                                    // console.log(i?.Address[0]?.City)
-                                    const ref = (e) => {
-                                        navigate(`/hr/dashboard/all/job?jobid=${e}`);
-                                    }
-                                    return (
-                                        <div className={style.box} onClick={() => ref(i?._id)} style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", padding: "15px 10px", width:"95%" }} >
-                                            <div className={jobStyle.jobLeft} >
-                                                <div className={jobStyle.Image} >
-                                                    <img src={i?.image} />
-                                                </div>
-                                                <div className={jobStyle.Detail} >
-                                                    <h4>{i?.title}</h4>
-                                                    <h6>{i?.subject}</h6>
-                                                    <div>
-                                                        <p>Requirement: {i?.qualification}</p>
-                                                        <p>{date?.slice(0, 10)}</p>
-                                                        <p>{i?.referenceCompanyName}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className={jobStyle.jobRight}>
-                                                <p>
-                                                    {i?.CompanyName}
-                                                </p>
-                                                <p>
-                                                    {i?.Address[0]?.City}, {i?.Address[0]?.state} ({i?.Address[0]?.country})
-                                                </p>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
+                            <img src={UnderC} alt='Coming Soon...' style={{height:"40%",width:"40%"}} />
+
+                            <div>
+                                <h4 style={{ fontSize: "30px", fontWeight: "500" }} >Under Construction!</h4>
+                                <p>coming soon...</p>
                             </div>
                         </main>
                     </div>
@@ -257,4 +229,5 @@ const HRDashboard = () => {
         )
     }
 }
-export default HRDashboard
+
+export default HRSoon

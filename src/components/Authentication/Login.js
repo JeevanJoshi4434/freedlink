@@ -39,7 +39,7 @@ const handleLogin = (e)=>{
           <input type="email" id="#email" placeholder='email' name='email' onChange={handleInputs} value={user.email.toLowerCase()} className='inputText'/>
           <input type="password" placeholder='Password' name='password' onChange={handleInputs} value={user.password} id='#password' className='inputText'/>
           <button className='btnforsignup' onClick={handleLogin} >Signin</button>  
-          <p className='signinportalbtn'>New Here? <span><Link to='/signup'>Create Account.</Link></span></p>
+          <p className='signinportalbtn'>New Here?<br/><span><Link to='/signup'>Create Account.</Link></span></p>
           <p className='signinportalbtn'><span><Link to='/forgotpassword'>forgot password?</Link></span></p>
         </div>
       </div>

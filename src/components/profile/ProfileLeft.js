@@ -203,7 +203,7 @@ const ProfileLeft = (props) => {
                                     </div>
                                     <div>
                                         {user?.other?.role === "user" && <Link to="/hr/getstarted" className='' ><span className='material-icons' style={{ marginRight: "10px" }}>toggle_on</span>Switch to HR</Link>}
-                                        {user?.other?.role === "Admin" && <Link to="/admin" className='' ><span className='material-icons' style={{ marginRight: "10px" }}>admin_panel_settings</span>View Admin Panel</Link>}
+                                        {user?.other?.role === "Admin" && <Link to="/admin/dashboard" className='' ><span className='material-icons' style={{ marginRight: "10px" }}>admin_panel_settings</span>View Admin Panel</Link>}
                                         {user?.other?.role === "HR" && <Link to="/hr/dashboard" className='' ><span className='material-icons' style={{ marginRight: "10px" }}>dashboard</span>View HR Panel</Link>}
                                     </div>
                                     <div>

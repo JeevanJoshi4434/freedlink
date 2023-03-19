@@ -2,6 +2,7 @@ const router = require('express').Router();
 const verifyToken = require('../middleware/fetchUser');
 const User = require('../model/userModal');
 const Post = require('../model/postModal');
+const mongoose = require('mongoose');
 const Message = require('../model/MessageModal');
 // const { isValidObjectId } = require('mongoose');
 let success = false;
@@ -92,6 +93,17 @@ router.get("/get/post", async (req, res) => {
     console.log(error)
 }
 
+})
+router.get(`/single/post/:id`,async(req,res)=>{
+    const id = req.params;
+    try {
+        const post = await Post.findById(mongoose.Types.ObjectId(id));
+        if(!post) return res.status(404).json('post note found!');
+        res.status(200).json(post);
+        
+    } catch (error) {
+    
+    }
 })
 
 
