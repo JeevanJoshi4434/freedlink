@@ -25,18 +25,18 @@ const Nav = (props) => {
     );
     const [post, setPost] = useState('');
     const [notifications, setNotifications] = useState([]);
-    console.log(notifications)
+    // console.log(notifications)
     const socket = props?.socket;
     useEffect(() => {
         socket?.on("getNotification", data => {
             setNotifications((prev) => [...prev, data])
-            console.log(data)
+            // console.log(data)
         })
     }, [socket]);
-    // console.log(notifications);
+    // // console.log(notifications);
     // const [result, setResult] = useState([]);
     const [country, setCountry] = useState('');
-    // console.log(result);
+    // // console.log(result);
     let navigate = useNavigate();
     // const cookies = Cookies();
 
@@ -87,11 +87,11 @@ const Nav = (props) => {
         }
         getNotify();
     }, [])
-    // console.log(notification);
+    // // console.log(notification);
     notification?.notify?.map((i) => {
         notification?.user?.map((item) => {
-            // console.log(i);
-            // console.log(item?.data?.name);
+            // // console.log(i);
+            // // console.log(item?.data?.name);
         })
     })
     let image = '';
@@ -157,7 +157,7 @@ const Nav = (props) => {
                             </div>
                            </>}
                             {notifications?.map((i) => {
-                                console.log(i)
+                                // console.log(i)
                                 if (i?.type === 1) {
                                     return (
                                         <>
@@ -174,7 +174,7 @@ const Nav = (props) => {
                             }
                             {
                                 notification?.notify?.map((item) => {
-                                    // console.log(item);
+                                    // // console.log(item);
                                     return (
                                         <>
                                             {item?.type === 1 && <div style={{ display: "flex" }} >

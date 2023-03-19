@@ -13,8 +13,8 @@ const ChatContainer = (props) => {
   let id = user?.other?._id;
   const socket = useRef();
   let accessToken = user?.accessToken;
-  // console.log(accessToken)
-  // console.log(props.currentUser?._id);
+  // // console.log(accessToken)
+  // // console.log(props.currentUser?._id);
   let id2 = props.currentUser?._id;
   const scrollRef = useRef();
         useEffect(() => {
@@ -35,7 +35,7 @@ const ChatContainer = (props) => {
             socket.current.emit("addUser", id);
         }
       },[id]);
-      // console.log(socket);
+      // // console.log(socket);
       useEffect(()=>{
         scrollRef.current?.scrollIntoView({behavior:"smooth"})
       },[messages])
@@ -60,7 +60,7 @@ const ChatContainer = (props) => {
       useEffect(() => {
         if(socket.current){
             socket.current.on("msg-receive", (msg)=>{
-                // console.log(msg)
+                // // console.log(msg)
                 setArrivalMessage({myself:false, message:msg})
             })
         }

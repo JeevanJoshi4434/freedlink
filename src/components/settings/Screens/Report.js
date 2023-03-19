@@ -10,14 +10,14 @@ const ReportScreen = () => {
     const userDetails = useSelector((state) => state.user);
     let user = userDetails?.user;
     let accessToken = user?.accessToken;
-    console.log(accessToken)
+    // console.log(accessToken)
     const [currentOption, setCurrentOption] = useState('');
     const [reportTitle, setReportTitle] = useState('');
     const [reportDesc, setReportDesc] = useState('');
     const [Data, setData] = useState('');
     const Report = async (e) => {
         e.preventDefault();
-        // console.log("Reported");  
+        // // console.log("Reported");  
         let res = await fetch(`/api/report`, {
             method: "POST", headers: { "Content-Type": "application/Json", accessToken: accessToken }, body: JSON.stringify({
                 type: "SYSTEM",

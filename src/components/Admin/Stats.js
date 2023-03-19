@@ -13,7 +13,7 @@ const Stats = () => {
     let accessToken = user?.accessToken;
     let navigate = useNavigate();
     if (user?.other?.role !== "Admin") {
-        // console.log("not a admin")
+        // // console.log("not a admin")
         navigate("/");
     }
     var date = new Date();
@@ -86,7 +86,7 @@ const Stats = () => {
         getStorage();
         getAllPosts();
     }, [])
-    console.log(allPosts)
+    // console.log(allPosts)
 
     let January = 0, February = 0, March = 0, April = 0, May = 0, June = 0, July = 0, August = 0, September = 0, October = 0, November = 0, December = 0, Year;
     var today = new Date();
@@ -146,7 +146,7 @@ const Stats = () => {
     })
     let Jan = 0, Feb = 0, Mar = 0, Apr = 0, Ma = 0, Jun = 0, Jul = 0, Aug = 0, Sep = 0, Oct = 0, Nov = 0, Dec = 0;
     allPosts?.allPosts?.map((i)=>{
-        console.log(i)
+        // console.log(i)
         if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "1") {
             Jan++;
         }
@@ -184,7 +184,7 @@ const Stats = () => {
             Dec++;
         }
     })
-    // console.log(January)
+    // // console.log(January)
     var curHr = today.getHours();
     useEffect(() => {
         if (curHr > 3 && curHr < 12) {
@@ -195,7 +195,7 @@ const Stats = () => {
             setCurrentMessage('Good Evening, ');
         }
     }, [curHr])
-    // // console.log({hour:curHr,day:today})
+    // // // console.log({hour:curHr,day:today})
     let name = '';
     name = user?.other?.name;
     let firstname = [];

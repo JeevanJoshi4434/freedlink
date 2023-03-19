@@ -12,7 +12,7 @@ const AdminDashboard = () => {
     let accessToken = user?.accessToken;
     let navigate = useNavigate();
     if (user?.other?.role !== "Admin") {
-        // console.log("not a admin")
+        // // console.log("not a admin")
         navigate("/");
     }
     var date = new Date();
@@ -79,7 +79,7 @@ const AdminDashboard = () => {
       getVerified();
       getStorage();
     }, [])
-    console.log(visitors)
+    // console.log(visitors)
 
     let January = 0, February = 0, March = 0, April = 0, May = 0, June = 0, July = 0, August = 0, September = 0, October = 0, November = 0, December = 0, Year;
     var today = new Date();
@@ -137,7 +137,7 @@ const AdminDashboard = () => {
             December = December + 1;
         }
     })
-    // console.log(January)
+    // // console.log(January)
     var curHr = today.getHours();
     useEffect(() => {
         if (curHr > 3 && curHr < 12) {
@@ -148,7 +148,7 @@ const AdminDashboard = () => {
             setCurrentMessage('Good Evening, ');
         }
     }, [curHr])
-    // // console.log({hour:curHr,day:today})
+    // // // console.log({hour:curHr,day:today})
     let name = '';
     name = user?.other?.name;
     let firstname = [];

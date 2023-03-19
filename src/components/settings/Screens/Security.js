@@ -9,7 +9,7 @@ import settingStyle from '../setting.module.css';
 const Security = () => {
   let navigate = useNavigate();
   const userDetails = useSelector((state) => state.user);
-  // // console.log()
+  // // // console.log()
   let user = userDetails?.user;
   let userId = user?.other?._id;
   let Cuser = user?.other;
@@ -29,7 +29,7 @@ const Security = () => {
   const Report = async (e) => {
     
     e.preventDefault();
-    // console.log("Reported");  
+    // // console.log("Reported");  
     let res = await fetch(`/api/report`, {
       method: "POST", headers: { "Content-Type": "application/Json", accessToken: accessToken }, body: JSON.stringify({
         type: "SYSTEM",
@@ -51,7 +51,7 @@ const Security = () => {
     const data = [res.data];
     setPosts(data);
   }
-  console.log(posts)
+  // console.log(posts)
   useEffect(() => {
     getpost();
   }, [userId])
@@ -61,20 +61,20 @@ const Security = () => {
     const res = await fetch(`/api/user/change/name/${newName}/${password}`,{method:"PUT",headers:{accessToken:accessToken}})
     const data = await res.status;
     if(data === 200){
-      console.log('changed')
+      // console.log('changed')
     }
     if(data === 400){
-      console.log("Fail")
+      // console.log("Fail")
     }
   }
   const ChangeEmail = async()=>{
     const res = await fetch(`/api/user/change/mail/${email}/${password}`,{method:"PUT",headers:{accessToken:accessToken}})
     const data = await res.data;
     if(data === 200){
-      console.log('changed')
+      // console.log('changed')
     }
     if(data === 400){
-      console.log("Fail")
+      // console.log("Fail")
     }
 }
 

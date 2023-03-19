@@ -30,7 +30,7 @@ const ProfileRight = (props) => {
         }
         getFollowerList();
     }, [props.id])
-    // // console.log(getFollowing)
+    // // // console.log(getFollowing)
     return (
         <>
             <div className='rightProfileBar'>

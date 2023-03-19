@@ -15,10 +15,10 @@ function ShareContent({ label, text, title,url }) {
           await navigator
             .share(shareDetails)
             .then(() =>
-              console.log("Hooray! Your content was shared to tha world")
+              // console.log("Hooray! Your content was shared to tha world")
             );
         } catch (error) {
-          console.log(`Oops! I couldn't share to the world because: ${error}`);
+          // console.log(`Oops! I couldn't share to the world because: ${error}`);
         }
       } else {
         // fallback code
@@ -29,7 +29,7 @@ function ShareContent({ label, text, title,url }) {
         })
         setBasicShare(true); //this is the line added in this snippet
         // .... other code statement below
-        console.log(
+        // console.log(
           "Web share is currently not supported on this browser. Please provide a callback"
         );
       }

@@ -7,7 +7,7 @@ const AdminNav = () => {
     let user = userDetails?.user;
     
     
-    // // console.log(user?.other?.name)
+    // // // console.log(user?.other?.name)
     let accessToken = user?.accessToken;
     let name = '';
     name = user?.other?.name;

@@ -13,7 +13,7 @@ const HRViewJob = () => {
     const [users, setUsers] = useState([]);
     const [sortedusers, setSortedUsers] = useState([]);
     const id = searchParams.get('jobid');
-    // console.log(id)
+    // // console.log(id)
     const [Job, setJob] = useState();
     let params = useParams();
     let skillArr = [];
@@ -74,16 +74,16 @@ const HRViewJob = () => {
         month = 'Dec';
     }
     Job?.skills?.map((i) => {
-        // // console.log(i?.skills)
+        // // // console.log(i?.skills)
         skillArr = i?.skills;
     })
-    // console.log(users)
+    // // console.log(users)
     // let userList = [users];
-    // // // console.log(userList);
+    // // // // console.log(userList);
     // userList?.map((i) => {
     //     i?.map((item) =>{
     //          username = item?.name;
-    //         // console.log(item)}
+    //         // // console.log(item)}
     //         )
     //     })
     const shortList = async (userid) => {
@@ -287,7 +287,7 @@ const HRViewJob = () => {
                             style={{ zIndex: "99999999999" }}
                         />
                         {/* {Job?.map((i) => {
-        // console.log(i)
+        // // console.log(i)
         return ( */}
                         <div className={jobStyle.mainElement} style={{ width: "860px" }}>
                             <div className={jobStyle.jobNav} >
@@ -308,7 +308,7 @@ const HRViewJob = () => {
                                 <div className={jobStyle.jobHighlight} >
                                     <h6>Shortlisted:</h6>
                                     {sortedusers?.map((i) => {
-                                        // console.log(i?.data?.name)
+                                        // // console.log(i?.data?.name)
                                         return (
                                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: "200px" }} >
                                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} >
@@ -348,7 +348,7 @@ const HRViewJob = () => {
                                 <div className={jobStyle.DetailJob} >
                                     <h4>Applied List:</h4>
                                     {users?.map((i) => {
-                                        // console.log(i?.skills?.map((i) => i))
+                                        // // console.log(i?.skills?.map((i) => i))
                                         return (
                                             <>
                                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: "200px" }} >

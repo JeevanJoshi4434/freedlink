@@ -39,7 +39,7 @@ const HRDashboard = () => {
         arr2[j] = arr[j];
         j++;
     }
-    console.log({ arr2: arr2, arr: arr })
+    // console.log({ arr2: arr2, arr: arr })
     const uploadBatch = () => {
         uploadBatchModal === false ? setUploadBatchModal(true) : setUploadBatchModal(true);
         if (batchScreen) {
@@ -75,7 +75,7 @@ const HRDashboard = () => {
             setCurrentMessage('Good Evening, ');
         }
     }, [curHr])
-    // // console.log({hour:curHr,day:today})
+    // // // console.log({hour:curHr,day:today})
     let name = '';
     name = Cuser?.other?.name;
     let firstname = [];
@@ -211,7 +211,7 @@ const HRDashboard = () => {
                                 {arr2?.map((i) => {
                                     var date = new Date();
                                     date = i?.jobPostedAt;
-                                    // console.log(i?.Address[0]?.City)
+                                    // // console.log(i?.Address[0]?.City)
                                     const ref = (e) => {
                                         navigate(`/hr/dashboard/all/job?jobid=${e}`);
                                     }

@@ -5,14 +5,14 @@ import { useLocation } from 'react-router-dom';
 const ResetPass = () => {
   const location = useLocation();
   const code = location.search.split("?")[1];
-  // console.log(code);
+  // // console.log(code);
      const [user, setUser] = useState({
     password:'',cpassword:''
   })
   var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
   let name,value;
   const handleInputs = (e) => {
-    // console.log(e);
+    // // console.log(e);
     name = e.target.name;
     value = e.target.value;
 

@@ -21,7 +21,7 @@ const HRSoon = () => {
     const [currentMessage, setCurrentMessage] = useState('');
     let userID = Cuser?.other?._id;
     const [jobs, setJobs] = useState();
-    console.log({data:process.env.REACT_APP_DATA})
+    // console.log({data:process.env.REACT_APP_DATA})
     useEffect(() => {
         const getJobs = async () => {
             const res = await axios.get(`/api/advance/jobs/hr/${userID}`);
@@ -40,7 +40,7 @@ const HRSoon = () => {
         arr2[j] = arr[j];
         j++;
     }
-    console.log({ arr2: arr2, arr: arr })
+    // console.log({ arr2: arr2, arr: arr })
     const uploadBatch = () => {
         uploadBatchModal === false ? setUploadBatchModal(true) : setUploadBatchModal(true);
         if (batchScreen) {
@@ -76,7 +76,7 @@ const HRSoon = () => {
             setCurrentMessage('Good Evening, ');
         }
     }, [curHr])
-    // // console.log({hour:curHr,day:today})
+    // // // console.log({hour:curHr,day:today})
     let name = '';
     name = Cuser?.other?.name;
     let firstname = [];

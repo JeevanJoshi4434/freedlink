@@ -84,7 +84,7 @@ router.post("/signup/user",
       .send({
         from: sender,
         to: recipients,
-        subject: "Profile Shortlist - Freedlink",
+        subject: "Email Confirmation - Freedlink",
         html: `<h1>Your OTP Code Is: ${OTP}</h1><br><p>If it's not you so ignore it.</p>`,
         category: "Welcome",
       })
@@ -149,7 +149,7 @@ router.post("/verify/email", async (req, res) => {
     .send({
       from: sender,
       to: recipients,
-      subject: "Profile Shortlist - Freedlink",
+      subject: "Welcome - Freedlink",
       html: `<h1>Thank you</h1><br><h5>for joining us.</h5><br><p>your welcome ${other.name} to our website <a href="https://friendlink.com" target="__blank">https://friendlink.com</a></p>`,
       category: "Welcome",
     })
@@ -208,7 +208,7 @@ router.post("/forgot/password", async (req, res) => {
     .send({
       from: sender,
       to: recipients,
-      subject: "Profile Shortlist - Freedlink",
+      subject: "Password Reset - Freedlink",
       html: `<h1>Requested For Password Reset?</h1><br><p>if it's not you Secure your Account! else Your reset token is: <a href=https://${`${process.env.PORT}/reset/password?token=${RandomTxt}&_id=${user._id}`} target="__blank">https://${process.env.PORT}/reset/password?token=${RandomTxt}&_id=${user._id}</a></p>`,
       // html: `hey ${mailTO.name} Congratulations!! your profile is sortlisted by ${user.name} (${twofectorcheck.CompanyName}) wait for their response. thank you.`,
       category: "Password Reset",
@@ -273,7 +273,7 @@ router.put("/reset/password", async (req, res) => {
     .send({
       from: sender,
       to: recipients,
-      subject: "Profile Shortlist - Freedlink",
+      subject: "Password Reset - Freedlink",
       html: `<h1>Request for password reset completed </h1><br><p>now you can login with your password! <a href=${`https://${process.env.PORT}/`} target="__blank">https://${process.env.PORT}/login</a></p>`
       , category: "Password Reset",
     })
@@ -1064,33 +1064,6 @@ router.put(`/notification/follow/:user`, verifyToken, async (req, res) => {
   res.status(200).json(update);
 })
 
-router.get(`/emailtest`, async (req, res) => {
-  const TOKEN = "114a9d872891c0bf86fede68a375ac47";
-  const ENDPOINT = "https://send.api.mailtrap.io/";
-  const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
-  const sender = {
-    email: "mailtrap@incutech.in",
-    name: "Mailtrap Test",
-  };
-  const recipients = [
-    {
-      email: "jeewanjoshi25@gmail.com",
-    }
-  ];
-
-  client
-    .send({
-      from: sender,
-      to: recipients,
-      subject: "You are awesome!",
-      text: "Congrats for sending test email with Mailtrap!",
-      category: "Integration Test",
-    })
-    .then(console.log, console.error);
-
-  res.status(200).json("success");
-})
-
 router.get(`/notification/post/:id`, verifyToken, async (req, res) => {
   const post = await Post.findById(req.params.id);
   res.status(200).json(post)
@@ -1165,8 +1138,6 @@ router.get(`/visitors`, async(req,res)=>{
       // Sending the count of visitor to the browser
       res.send(`<h2>Counter: `+1+'</h2>')
 
-      // Logging when the app is visited first time
-      console.log("First visitor arrived")
   }
   else{
         

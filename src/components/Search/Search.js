@@ -15,12 +15,12 @@ const Search = () => {
   let navigate = useNavigate();
   const [result, setResult] = useState([])
   const [interest, setInterest] = useState('');
-  // console.log({"Interest":interest})
+  // // console.log({"Interest":interest})
  let user = result?.data?.user;
  let job = result?.data?.job;
   const location = useLocation();
   const searchContent = location.search.split("?")[1];
-    // console.log(result);
+    // // console.log(result);
   const [country, setCountry] = useState([]);
   const options = useMemo(() => countryList().getData(), [])
   const changeHandler = country => {
@@ -32,7 +32,7 @@ const Search = () => {
           const res = await axios.get(`/api/people?${searchContent}`,{headers:{"Content-Type":"application/JSON"}});
           setResult(res);
       } catch (error) {
-          // console.log(error);
+          // // console.log(error);
       }
   }
 
@@ -44,7 +44,7 @@ const Search = () => {
         const res = await axios.get(`/api/interest`,{headers:{"Content-Type":"application/JSON"}});
         setInterest(res);
       } catch (error) {
-        // console.log(error)
+        // // console.log(error)
       }
     }
     interestData();

@@ -16,7 +16,7 @@ const GuestPost = (props) => {
   let navigate = useNavigate();
   let { username, image, caption, comments, profile, time, date, userId, likeNo, commentNo, postId } = props;
   const userDetails = useSelector((state) => state.user);
-  // console.log(user_Id)
+  // // console.log(user_Id)
   const liked = 'red';
   const noLike = 0;
   const oneLike = 1;
@@ -39,7 +39,7 @@ const GuestPost = (props) => {
   const seeMoreAction = ()=>{
     if(seeMore){
       setSeeMore(false);
-      console.log("Clicked!")
+      // console.log("Clicked!")
     }
   }
   let  postImg = image;

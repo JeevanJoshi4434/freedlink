@@ -61,13 +61,13 @@ const Profile = (props) => {
   const [loading, setLoading] = useState(false);
  
   
-  // console.log(EduFrom)
+  // // console.log(EduFrom)
   const handleCheckedChange = e => {
     setChecked(checked ? false : true);
   }
   const changeDate = (Date) =>{
     var year = Date.getFullYear();
-    // console.log(year)
+    // // console.log(year)
   }
   
  const UpdateBio =  async(bio, accessToken)=>{
@@ -106,7 +106,7 @@ const Profile = (props) => {
       
   }
   // Calls for update and delete 
-  // // console.log(userDetail)
+  // // // console.log(userDetail)
   const updateBio = async(e)=>{
       let res = await UpdateBio(e, accessToken);
       navigate(0);
@@ -129,18 +129,18 @@ const Profile = (props) => {
     useEffect(() => {
     getUserPost();
   }, [page]);
-  console.log(userPosts)
+  // console.log(userPosts)
    // iNFINITE SCROLL 
    const hadleInfiniteScroll = async ()=>{
     try {
       if(window.innerHeight + document.documentElement.scrollTop + 10 >=
         document.documentElement.scrollHeight ) {
-          console.log(true)
+          // console.log(true)
         setPage((prev)=>prev+1);
-        console.log(page);
+        // console.log(page);
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
   useEffect(() => {
@@ -148,8 +148,8 @@ const Profile = (props) => {
     return ()=> window.removeEventListener("scroll",hadleInfiniteScroll);
   }, [])
 
-  // // console.log(userDetail)
-  // // console.log(userPosts)
+  // // // console.log(userDetail)
+  // // // console.log(userPosts)
   const settings = () => {
     setEditProfile(true);
   }
@@ -378,7 +378,7 @@ const Profile = (props) => {
             i?.mypost?.map((item)=>{
               let mo = item?.timestamp[0]?.month;
                 let time = item?.timestamp[0]?.hour;
-                console.log(mo)
+                // console.log(mo)
                 let month = '';
                 if(mo == 1){
                   month = 'Jan'

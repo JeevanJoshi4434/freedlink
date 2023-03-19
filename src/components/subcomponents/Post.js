@@ -19,9 +19,9 @@ const Post = (props) => {
   let Cuser = userDetails?.user;
   let CuserID = userDetails?.user?.other
   let accessToken = Cuser?.accessToken;
-  // console.log(accessToken)
+  // // console.log(accessToken)
   let user_Id = CuserID?._id;
-  // console.log(user_Id)
+  // // console.log(user_Id)
   const liked = 'red';
   const noLike = 0;
   const oneLike = 1;
@@ -44,10 +44,10 @@ const Post = (props) => {
   const seeMoreAction = ()=>{
     if(seeMore){
       setSeeMore(false);
-      console.log("Clicked!")
+      // console.log("Clicked!")
     }
   }
-  // console.log(props?.userId)
+  // // console.log(props?.userId)
  useEffect(() => {
   const getuserimg = async()=>{
     const res = await axios.get(`/api/notification/user/${user_Id}`, {headers:{accessToken:accessToken
@@ -62,7 +62,7 @@ getuserimg();
     const data = await res.status;
     if(data === 200){
       setSaved(true);
-      console.log('added')
+      // console.log('added')
     }
  }
  const removesavedPost = async()=>{
@@ -70,13 +70,13 @@ getuserimg();
     const data = await res.status;
     if(data === 200){
       setSaved(false);
-      console.log('removed')
+      // console.log('removed')
     }
  }
   let  postImg = image;
     const handleNotification =async(type,id) =>{
       if(props?.userId !== user_Id && Like !== 'red'){
-        console.log({post:id,by:user_Id,to:props?.userId,socket:socket})
+        // console.log({post:id,by:user_Id,to:props?.userId,socket:socket})
 
         socket.emit("sendNotify",{
         senderName: user_Id,
@@ -87,7 +87,7 @@ getuserimg();
         postImg:postImg,
         sendername:CuserID?.name
       })
-      // console.log(accessToken)
+      // // console.log(accessToken)
       const res = await fetch(`/api/notification/push/${props?.userId}/${id}`,{method:"PUT",headers:{"Content-Type":"application/json",accessToken:accessToken},body:JSON.stringify({
         type:type,
         senderProfile:senderProfile,
@@ -112,7 +112,7 @@ getuserimg();
   }
   const Report =async(e)=>{
     e.preventDefault();
-    // console.log("Reported");  
+    // // console.log("Reported");  
     let res = await fetch(`/api/report`, { method: "POST", headers: { "Content-Type": "application/Json",accessToken:accessToken }, body: JSON.stringify({ type:"POST",
     desc:reportDesc,
     title:reportTitle,
@@ -121,7 +121,7 @@ getuserimg();
     setData(res);
   }
   
-  // console.log({report:Data})
+  // // console.log({report:Data})
   const moreVertOpen = () => {
     if (moreVert) {
       setMoreVert(false);
@@ -130,7 +130,7 @@ getuserimg();
     }
   }
   // const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDUzMDYwNDg0MGQ0MDc2ZjhhOTk2OSIsIm5hbWUiOiJKZWV3YW4gSm9zaGkiLCJpYXQiOjE2NzUwMDA5MDh9.DTywDV4-vdT8ji33dzuCPXVvM6mBKPFZ-_PNw1jutGA";
-  // console.log(user?.notifications)
+  // // console.log(user?.notifications)
   const [likeCount, setLikeCount] = useState(noLike)
 
   const handleLike = async () => {

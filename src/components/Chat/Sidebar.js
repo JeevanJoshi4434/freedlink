@@ -32,7 +32,7 @@ const Sidebar = (props) => {
   }, [])
   const handleUser = (e)=>{
     setCurrentUser(e);
-    // console.log(currentUser)
+    // // console.log(currentUser)
     setCurrentChat(true);
   }
     return (

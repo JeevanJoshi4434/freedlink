@@ -75,7 +75,7 @@ const ProfileLeft = (props) => {
 
 
     const onclick = () => {
-        // console.log("Hello There")
+        // // console.log("Hello There")
     }
     let skill = [];
     let edu = [];
@@ -97,9 +97,9 @@ const ProfileLeft = (props) => {
     for (let i = 0; i < pro?.length; i++) {
         projects[i] = pro[pro?.length - 1 - i]; 
     }
-    // console.log(edu)
-    // console.log(work)
-    // console.log(skill)
+    // // console.log(edu)
+    // // console.log(work)
+    // // console.log(skill)
     const deleteWork = async(po,CName,from)=>{
         const res = await RemoveWork(po,CName,from,accessToken);
         if( res === 200 ){
@@ -246,8 +246,8 @@ const ProfileLeft = (props) => {
                             {work?.length > 0 && work?.map((i)=>{
                                 var time = Date();
                                 time = i?.yearFrom;
-                                // console.log(time);
-                                // console.log(i)
+                                // // console.log(time);
+                                // // console.log(i)
                                 return(
                                     <>
                                     <div style={{display:"flex"}}>

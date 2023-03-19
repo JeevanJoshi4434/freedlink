@@ -9,8 +9,8 @@ export default function Follow({ userDetail, socket }) {
     let user = userDetails?.user;
     let id = user?.other?._id;
     let accessToken = user?.accessToken;
-    //   // console.log(user);
-    //   // console.log(accessToken)
+    //   // // console.log(user);
+    //   // // console.log(accessToken)
     const [follow, setFollow] = useState('person_add')
     const handleFollow = async (e) => {
         await fetch(`/api/follow/${userDetail._id}`, { method: "PUT", headers: { accessToken: accessToken, "Content-Type": 'application.json' } })
@@ -25,7 +25,7 @@ export default function Follow({ userDetail, socket }) {
             senderProfile: user?.other?.img,
             sendername: user?.other?.name
         })
-        // console.log(accessToken)
+        // // console.log(accessToken)
         const res = await fetch(`/api/notification/follow/${userDetail?._id}`, {
             method: "PUT", headers: { "Content-Type": "application/json", accessToken: accessToken }, body: JSON.stringify({
                 type: 2,

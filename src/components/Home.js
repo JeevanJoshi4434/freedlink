@@ -18,7 +18,7 @@ import GuestPost from './subcomponents/GuestPost';
 
 
 const Home = (props) => {
-  // // console.log(process.env.ServerType);
+  // // // console.log(process.env.ServerType);
   let navigate = useNavigate()
   const userDetails = useSelector((state) => state.user);
   let user = userDetails?.user;
@@ -29,7 +29,7 @@ const Home = (props) => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(4);
   const [suggestion, setSuggestion] = useState([]);
-  // // console.log(suggestion)
+  // // // console.log(suggestion)
   const [file, setFile] = useState('');
   const [createPost, setCreatePost] = useState({ caption: '' })
   const [preImage, setPreImage] = useState(null)
@@ -80,7 +80,7 @@ const Home = (props) => {
   const seeMoreAction = () => {
     if (seeMore) {
       setSeeMore(false);
-      console.log("Clicked!")
+      // console.log("Clicked!")
     }
   }
   // WELCOME UTILITIES
@@ -104,7 +104,7 @@ const Home = (props) => {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
   useEffect(() => {
@@ -130,17 +130,17 @@ const Home = (props) => {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
   useEffect(() => {
     GuestPostget();
   }, [page])
-  console.log(post)
+  // console.log(post)
   const hadleInfiniteScroll = async () => {
-    // console.log("ScrollHeight" + document.documentElement.scrollHeight);
-    // console.log("basicHeight" + window.innerHeight);
-    // console.log("scrollTop" + document.documentElement.scrollTop);
+    // // console.log("ScrollHeight" + document.documentElement.scrollHeight);
+    // // console.log("basicHeight" + window.innerHeight);
+    // // console.log("scrollTop" + document.documentElement.scrollTop);
     try {
       if (window.innerHeight + document.documentElement.scrollTop + 1 >=
         document.documentElement.scrollHeight) {
@@ -148,7 +148,7 @@ const Home = (props) => {
         setPage((prev) => prev + 1);
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
   useEffect(() => {
@@ -156,8 +156,8 @@ const Home = (props) => {
     return () => window.removeEventListener("scroll", hadleInfiniteScroll);
   }, [])
 
-  // // console.log(post)
-  post2?.map((i) => console.log(i))
+  // // // console.log(post)
+  post2?.map((i) => // console.log(i))
   useEffect(() => {
     const getSuggestion = async () => {
       try {
@@ -183,7 +183,7 @@ const Home = (props) => {
 
     setCreatePost({ ...createPost, [id]: value });
   }
-  // // console.log(file)
+  // // // console.log(file)
   const handleUploadImg = (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + "_" + file?.name + "_" + user?.other?._id;
@@ -195,30 +195,30 @@ const Home = (props) => {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done', {
+        // console.log('Upload is ' + progress + '% done', {
           theme: "dark"
         });
         toast.loading(`${progress} uploaded!`);
-        // console.log(progress)
+        // // console.log(progress)
         switch (snapshot.state) {
           case 'paused':
-            // console.log('Upload is paused');
+            // // console.log('Upload is paused');
             break;
           case 'running':
-            // console.log('Upload is running');
+            // // console.log('Upload is running');
             break;
         }
       },
       (error) => {
-        console.log(error)
+        // console.log(error)
       },
       () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // // console.log('File available at', downloadURL);
+          // // // console.log('File available at', downloadURL);
           fetch(`/api/create/post`, { method: "POST", headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: createPost.caption, image: downloadURL, userId: user?.other?._id }) }).then((res) => {
-            // // console.log(res);
+            // // // console.log(res);
           })
         });
       }
@@ -409,7 +409,7 @@ const Home = (props) => {
             i?.feed?.map((item) =>{ 
               let mo = item?.timestamp[0]?.month;
                 let time = item?.timestamp[0]?.hour;
-                console.log(mo)
+                // console.log(mo)
                 let month = '';
                 if(mo == 1){
                   month = 'Jan'
@@ -510,7 +510,7 @@ const Home = (props) => {
               i?.feeds?.map((item) => {
                 let mo = item?.timestamp[0]?.month;
                 let time = item?.timestamp[0]?.hour;
-                console.log(mo)
+                // console.log(mo)
                 let month = '';
                 if(mo == 1){
                   month = 'Jan'

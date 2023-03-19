@@ -78,7 +78,7 @@ const HRCreate = () => {
                 // Observe state change events such as progress, pause, and resume
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                // console.log('Upload is ' + progress + '% done');
+                // // console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':
                         toast.success('Upload Paused! Check your Internet connection to continue!', {
@@ -107,13 +107,13 @@ const HRCreate = () => {
                 }
             },
             (error) => {
-                // console.log(error)
+                // // console.log(error)
             },
             () => {
                 // Handle successful uploads on complete
                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    // // console.log('File available at', downloadURL);
+                    // // // console.log('File available at', downloadURL);
                     fetch(`/api/advance/jobs/upload/${user?.other?._id}`, {
                         method: "POST", headers: { "Content-Type": "application/Json" }, body: JSON.stringify({
                             title: title,

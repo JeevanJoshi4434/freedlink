@@ -30,7 +30,7 @@ export const Report = async(type, title, to, desc,img) => {
     const userDetails = useSelector((state) => state.user);
     const user = userDetails?.user;
     let accessToken = user?.accessToken;
-    // console.log(accessToken);
+    // // console.log(accessToken);
     const [Data, setData] = useState();
     let res = await fetch(`/api/report`, { method: "POST", headers: { "Content-Type": "application/Json",accessToken:accessToken }, body: JSON.stringify({ type:type,
     desc:desc,
@@ -39,7 +39,7 @@ export const Report = async(type, title, to, desc,img) => {
     img:img
  }) })
     setData(res);
-    // console.log(Data);
+    // // console.log(Data);
 } 
 
 export const SavePost =  async(user,post)=>{

@@ -54,7 +54,7 @@ const JobPage = () => {
     month = 'Dec';
   }
   Job?.skills?.map((i) => {
-    // // console.log(i?.skills)
+    // // // console.log(i?.skills)
     skillArr = i?.skills;
   })
   const apply = async (ID) => {
@@ -118,7 +118,7 @@ const JobPage = () => {
         style={{ zIndex: "99999999999" }}
       />
       {/* {Job?.map((i) => {
-        // console.log(i)
+        // // console.log(i)
         return ( */}
       <div className={jobStyle.mainElement}>
         <div className={jobStyle.jobNav} >

@@ -66,7 +66,7 @@ const AdminReport = () => {
     message = messageReport;
     post = postReport;
     profile = profileReport;
-//    // console.log({all,message,post,profile,system,job});
+//    // // console.log({all,message,post,profile,system,job});
     const options = {
         exportEnabled: true,
         animationEnabled: true,
@@ -437,7 +437,7 @@ const AdminReport = () => {
                 flex: "0.80", height: "100%",overflow:"auto",padding:"10px 10px",display:"grid",gridTemplateColumns:"1fr 1fr 1fr"
             }}>
                     {messageReport?.map((i)=>{
-                        // console.log(i)
+                        // // console.log(i)
                         return(
                        
                         <div style={{

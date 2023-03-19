@@ -30,7 +30,7 @@ const HRJobs = () => {
     logoutUser(dispatch);
     await navigate(0);
 }
-  // // console.log(jobs)
+  // // // console.log(jobs)
   return (
     <>
       <div className={style.AdminDashboard} >
@@ -146,7 +146,7 @@ const HRJobs = () => {
               {jobs?.map((i) => {
                 var date = new Date();
                 date = i?.jobPostedAt;
-                // console.log(i?.Address[0]?.City)
+                // // console.log(i?.Address[0]?.City)
                 const ref = (e) => {
                   navigate(`/hr/dashboard/all/job?jobid=${e}`);
                 }

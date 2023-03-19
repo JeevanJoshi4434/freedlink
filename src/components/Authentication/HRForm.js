@@ -45,7 +45,7 @@ const HRForm = () => {
                     theme: "light",
                 });
             } else if (res.status === 403) {
-                // console.log(res.status)
+                // // console.log(res.status)
                 toast.warn('You are already a HR Holder', {
                     position: "top-center",
                     autoClose: 2000,

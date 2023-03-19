@@ -21,12 +21,12 @@ const Job = () => {
     useEffect(() => {
     getJobs();
   }, [page])
-  console.log(jobs)
+  // console.log(jobs)
    // iNFINITE SCROLL 
    const hadleInfiniteScroll = async ()=>{
-    // console.log("ScrollHeight" + document.documentElement.scrollHeight);
-    // console.log("basicHeight" + window.innerHeight);
-    // console.log("scrollTop" + document.documentElement.scrollTop);
+    // // console.log("ScrollHeight" + document.documentElement.scrollHeight);
+    // // console.log("basicHeight" + window.innerHeight);
+    // // console.log("scrollTop" + document.documentElement.scrollTop);
     try {
       if(window.innerHeight + document.documentElement.scrollTop + 1 >=
         document.documentElement.scrollHeight ) {
@@ -34,14 +34,14 @@ const Job = () => {
         setPage((prev)=>prev+1);
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
   useEffect(() => {
     window.addEventListener("scroll", hadleInfiniteScroll);
     return ()=> window.removeEventListener("scroll",hadleInfiniteScroll);
   }, [])
-  // // console.log(jobs)
+  // // // console.log(jobs)
   let navigate = useNavigate();
   return (
     <div className={jobStyle.mainPage} >
@@ -50,7 +50,7 @@ const Job = () => {
         {jobs?.map((i) => {
           var date = new Date();
           date = i?.jobPostedAt;
-          // console.log(i?.Address[0]?.City)
+          // // console.log(i?.Address[0]?.City)
           const ref = (e)=>{
             navigate(`/jobs/${e}`);
           }

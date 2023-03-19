@@ -14,7 +14,7 @@ const Admin = () => {
     let accessToken = user?.accessToken;
     let navigate = useNavigate();
     if(user?.other?.role !== "Admin"){
-        // console.log("not a admin")
+        // // console.log("not a admin")
         navigate("/");
     }
     const [currentMessage, setCurrentMessage] = useState('');
@@ -28,10 +28,10 @@ const Admin = () => {
     const forestRef = ref(storage, '1675441554141 DSCF_6026.jpg');
     getMetadata(forestRef)
         .then((metadata) => {
-            // // console.log(metadata.size)
+            // // // console.log(metadata.size)
         })
         .catch((error) => {
-            // // console.log(error)
+            // // // console.log(error)
         });
     // var interval = setInterval(() => {
     //     var curHour = today.getHours();
@@ -86,7 +86,7 @@ const Admin = () => {
             December = December+1;
         }
     })
-    // console.log(January)
+    // // console.log(January)
     var curHr = today.getHours();
     useEffect(() => {
         if (curHr > 3 && curHr < 12) {
@@ -97,7 +97,7 @@ const Admin = () => {
             setCurrentMessage('Good Evening, ');
         }
     }, [curHr])
-    // // console.log({hour:curHr,day:today})
+    // // // console.log({hour:curHr,day:today})
     let name = '';
     name = user?.other?.name;
     let firstname = [];
