@@ -128,7 +128,10 @@ const Nav = (props) => {
                         <Link to="/inbox"><span className="material-icons"> chat </span></Link>
                     </div>}
                     {!user?.other && <>
-                    <Link to="/login" title='Login' className='mainScreen' style={{fontSize:"12px"}} ><span className='material-icons'>login</span></Link></>}
+                        <div className="header__option">
+                            <Link to="/login" title='Login' className='mainScreen' style={{fontSize:"12px"}} ><span className='material-icons'>login</span></Link>
+                        </div>
+                    </>}
 
                 </div>
 
