@@ -194,7 +194,6 @@ const Home = (props) => {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        toast.loading(`${progress} uploaded!`);
         // // console.log(progress)
         switch (snapshot.state) {
           case 'paused':
@@ -211,10 +210,22 @@ const Home = (props) => {
       () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
           // // // console.log('File available at', downloadURL);
-          fetch(`/api/create/post`, { method: "POST", headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: createPost.caption, image: downloadURL, userId: user?.other?._id }) }).then((res) => {
-            // // // console.log(res);
+          const res = await fetch(`/api/create/post`, { method: "POST", headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: createPost.caption, image: downloadURL, userId: user?.other?._id }) }).then((res) => {
+            if(res.status === 200){
+                toast.success('Uploaded successfully!', {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
+                  progress: 0,
+                  theme: "light",
+              });
+              navigate(0);
+            }
           })
         });
       }
@@ -223,6 +234,19 @@ const Home = (props) => {
 
   return (
     <div>
+      <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                style={{zIndex:"9999999999999999999" }}
+            />
       {/* <!-- main body starts --> */}
       <div className="main__body">
         {/* <!-- sidebar starts --> */}
