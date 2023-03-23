@@ -128,8 +128,7 @@ const Nav = (props) => {
                         <Link to="/inbox"><span className="material-icons"> chat </span></Link>
                     </div>}
                     {!user?.other && <>
-                    <Link to="/signup" className='mainScreen' style={{fontSize:"12px",marginRight:"5px"}} >Create Account</Link>
-                    <Link to="/login" className='mainScreen' style={{fontSize:"12px"}} >Login</Link></>}
+                    <Link to="/login" title='Login' className='mainScreen' style={{fontSize:"12px"}} ><span className='material-icons'>login</span></Link></>}
 
                 </div>
 
@@ -142,8 +141,7 @@ const Nav = (props) => {
                         />
                         <h4>{username}</h4>
                     </div> : <>
-                    <Link to="/signup" className='pcScreen' style={{fontSize:"12px",marginRight:"5px"}} >Create Account</Link>
-                    <Link to="/login" className='pcScreen' style={{fontSize:"12px"}} >Login</Link></>}
+                    <Link to="/login" className='pcScreen' title='Login' style={{fontSize:"12px"}} ><span className='material-icons'>login</span></Link></>}
 
                     <div className='dropdown'>
                         <span className="material-icons dropbtn2" style={{ fontSize: "20px" }}> notifications_active</span>
