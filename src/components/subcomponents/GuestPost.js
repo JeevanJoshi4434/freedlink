@@ -28,6 +28,7 @@ const GuestPost = (props) => {
   const [Data, setData] = useState();
   const [user, setUser] = useState();
   const [Like, setLike] = useState();
+  const [loginMessage, setLoginMessage] = useState(false);
   const [notifyUser, setNotifyUser] = useState([]);
   const [postImage, setPostImage] = useState([]);
   const [senderProfile, setSenderProfile] = useState('');
@@ -40,6 +41,11 @@ const GuestPost = (props) => {
     if(seeMore){
       setSeeMore(false);
       // console.log("Clicked!")
+    }
+  }
+  const close = async()=>{
+    if(loginMessage){
+      setLoginMessage(false)
     }
   }
   let  postImg = image;
@@ -82,18 +88,22 @@ const sharePost = (title,text,url)=>{
         { !seeMore && <div className="post__bottom">
            {<p style={{whiteSpace:"pre-wrap"}} >{caption} </p>}
         </div>}
-        <div className="post__bottom">
-          <p onClick={()=>navigate('/login')} style={{color:"#0000a7",fontSize:"12px",marginLeft:"10px",cursor:"pointer"}}>wants to like & follow? login with us.</p>
-        </div>
 
         <div className="post__image">
           <img style={{objectFit:"contain", maxHeight:"640px"}} src={image} alt="" />
+          {loginMessage && <div style={{display:'flex',justifyContent:'space-around',backgroundColor:'#fff',width:'100%',margin:"10px 0px"}}>
+            <p onClick={()=>close()} style={{cursor:'pointer'}} >&times;</p>
+            <p>Please login to like the post.</p>
+            <div>
+              <button onClick={()=>navigate('/login')} style={{backgroundColor:'#fff',borderRadius:'50px',border:"none",width:'50px',height:'25px',color:'blue'}}>Login</button>
+            </div>
+          </div>}
         </div>
 
         <div className="post__options">
-          <div className="post__option">
+          <div onClick={()=>setLoginMessage(true)} className="post__option">
             <span className="material-icons" style={{ color: `${Like}` }}> favorite </span>
-            <p>{likeNo} Likes</p>
+            <p >{likeNo} Likes</p>
           </div>
 
           {/* <div className="post__option">
