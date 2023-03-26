@@ -27,21 +27,23 @@ const handleLogin = (e)=>{
   login(dispatch, {email:user.email.toLowerCase(), password:user.password},navigate);
 }
   return (
-    <div className='mainContainerForsignup'>
+    <div className='mainContainerForsignup container'>
       <ToastContainer />
-      <div className='submainContainer'>
-        <div className='mobileScreen' style={{flex:1}}>
-          <p className='logoText'>Freed<span  className='part' style={{color:"#0000a7"}}>Links</span></p>
-          <p className='introtext'>Connect with the <span style={{color:"#0000a7"}} className='part'>right people</span>.</p>
+      <div className='row'>
+        <div className='col-sm-12 col-md-5'>
+          <p className='logoText'>Freed<span  className='colorBlue'>Links</span></p>
+          <p className='introtext'>Connect with the <span className='colorBlue'>right people</span>.</p>
         </div>
-        <div className='mobileScreen2' style={{flex:3}}>
-          <p className='createaccountTxt'>Login To Your Account</p>
+        <form className='col-sm-12 col-md-7 c-gray rounded'>
+          <p className='createaccountTxt'>Login To Your Account...</p>
           <input type="email" id="#email" placeholder='email' name='email' onChange={handleInputs} value={user.email.toLowerCase()} className='inputText'/>
           <input type="password" placeholder='Password' name='password' onChange={handleInputs} value={user.password} id='#password' className='inputText'/>
-          <button className='btnforsignup' onClick={handleLogin} >Signin</button>  
-          <p className='signinportalbtn'>New Here?<br/><span><Link to='/signup'>Create Account.</Link></span></p>
-          <p className='signinportalbtn'><span><Link to='/forgotpassword'>forgot password?</Link></span></p>
-        </div>
+          <button type='submit' className='btnforsignup' onClick={handleLogin} >Signin</button>  
+          <div >
+          <p className='signinportalbtn text-center'>New Here?<br/><span><Link to='/signup'>Create Account.</Link></span></p>
+          <p className='signinportalbtn text-center'><span><Link to='/forgotpassword'>forgot password?</Link></span></p>
+          </div>
+        </form>
       </div>
     </div>
   )

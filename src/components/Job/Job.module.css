@@ -3,17 +3,51 @@
     justify-content: center;
     padding: 10px;
 }
-
+@media screen and (min-width:769px) {
+    .Left{
+        flex:0.33;
+        padding: 25px 10px;
+    }
+    .mainPage > main{
+        flex: 1;
+    }
+    .Right{
+        flex: 0.33;
+        padding: 10px 25px ;
+    }
+}
+@media screen and (min-width:1300px) {
+    .Left{
+        flex:0.33;
+        padding: 25px 10px;
+    }
+    .Right{
+        flex: 0.33;
+        padding: 10px 25px ;
+    }
+    .mainPage > main{
+        flex: 1;
+    }
+}
 .mainPage > main{
     height: 100%;
     width: 600px;
+    flex: 1;
     background-color: #fff;
     display: flex;
     justify-content: space-between;
     padding: 10px;
     flex-direction: column;
 }
-
+@media screen and (max-width:1022px) {
+ 
+.Right{
+    display: none;
+}
+.Left{
+    display: none;
+}   
+}
 .Image > img{
     width: 50px;
     height: 50px;
@@ -28,19 +62,24 @@
 .Detail{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    margin-bottom: 0px;
 }
 .Detail > h4{
     font-size: 10px;
+    margin-bottom: 0px;
 }
 .Detail > h6{
     font-size: 9px;
+    margin-bottom: 0px;
 }
 
 .Detail > div > p{
     color: #aaa;
     font-size: 10px;
-
+    margin-bottom: 0px;
+}
+.Detail > div{
+    margin-bottom: 0px;
 }
 .jobRight > p{
     font-size: 10px;

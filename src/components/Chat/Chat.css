@@ -18,9 +18,10 @@
 
 .chat_header {
     padding: 20px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid lightgray;
+display: flex;
+align-items: center;
+box-shadow: 6px 8px 30px #02038254;
+border-radius: 8px;
 }
 
 .chat_headerInfo {
@@ -63,9 +64,19 @@
 
 .chat_name {
     position: absolute;
-    top: -15px;
-    font-weight: 800;
-    font-size: xx-small;
+top: -15px;
+font-weight: 800;
+font-size: xx-small;
+min-width: max-content;
+right: 4px;
+}
+.chat_name_myself {
+    position: absolute;
+top: -15px;
+font-weight: 800;
+font-size: xx-small;
+min-width: max-content;
+left: 4px;
 }
 
 
@@ -81,27 +92,37 @@
 .chat_footer > .sendControl {
     flex: 1;
     display: flex;
+    align-items: center;
+    padding: 10px 10px;
 }
 
-.sendControl > input {
+.sendControl > textarea {
     flex: 0.90;
+    resize:none;
     border-radius: 38px;
-    padding: 10px;
     border: none;
     outline-style: none;
+    padding: 0px 15px;
 }
 
 .sendControl > .buttonContainer{
  flex: 0.10;
  margin: 10px 30px;
 }
+.buttonContainer > button:hover{
+    background-color: transparent;
+}
 .buttonContainer > button{
-    color: white;
-    background-color: #0000a7;
+    /* color: white; */
+    background-color: transparent;
+    color: #0000a7;
     height: 30px;
     width: 70px;
+    border: none;
 }
-
+.buttonContainer > button > .material-icons{
+    font-size: 30px;
+}
 .chatSender{
     margin-left:   auto ;
 }

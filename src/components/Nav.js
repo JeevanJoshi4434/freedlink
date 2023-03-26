@@ -98,7 +98,7 @@ const Nav = (props) => {
 
     const [data, setData] = useState([]);
     return (
-        <div className='nav'>
+        <div className='Topmainnav'>
             {/* <!-- header starts --> */}
             <div className="header">
                 <div className="header__left">
@@ -109,7 +109,7 @@ const Nav = (props) => {
                         /></Link>
                     <div className="header__input">
                         <span className="material-icons"> search </span>
-                        <input type="text" placeholder="Search Freedlink" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => { setSearch(e.target.value); }} />
+                        <input type="text" style={{fontSize:'10px'}} placeholder="Search Freedlink" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => { setSearch(e.target.value); }} />
                     </div>
                 </div>
 
@@ -144,17 +144,16 @@ const Nav = (props) => {
                         />
                         <h4>{username}</h4>
                     </div> : <>
-                    <Link to="/login" className='pcScreen' title='Login' style={{fontSize:"12px"}} ><span className='material-icons'>login</span></Link></>}
-
+                    <Link to="/login" className='pcScreen' title='Login' style={{fontSize:"12px"}} ><span class="material-icons" style={{color:"navy"}}>lock_person</span></Link></>}
                     <div className='dropdown'>
                         <span className="material-icons dropbtn2" style={{ fontSize: "20px" }}> notifications_active</span>
                         <div className='dropdown-content2 button-hover' style={{ width: "260px", marginLeft: "-171px", height: "450px", overflow: "auto", justifyContent: "start", alignItems: "flex-start" }}>
                            {!user?.other && <>
                             <div style={{ display: "flex" }} >
-                                <img src={logo} style={{ backgroundColor: "#aaa", height: "40px", width: "40px", borderRadius: "50px", marginRight: "5px" }} /><span><p style={{ fontSize: "12px", objectFit: "cover" }} >New here? Create Account.</p> </span><button style={{ height: "20px", width: "50px", backgroundColor: "rgba(123,123,123,0)", border: "1px solid black", borderRadius: "50px" }}>Signup</button>
+                                <img src={logo} style={{ backgroundColor: "#aaa", height: "40px", width: "40px", borderRadius: "50px", marginRight: "5px" }} /><span><p style={{ fontSize: "12px", objectFit: "cover" }} >New here? Create Account.</p> </span><button style={{ height: "20px", width: "50px", fontSize:'10px',backgroundColor: "rgba(123,123,123,0)", border: "1px solid black", borderRadius: "50px" }} onClick={()=>history('/signup')} >Signup</button>
                             </div>
                             <div style={{ display: "flex" }} >
-                                <img src={logo} style={{ backgroundColor: "#aaa", height: "40px", width: "40px", borderRadius: "50px", marginRight: "5px" }} /><span><p style={{ fontSize: "12px", objectFit: "cover" }} >Login and access all widgets.</p> </span><button style={{ height: "20px", width: "50px", backgroundColor: "rgba(123,123,123,0)", border: "1px solid black", borderRadius: "50px" }}>Login</button>
+                                <img src={logo} style={{ backgroundColor: "#aaa", height: "40px", width: "40px", borderRadius: "50px", marginRight: "5px" }} /><span><p style={{ fontSize: "12px", objectFit: "cover" }} >Login and access all widgets.</p> </span><button style={{ height: "20px", width: "50px",fontSize:'10px', backgroundColor: "rgba(123,123,123,0)", border: "1px solid black", borderRadius: "50px" }}  onClick={()=>history('/login')} >Login</button>
                             </div>
                            </>}
                             {notifications?.map((i) => {

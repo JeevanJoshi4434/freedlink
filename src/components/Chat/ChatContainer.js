@@ -39,11 +39,13 @@ const ChatContainer = (props) => {
       useEffect(()=>{
         scrollRef.current?.scrollIntoView({behavior:"smooth"})
       },[messages])
-      const handleSendMessage = ()=>{
-        const currentMessage={
-            myself:true,
-            message:inputmessage
-        };
+      const handleSendMessage = async()=>{
+        if(inputmessage!== ''){
+
+            const currentMessage={
+                myself:true,
+                message:inputmessage
+            };
         socket.current.emit("send-msg",{
             to:props.currentUser?._id,
             from:id,
@@ -53,8 +55,13 @@ const ChatContainer = (props) => {
                 from:id,
                 to:props.currentUser?._id,
                 message:inputmessage  
-            })})
+            })}).then((res)=>{
+                if(res?.status === 200){
+                    setInputmessage('');
+                }
+            })
             setMessages(messages.concat(currentMessage))
+        }
       }
 
       useEffect(() => {
@@ -90,7 +97,7 @@ const ChatContainer = (props) => {
 
                     <div ref={scrollRef} className={`chat_message ${i?.myself && `chatSender`}`} >
                         <p>
-                            <span className='chat_name'>{i?.myself ? user?.other?.name : props.currentUser?.name}</span>
+                            {i?.myself ?<span className='chat_name'> {user?.other?.name}</span> :<span className='chat_name_myself'> {props.currentUser?.name} </span>}
                             {i?.message}
                         </p>
                     </div>
@@ -99,9 +106,9 @@ const ChatContainer = (props) => {
 
                 <div className='chat_footer'>
                     <div className='sendControl'>
-                        <input placeholder="type a message" type="text" onChange={(e)=>setInputmessage(e.target.value)} />
+                        <textarea placeholder="type a message" type="text" value={inputmessage} onChange={(e)=>setInputmessage(e.target.value)} />
                         <div className='buttonContainer'>
-                            <button onClick={handleSendMessage}>Send</button>
+                            <button onClick={handleSendMessage}><span className='material-icons'>near_me</span></button>
                         </div>
                     </div>
                 </div>

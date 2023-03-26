@@ -38,8 +38,8 @@ const Post = (props) => {
   const [senderProfile, setSenderProfile] = useState('');
   const [saved, setSaved] = useState(false);
   const [removeSaved, setRemoveSaved] = useState(false);
-  const about = caption.split(' ');
-  const aboutCount = about.length;
+  const about = caption?.split(' ');
+  const aboutCount = about?.length;
   const [seeMore, setSeeMore] = useState(aboutCount > 40 ? true : false);
   const seeMoreAction = ()=>{
     if(seeMore){
@@ -155,7 +155,7 @@ getuserimg();
     getuser();
   }, [userId])
   useEffect(()=>{
-    if(props?.like.includes(user_Id)){ 
+    if(props?.like?.includes(user_Id)){ 
       setLike(liked);
     }
     else {
@@ -243,7 +243,7 @@ getuserimg();
         </div>
 
         { seeMore===true && <div className="post__bottom">
-          {aboutCount > 40 && <p style={{whiteSpace:"pre-wrap"}} >{caption.slice(0,40)}...<span style={{color:"#0000ff",cursor:"pointer"}} onClick={()=>seeMoreAction()} >read more</span> </p>} 
+          {aboutCount > 40 && <p style={{whiteSpace:"pre-wrap"}} >{caption?.slice(0,40)}...<span style={{color:"#0000ff",cursor:"pointer"}} onClick={()=>seeMoreAction()} >read more</span> </p>} 
           
         </div>}
         { !seeMore && <div className="post__bottom">

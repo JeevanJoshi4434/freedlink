@@ -1,6 +1,7 @@
 .mainContainerForsignup{
     background-color: #f0f2f5;
     height: 100vh;
+    padding-top: 13%;
 }
 .submainContainer{
     display: flex;
@@ -38,6 +39,9 @@ input{
     padding: 10px;
     border: none;
     border-radius: 10px;
+    outline-width: 0px;
+    height: 40px;
+    box-shadow: 5px 7px 25px #e8e0e0;
 }
 
 .btnforsignup{
@@ -47,7 +51,11 @@ input{
     padding-top: 5px;
     padding-bottom: 5px;
     height: 40px;
+    border:none;
+    color:#fff;
+    background-color: #0000af;
     width: 50%;
+    margin-bottom: 10px;
     cursor: pointer;
 }
 .mobileScreen{
@@ -94,14 +102,13 @@ input{
 }
 
 .signinportalbtn{
-    margin-left: 30%;
 }
 
 .part{
     color: rgb(167, 127, 127)
 }
 
-@media screen and (max-width:430px) {
+@media screen and (max-width:760px) {
     .submainContainer{
         flex-direction: column;
         justify-content: center;

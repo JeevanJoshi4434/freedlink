@@ -31,7 +31,8 @@ const Home = (props) => {
   const [suggestion, setSuggestion] = useState([]);
   // // // console.log(suggestion)
   const [file, setFile] = useState('');
-  const [createPost, setCreatePost] = useState({ caption: '' })
+  const [currentUploadedPost, setCurrentUploadedPost] = useState([]);
+  const [Imagecaption, setCaption] = useState('')
   const [preImage, setPreImage] = useState(null)
   const [Loading, setLoading] = useState(true);
   // WELCOME UTILITIES
@@ -137,6 +138,7 @@ const Home = (props) => {
     GuestPostget();
   }, [page])
   // console.log(post)
+  console.log(currentUploadedPost);
   const hadleInfiniteScroll = async () => {
     // // console.log("ScrollHeight" + document.documentElement.scrollHeight);
     // // console.log("basicHeight" + window.innerHeight);
@@ -176,12 +178,6 @@ const Home = (props) => {
     getSuggestion();
   }, [])
   let id, value;
-  const handleInputs = (e) => {
-    id = e.target.id;
-    value = e.target.value;
-
-    setCreatePost({ ...createPost, [id]: value });
-  }
   // // // console.log(file)
   const handleUploadImg = (e) => {
     e.preventDefault();
@@ -212,26 +208,31 @@ const Home = (props) => {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
           // // // console.log('File available at', downloadURL);
-          const res = await fetch(`/api/create/post`, { method: "POST", headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: createPost.caption, image: downloadURL, userId: user?.other?._id }) }).then((res) => {
+          const res = await fetch(`/api/create/post`, { method: "POST", headers: { "Content-Type": "application/Json" }, body: JSON.stringify({ title: Imagecaption, image: downloadURL, userId: user?.other?._id }) }).then((res)=>{
             if(res.status === 200){
-                toast.success('Uploaded successfully!', {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: false,
+              toast.success('Uploaded successfully!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
                   draggable: true,
                   progress: 0,
                   theme: "light",
-              });
-              navigate(0);
-            }
-          })
+                });
+                  setPreImage(null);
+                  setCaption('');
+                  return res.json();
+                
+                }
+              })
+              setCurrentUploadedPost((prev)=>[...prev,res]);
         });
       }
-    );
+      );
   }
-
+  
+  console.log(currentUploadedPost)
   return (
     <div>
       <ToastContainer
@@ -360,7 +361,7 @@ const Home = (props) => {
                 src={user?.other?.img} alt=""
               />
               <form>
-                <textarea style={{ width: "95%", border: "none", height: "100%", outline: "none", marginLeft: "10px" }} className="messageSender__input" id='caption' placeholder="What's on your mind?" type="text" onChange={handleInputs} value={createPost.caption} />
+                <textarea style={{ width: "95%", border: "none", height: "100%", outline: "none", marginLeft: "10px",fontSize:'10px' }} className="messageSender__input" id='caption' placeholder="What's on your mind?" type="text" onChange={(e)=>setCaption(e.target.value)} value={Imagecaption} />
               </form>
             </div>
 
@@ -378,7 +379,7 @@ const Home = (props) => {
                 </div>
 
                 <div className="post__bottom">
-                  <p>{createPost.caption}</p>
+                  <p>{Imagecaption}</p>
                 </div>
 
                 <div className="post__image">
@@ -401,6 +402,79 @@ const Home = (props) => {
               </div>
             </div>
           </div>}
+          {currentUploadedPost?.reverse()?.map((i) =>
+            { 
+              console.log(i)
+              let mo = i?.timestamp[0]?.month;
+                let time = i?.timestamp[0]?.hour;
+                let month = '';
+                if(mo == 1){
+                  month = 'Jan'
+                }else if(mo == 2){
+                  month = 'Feb';
+                }else if(mo == 3){
+                  month = 'March';
+                }else if(mo == 4){
+                  month = 'April';
+                }else if(mo == 5){
+                  month = 'May';
+                }else if(mo == 6){
+                  month = 'June';
+                }else if(mo == 7){
+                  month = 'July';
+                }else if(mo == 8){
+                  month = 'Aug';
+                }else if(mo == 9){
+                  month = 'Sep';
+                }else if(mo == 10){
+                  month = 'Oct';
+                }else if(mo == 11){
+                  month = 'Nov';
+                }else if(mo == 12){
+                  month = 'Dec';
+                }
+                if(time == 13){
+                  time = 1;
+                }else if(time == 14){
+                  time = 2;
+                }else if(time == 15){
+                  time = 3;
+                }else if(time == 16){
+                  time = 4;
+                }else if(time == 17){
+                  time = 5;
+                }else if(time == 18){
+                  time = 6;
+                }else if(time == 19){
+                  time = 7;
+                }else if(time == 20){
+                  time = 8;
+                }else if(time == 21){
+                  time = 9;
+                }else if(time == 22){
+                  time = 10;
+                }else if(time == 23){
+                  time = 11;
+                }else if(time == 0){
+                  time = 12;
+                }
+                let stamp = 'AM';
+                if(i?.timestamp[0]?.hour > 11 || i?.timestamp[0]?.hour < 0){
+                   stamp = 'PM';
+                  }
+
+              return(
+              <>
+                <Post key={i?._id} socket={i?.socket} username={i?.name} postId={i?._id} like={i?.like} likeNo={i?.like?.length} commentNo={i?.comments?.length} userId={i?.user} caption={i?.title} image={i?.image} profile={i?.avatar} comments={""}
+                  time={`${time} ${stamp}`} date={`${i?.timestamp[0]?.day} ${month}`}
+                />
+
+              </>
+            )
+          }
+          )
+
+          }
           {/* <!-- message sender ends --> */}
           {/* preview Modal */}
           {/* {preImage !== null &&
@@ -506,7 +580,7 @@ const Home = (props) => {
                     src={logo} alt=""
                   />
                   <div className="post__topInfo">
-                    <Link to={`https://freedlinks.com/`} ><h3>Freedlinks</h3></Link>
+                    <Link to={`https://${process.env.REACT_APP_CLIENTPORT}`} ><h3>Freedlinks</h3></Link>
                     <p>Welcome, scroll down to view more posts.</p>
                   </div>
                   <div style={{ position: "absolute", right: "10px" }} className='dropdown' >

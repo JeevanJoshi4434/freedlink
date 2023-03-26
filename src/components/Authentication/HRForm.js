@@ -100,7 +100,7 @@ const HRForm = () => {
         }
     }
     return (
-        <div style={{ height: "100vh", backgroundColor: "#f8f8fb", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div style={{ height: "100%", backgroundColor: "#f8f8fb", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <ToastContainer
                 position="top-center"
                 autoClose={2000}
@@ -113,34 +113,34 @@ const HRForm = () => {
                 pauseOnHover
                 theme="dark"
             />
-            <div style={{
+            <div className='mt-4 mb-4' style={{
                 backgroundColor: "white",
                 width: "450px",
-                height: "600px",
+                height: "100%",
                 borderRadius: "12px",
                 padding: "30px 30px"
             }} >
-                <div style={{ margin: "20px 0px" }} >
-                    <h4 style={{ fontSize: "22px", fontWeight: "400" }}  >HR Registration</h4>
+                <div className="my-2" >
+                    <h4>HR Registration</h4>
                     <p style={{ fontSize: "14px", color: "#8d8d8d" }} >All fields are required to be filled.</p>
                 </div>
                 <div style={{ marginTop: "40px", display: "flex", flexDirection: "column" }} >
-                    <h4 style={{ fontSize: "12px", fontWeight: "500" }} >GST number*</h4>
-                    <input onChange={(e) => setGSTNum(e.target.value)} type="text" placeholder='GST Number' required style={{ border: "1px solid #8d8d8d", borderRadius: "8px", outlineWidth: "0", backgroundColor: "rgba(123,123,123,0)", height: "40px" }} />
-                    <h4 style={{ fontSize: "12px", fontWeight: "500" }} >Company Name*</h4>
-                    <input onChange={(e) => setCompanyName(e.target.value)} required type="text" placeholder='Your Company Name' style={{ border: "1px solid #8d8d8d", borderRadius: "8px", outlineWidth: "0", backgroundColor: "rgba(123,123,123,0)", height: "40px" }} />
-                    <h4 style={{ fontSize: "12px", fontWeight: "500" }} >Office Address*</h4>
-                    <input onChange={(e) => setAddress(e.target.value)} required type="text" placeholder='Office Address' style={{ border: "1px solid #8d8d8d", borderRadius: "8px", outlineWidth: "0", backgroundColor: "rgba(123,123,123,0)", height: "40px" }} />
-                    <h4 style={{ fontSize: "12px", fontWeight: "500" }} >Phone No.*</h4>
-                    <input onChange={(e) => setPhoneNo(e.target.value)} required type="text" placeholder='Phone No.' style={{ border: "1px solid #8d8d8d", borderRadius: "8px", outlineWidth: "0", backgroundColor: "rgba(123,123,123,0)", height: "40px" }} />
-                    <h4 style={{ fontSize: "12px", fontWeight: "500" }} >Secondory Email*</h4>
-                    <input onChange={(e) => setSEmail(e.target.value)} required type="email" placeholder='Secondory Email' style={{ border: "1px solid #8d8d8d", borderRadius: "8px", outlineWidth: "0", backgroundColor: "rgba(123,123,123,0)", height: "40px" }} />
-                    <h4 style={{ fontSize: "12px", fontWeight: "500" }} >Sector/Category*</h4>
-                    <input onChange={(e) => setSector(e.target.value)} required type="text" placeholder='IT etc...' style={{ border: "1px solid #8d8d8d", borderRadius: "8px", outlineWidth: "0", backgroundColor: "rgba(123,123,123,0)", height: "40px" }} />
-                    <p style={{ fontSize: "14px", color: "#8d8d8d" }}>* required fields</p>
+                <label className='py-2'>GST number*</label>
+                    <input onChange={(e) => setGSTNum(e.target.value)} type="text" placeholder='GST Number' required className='hrFrominput' />
+                    <label className='py-2'>Company Name*</label>
+                    <input onChange={(e) => setCompanyName(e.target.value)} required type="text" placeholder='Your Company Name' className='hrFrominput' />
+                    <label className='py-2'>Office Address*</label>
+                    <input onChange={(e) => setAddress(e.target.value)} required type="text" placeholder='Office Address' className='hrFrominput' />
+                    <label className='py-2'>Phone No.*</label>
+                    <input onChange={(e) => setPhoneNo(e.target.value)} required type="text" placeholder='Phone No.' className='hrFrominput' />
+                    <label className='py-2'>Secondory Email*</label>
+                    <input onChange={(e) => setSEmail(e.target.value)} required type="email" placeholder='Secondory Email' className='hrFrominput' />
+                    <label className='py-2'>Sector/Category*</label>
+                    <input onChange={(e) => setSector(e.target.value)} required type="text" placeholder='IT etc...' className='hrFrominput' />
+                    <p style={{ fontSize: "14px", color: "#8d8d8d",marginTop:'8px'}}>* required fields</p>
                     <p style={{ fontSize: "14px", color: "#8d8d8d" }}>Your senstive informations are safe with Us.</p>
-                    {submitButton && <button onClick={()=>submit()} style={{ marginTop: "10px", backgroundColor: "#6e00ff", border: "none", width: "100px", color: "white", height: "40px", borderRadius: "50px", display: "flex", justifyContent: "center", alignItems: "center" }} >Submit</button>}
-                    {!submitButton && <button onClick={()=>warningg()} style={{ marginTop: "10px", backgroundColor: "#6e00ff", border: "none", width: "100px", color: "white", height: "40px", borderRadius: "50px", display: "flex", justifyContent: "center", alignItems: "center" }} >Submit</button>}
+                    {submitButton && <button onClick={()=>submit()} style={{ marginTop: "10px", backgroundColor: "#6e00ff", border: "none", width: "100px", color: "white", height: "40px", borderRadius: "50px", display: "flex", justifyContent: "center", alignItems: "center",marginBottom:'50px'  }} >Submit</button>}
+                    {!submitButton && <button onClick={()=>warningg()} style={{ marginTop: "10px", backgroundColor: "#6e00ff", border: "none", width: "100px", color: "white", height: "40px", borderRadius: "50px", display: "flex", justifyContent: "center", alignItems: "center",marginBottom:'50px' }} >Submit</button>}
                 </div>
             </div>
         </div>

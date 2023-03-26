@@ -48,7 +48,7 @@ const Sidebar = (props) => {
         {users?.map((item) => (
           <div>
             {item.followings._id !== id &&
-              <div className='sidebarChat' onClick={(e)=>handleUser(item?.followings)} key={item.followings?._id}>
+              <div className='sidebarChat mx-2' onClick={(e)=>handleUser(item?.followings)} key={item.followings?._id}>
                 <img src={item.followings?.img} style={{ height: '50px', width: '50px', borderRadius: '50%' }} />
                 <div className='sidebarChat_info'>
                   <h2>{item.followings?.name}</h2>

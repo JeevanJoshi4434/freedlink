@@ -1,14 +1,30 @@
-.app{
+.app {
   background-color: #f1f2f5;
   width: fit-content;
   min-width: 100vw;
 }
-a{
+ .colorBlue{
+  color: #0000a7 !important;
+ }
+a {
   color: black;
   text-decoration: none;
 }
-.app_body{
+
+.app_body {
   display: flex;
+}
+.bc-white{
+  background-color: #fff;
+}
+.bc-gray{
+  background-color: #8d8d8d;
+}
+.c-white{
+  background-color: #fff;
+}
+.c-gray{
+  color: #8d8d8d;
 }
 .close-button {
   align-self: center;
@@ -33,7 +49,7 @@ a{
   z-index: 99999999;
   width: 80%;
   left: 30px;
-  bottom:40px;
+  bottom: 40px;
   max-width: 400px;
   box-shadow: 0 0 5px #eee;
   transform: translateY(-200%);
@@ -72,20 +88,20 @@ a{
   grid-gap: 20px;
 }
 
-.modal-body > .row {
+.modal-body>.row {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
 }
 
-.modal-body > .row > div {
+.modal-body>.row>div {
   align-self: center;
   justify-self: center;
   width: 100%;
 }
 
-.modal-body > .row > div > button {
+.modal-body>.row>div>button {
   height: 35px;
   width: 100%;
   padding: 0 25px;
@@ -120,9 +136,57 @@ a{
   font-weight: 600;
 }
 
-.material-icons,p{
-  -webkit-user-select: none; /* Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+/Edge */
-user-select: none; /* Standard */
+.hrFrominput {
+  border-radius: 10px;
+  outline-width: 0px;
+  background-color: rgba(123, 123, 123, 0);
+  height: 40px;
+  box-shadow: 5px 7px 25px #e8e0e0;
+  margin: 10px 3px;
+  padding: 0px 10px;
+}
+.hrFrominput:focus-visible {
+  border: none !important;
+  outline: none;
+}
+.hrFrominput:focus {
+  border-radius: 10px;
+  outline-width: 0px;
+  background-color: rgba(123, 123, 123, 0);
+  height: 40px;
+  box-shadow: 5px 7px 25px #bdbdbd;
+  margin: 10px 3px;
+  padding: 0px 10px;
+  transition: 0.6s linear;
+}
+
+.material-icons,
+p {
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
+}
+h4,h3{
+  font-size: 12px;
+}
+main::-webkit-scrollbar{
+  display:none;
+}
+main::-webkit-scrollbar{
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+}
+p{
+  margin-bottom: 0;
+}
+.show{
+  z-index: 9999;
+}
+.profileControllers > button{
+  font-size: 14px;
 }

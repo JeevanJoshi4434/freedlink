@@ -16,15 +16,16 @@ router.post("/create/post", async (req, res) => {
     var minute = today.getMinutes();
     var seconds = today.getSeconds();
     var Miliseconds = today.getMilliseconds();
-    let uploadedAt =   `${day} ${month} ${year} ${hour} ${minute} ${seconds} ${Miliseconds}`;
+    let thisMonth = month + 1;
+    let uploadedAt =   `${day} ${thisMonth} ${year} ${hour} ${minute} ${seconds} ${Miliseconds}`;
     try {
         let { title, image } = req.body;
         let newpost = await Post.create({
             title, image, user: req.body.userId,createdAt:today,uploadedAt:uploadedAt,timestamp:[{
-                year:year,month:month,day:day,hour:hour,minute:minute
+                year:year,month:thisMonth,day:day,hour:hour,minute:minute
             }]
         })
-        res.status(200).json({ newpost, success: true });
+        res.status(200).json(newpost);
     } catch (error) {
         return res.status(500).json(`"Internal server error" ${error}`)
     }

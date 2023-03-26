@@ -2,7 +2,7 @@
     margin: 0;
     box-sizing: border-box;
   }
-  .nav{
+  .Topmainnav{
     position: sticky;
     z-index: 9999;
     top: 0;

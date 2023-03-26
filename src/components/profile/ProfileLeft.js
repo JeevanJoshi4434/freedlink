@@ -7,6 +7,7 @@ import './profile.css';
 import { RemoveEdu, RemoveProject, RemoveWork } from './ProfileAPIs';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styles from '../css/Pmargin.module.css';
 const ProfileLeft = (props) => {
     let { username, bio, cover, profile, id, shortbio, followers, following, workExperience, Education, company, email } = props;
     let navigate = useNavigate();
@@ -182,8 +183,8 @@ const ProfileLeft = (props) => {
           }
     }
     return (
-        <div>
-            <div className='leftBar-notification'>
+        <div className='' >
+            <div className='leftBar-notification' >
                 <div className='NotificationsContainer'>
                     <img src={cover} className="ProfileCover" alt="" />
                     <div style={{ display: "flex", alignItems: "center", marginTop: "-25px" }}>
@@ -193,7 +194,7 @@ const ProfileLeft = (props) => {
                             <p style={{ marginLeft: "9px", marginTop: "20px" }}>{username}</p>
                             <p style={{ marginLeft: "9px", fontSize: "10px", color: "#aaa" }}>{shortbio}</p>
                             {id === userDetail?._id ? <div className='profileControllers'>
-                                <button onClick={onclick} className='EditProfilebtn'>Edit profile</button>
+                                <button onClick={()=>props?.handleOpenModal(true)} className='EditProfilebtn' >Edit profile</button>
                                 {/* <button onClick={onclick} className='addSectionbtn'>Share Profile</button> */}
                                 {/* <span onClick={onclick} className='addSectionbtn'></span> */}
                                 <div  onClick={moreVertOpen} ><span className='material-icons' style={{ fontSize: "13px" }}>more_horiz</span></div>
@@ -227,14 +228,17 @@ const ProfileLeft = (props) => {
                     <div className='aboutUser' style={{ width: "290px" }}>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             <div style={{ display: "flex", flexDirection: "row", justifyContent: 'space-around', fontSize: "12px" }}>
-                                <div style={{ cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center" }} >
+                                <label htmlFor="followerbutton" style={{ cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center" }}  >
                                     <p style={{ marginLeft: "9px", marginTop: "15px" }}>Followers</p>
                                     <span>{followers}</span>
-                                </div>
-                                <div style={{ cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                    <button data-bs-toggle="modal"  style={{display:'none'}} name='followerbutton' id='followerbutton' data-bs-target="#followerModal" >folow</button>
+                                    
+                                </label>
+                                <label htmlFor='followingbtn' style={{ cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center" }}>
                                     <p style={{ marginLeft: "9px", marginTop: "15px" }}>Following</p>
                                     <span>{following}</span>
-                                </div>
+                                    <button data-bs-toggle="modal" style={{display:'none'}} name='followingbtn' id='followingbtn' data-bs-target="#followingModal" >following</button>
+                                </label>
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                                 <h3 style={{ marginLeft: "9px", marginTop: "15px", fontSize: "14px",fontWeight:"400" }}>About</h3>
@@ -327,6 +331,81 @@ const ProfileLeft = (props) => {
             </div>
             {/* <EditProfile profile={profile} bio= {bio} shortbio={shortbio} name={username} cover={cover} />
             <span className='backgroundBlurEffect'></span> */}
+            {/* followers */}
+            <div className="modal fade" id="followerModal" style={{zIndex:'999999999'}} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog  modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Followers</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+            {
+                        getFollower?.map((i) => {
+                            console.log(i)
+                            return (
+                                <div>
+                                    <div onClick={()=>navigate(`/profile/${i.follower?._id}`)} style={{ marginTop: "20px", display: "flex", flexDirection: "column", alignItems: "stratch", justifyContent: "space-between" }}>
+                                        <div style={{ display: 'flex', alignItems: "center" }}>
+                                            <img className="ProfileImage"
+                                                src={i.follower?.img} alt="" />
+                                            <div style={{ width: "200px" }}>
+                                                <Link to={`/profile/${i.follower?._id}`}><p style={{ marginLeft: "10px", textAlign: "start", fontSize: "13px" }}>{i.follower?.name}</p></Link>
+                                                <p style={{ marginLeft: "10px", textAlign: "start", marginTop: "5px", fontSize: "11px", color: "#aaa" }}>{i.follower?.shortBio}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+
+                        })
+                    }
+            </div>
+            {/* <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary">Save changes</button>
+            </div> */}
+          </div>
+        </div>
+      </div>
+      {/* following */}
+      <div className="modal fade" id="followingModal" style={{zIndex:'999999999'}} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog  modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Following</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+            {
+                        getFollowing?.map((i) => {
+                              
+                            return (
+                                <div  >
+                                    <label htmlFor='closemodal' onClick={()=>navigate(`/profile/${i.followings?._id}`)} style={{ marginTop: "20px", display: "flex", flexDirection: "column", alignItems: "stratch",cursor:'pointer', justifyContent: "space-between" }}>
+                                        <div htmlFor='closemodal' style={{ display: 'flex', alignItems: "center" }}>
+                                            <img htmlFor='closemodal'  className="ProfileImage"
+                                                src={i?.followings?.img} alt="" />
+                                            <label htmlFor='closemodal' style={{ width: "200px" }}>
+                                                <Link htmlFor='closemodal' to={`/profile/${i.followings?._id}`}  ><p style={{ marginLeft: "10px", textAlign: "start", fontSize: "13px" }}>{i.followings?.name}</p></Link>
+                                                <p htmlFor='closemodal' className={styles.p} style={{ marginLeft: "10px", textAlign: "start", marginTop: "5px", fontSize: "11px", color: "#aaa" }}>{i.followings?.shortBio}</p>
+                                                <button name='closemodal' id='closemodal' className='d-none' data-bs-dismiss="modal"></button>
+                                            </label>
+                                        </div>
+                                    </label>
+                                </div>
+                            )
+
+                        })
+                    }
+            </div>
+            {/* <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary">Save changes</button>
+            </div> */}
+          </div>
+        </div>
+      </div>
         </div>
     )
 }

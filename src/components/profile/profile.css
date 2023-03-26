@@ -2,6 +2,7 @@
   
 }
 .editProfileSection{
+  
   width: 491px;
   height: 800px;
   position: absolute;
@@ -13,6 +14,7 @@
   flex-direction: column;
   overflow-y: scroll;
   /* filter: blur(10px); */
+  padding: 20px;
 
 }
 .editprofileimg > img{
@@ -70,9 +72,12 @@
 }
 
 .ProfileCoverEdit{
-  width: 486px;
+  width: 450px;
   height: 150px;
+  margin-bottom: 18px;
   object-fit: cover;
+  border-radius: 8px;
+  overflow: hidden;
 }
 .editprofileimg{
   display: flex;
@@ -120,6 +125,13 @@
     border-radius: 20px;
     
   }
+  .NotificationsContainer,.rightContainer-suggestion {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.NotificationsContainer::-webkit-scrollbar,.rightContainer-suggestion::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
   .EditProfileSpan{
     height: 19px;
     display: flex;
@@ -168,15 +180,8 @@ button {
   }
   
   .profileRightBar{
-    margin-right: 18px;
     width: 101%;
     height: 50vh;
-    background-color: white;
-    margin-top: 20px;
-    border-radius: 15px;
-    overflow: hidden;
-    overflow-y: scroll;
-    margin-left: 21px;
   }
   .AddFriend{
     width:30px;
@@ -259,7 +264,7 @@ button {
   }
 }
 
-@media screen and (max-width:770px) {
+@media screen and (max-width:1036px) {
   .profileRightBar {
     display: none;
   }
@@ -267,7 +272,19 @@ button {
   flex: 1;
 }
 }
-@media screen and (max-width:426px) {
+
+@media screen and (min-width:761px) {
+  .profileRightBar{
+    position: sticky;
+      top: 101px;
+  }
+  .profileLeftBarDiv{
+      position: sticky;
+      top: 101px;
+  }
+
+}
+@media screen and (max-width:760px) {
   .profileRightBar{
     display: none;
   }

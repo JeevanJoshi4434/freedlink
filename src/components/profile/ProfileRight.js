@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import './profile.css'
+import './profile.css';
+import styles from '../css/Pmargin.module.css';
 const ProfileRight = (props) => {
     const [getFollowing, setGetFollowing] = useState([]);
     const [getFollower, setGetFollower] = useState([]);
@@ -47,7 +48,7 @@ const ProfileRight = (props) => {
                                                 src={i.followings.img} alt="" />
                                             <div style={{ width: "200px" }}>
                                                 <Link to={`/profile/${i.followings._id}`}><p style={{ marginLeft: "10px", textAlign: "start", fontSize: "13px" }}>{i.followings.name}</p></Link>
-                                                <p style={{ marginLeft: "10px", textAlign: "start", marginTop: "5px", fontSize: "11px", color: "#aaa" }}>{i.followings.shortBio}</p>
+                                                <p className={styles.p} style={{ marginLeft: "10px", textAlign: "start", marginTop: "5px", fontSize: "11px", color: "#aaa" }}>{i.followings.shortBio}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -57,6 +58,7 @@ const ProfileRight = (props) => {
                         })
                     }
                 </div>
+                
             </div>
             {/* <div>
                 <button onClick={() => setModalVisible(true)}>Open Modal</button>

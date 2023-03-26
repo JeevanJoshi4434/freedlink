@@ -36,11 +36,11 @@
     display: block;
   }
   .button-hover > div:hover{
-        color: #ddd;
-        cursor: pointer;
+    color: #04027f;
+    cursor: pointer;
   }
   /* Change color of dropdown links on hover */
-  .dropdown-content2 a:hover {background-color: #ddd;}
+  /* .dropdown-content2 a:hover {background-color: #ddd;} */
   
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content2 {display: flex; flex-direction:column;justify-content: center;align-items: flex-start; padding: 10px 20px; padding-bottom: 20px;}
