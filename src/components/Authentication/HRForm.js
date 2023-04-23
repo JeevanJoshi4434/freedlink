@@ -19,7 +19,7 @@ const HRForm = () => {
         const notify = () => toast("Already a customer!");
         const data = await fetch(`/api/user/upgrade/professional/${userC?.other?._id}`, {
             method: "POST", headers: { "Content-Type": "application/Json", accessToken: accessToken }, body: JSON.stringify({
-                CNo: PhoneNO, SEmail: SEmail, Address: Address, CName: CompanyName, GSTNum: GSTNum, Sector: Sector
+                CNo: PhoneNO, SEmail: SEmail, Address: Address, CName: CompanyName, GSTNum: GSTNum, Sector: Sector,credit:process.env.REACT_APP_CREDITS
             })
         }).then((res) => {
             if (res?.status === 200) {

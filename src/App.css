@@ -184,9 +184,9 @@ main::-webkit-scrollbar{
 p{
   margin-bottom: 0;
 }
-.show{
+/* .show{
   z-index: 9999;
-}
+} */
 .profileControllers > button{
   font-size: 14px;
 }

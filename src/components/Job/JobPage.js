@@ -82,7 +82,31 @@ const JobPage = () => {
         progress: undefined,
         theme: "light",
       });
-    } if (res.status === 401) {
+    }if (res.status === 410) {
+      toast.warn('Application Acceptance Closed Temporary!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    if (res.status === 404) {
+      toast.warn('Job Post Not Valid!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+     if (res.status === 401) {
       toast.error('Login to apply!', {
         position: "top-center",
         autoClose: 2000,

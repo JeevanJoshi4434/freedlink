@@ -19,6 +19,7 @@ const HRDashboard = () => {
     const [uploadBatchModal, setUploadBatchModal] = useState(false);
     const [batchScreen, setBatchScreen] = useState(false);
     const [currentMessage, setCurrentMessage] = useState('');
+    const [user, setUser] = useState([]);
     let userID = Cuser?.other?._id;
     const [jobs, setJobs] = useState();
     useEffect(() => {
@@ -29,6 +30,21 @@ const HRDashboard = () => {
 
         getJobs();
     }, [])
+    const getUser = async () => {
+        try {
+          const res = await axios.get(`/api/user/details/${userID}`, {
+            headers: {
+                accessToken: accessToken
+              }
+            })
+            setUser(res.data);
+          } catch (error) {
+            
+          }
+        }
+      useEffect(() => {
+        getUser()
+      }, []);
     let arr = [];
     let arr2 = [];
     jobs?.map((i) => {
@@ -165,6 +181,11 @@ const HRDashboard = () => {
                                         <span className='material-icons' style={{ fontSize: "16px", color: "#aeaeae", marginRight: "5px" }} >construction</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >AI tools & filtering</p>
                                     </Link>
                                 </li>
+                                <li className={style.sidebarItem} title="Add balance" >
+                                    <Link to="/hr/soon?page=sponser">
+                                        <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >add_card</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >Add Balance</p>
+                                    </Link>
+                                </li>
                                 <li className={style.sidebarItem} title="Payment system coming soon..." >
                                     <Link to="/hr/soon?page=sponser">
                                         <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >workspace_premium</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >Sponser</p>
@@ -190,10 +211,15 @@ const HRDashboard = () => {
                                     <span className='material-icons' style={{ cursor: "pointer" }} >sort</span>
                                 </label>
                             </div>
-                            <div className={style.adminNavRight}>
-                                <div className={style.adminUserProfile} >
-                                    <img src={Cuser?.other?.img} style={{ backgroundColor: "#0000a7", height: "45px", width: "45px", borderRadius: "12px", marginRight: "10px" }} />
-                                    <p>{Cuser?.other?.name}</p>
+                            <div className={`${style.adminNavRight} d-flex`} >
+                                <div className={`${style.adminUserProfile} mx-3`} >
+                                    <img src={user?.img} style={{ backgroundColor: "#0000a7", height: "45px", width: "45px", borderRadius: "12px", marginRight: "10px" }} />
+                                    <p>{user?.name}</p>
+                                </div>
+                                <div className={style.adminUserProfile} title='Account Balance'  style={{cursor:'pointer'}} >
+                                <span class="material-icons mx-2" title='Add balance'>account_balance_wallet</span>
+                                    {!user?.credits && <p className='mx-2'  style={{fontSize:'7px'}}>Loading...</p> }
+                                    {user?.credits > 20 ? <p className='mx-2' >{user?.credits}</p> : <p className='mx-2'  style={{color:'red'}} >{user?.credits}</p>}
                                 </div>
                             </div>
                         </nav>
@@ -232,6 +258,8 @@ const HRDashboard = () => {
                                                 </div>
                                             </div>
                                             <div className={jobStyle.jobRight}>
+                                            { !i?.visible ?<span title='Job post is under approvel' style={{backgroundColor:'#ffc107',width:'10px',height:'10px',borderRadius:'50%',marginRight:'10px'}}></span>
+                      : <span title='Job post is approved'  style={{backgroundColor:'#198754',width:'10px',height:'10px',borderRadius:'50%',marginRight:'10px'}}></span>}
                                                 <p>
                                                     {i?.CompanyName}
                                                 </p>

@@ -5,27 +5,33 @@ const Interest = require('../model/InterestModal');
 const verifyToken = require('../middleware/fetchUser');
 const nodemailer = require('nodemailer');
 const { MailtrapClient } = require("mailtrap");
+const JobVerification = require('../model/JobVerification');
 router.post("/jobs/upload/:id", async (req, res) => {
     try {
         let { currentWork, numOfEmployee, routineType, skills, title, img, description, experienceAboveSector, CompanyName, qualification, workExperience, subject, country, Email, referenceCompanyName, state, city, } = req.body;
         const user = await User.findById(req.params.id);
         const access = user.role.includes("HR");
+        const checkBalance = user.credits > 5 ? true:false;
+        const jobverification = await JobVerification.findOne({name:"JobVerification"});
+        if(!checkBalance) return res.status(402).json("Please recharge your account.");
         if (access) {
-            let newJob = await Job.create({
-                title: title,
-                user: req.params.id,
-                subject: subject,
-                description: description,
-                image: img,
-                country: country,
-                officeEmail: Email,
-                CompanyName: CompanyName,
+                if(jobverification.stopJobUpload === false){
+                    let newJob = await Job.create({
+                        title: title,
+                        user: req.params.id,
+                        subject: subject,
+                        description: description,
+                        image: img,
+                        country: country,
+                        officeEmail: Email,
+                        CompanyName: CompanyName,
                 qualification: qualification,
                 workExperience: workExperience,
                 experienceAboveSector: experienceAboveSector,
                 referenceCompanyName: referenceCompanyName,
                 currentWork: currentWork,
                 routineType: routineType,
+                visible:true,
                 numOfEmployee: numOfEmployee,
                 skills: [{
                     skills
@@ -33,13 +39,52 @@ router.post("/jobs/upload/:id", async (req, res) => {
                 Address: [{
                     country: country, state: state, City: city
                 }]
-
+                
             })
-            return res.status(200).json(newJob);
+            const updateUser = await User.updateOne({_id:req.params.id},{
+                $set:{
+                    credits: user.credits-5
+                }
+            })
+            return res.status(200).json({newJob,updateUser});
+        }
+                if(jobverification.stopJobUpload === true){
+                    let newJob = await Job.create({
+                        title: title,
+                        user: req.params.id,
+                        subject: subject,
+                        description: description,
+                        image: img,
+                        country: country,
+                        officeEmail: Email,
+                        CompanyName: CompanyName,
+                    qualification: qualification,
+                    workExperience: workExperience,
+                    experienceAboveSector: experienceAboveSector,
+                    referenceCompanyName: referenceCompanyName,
+                    currentWork: currentWork,
+                    routineType: routineType,
+                    visible:false,
+                    numOfEmployee: numOfEmployee,
+                    skills: [{
+                    skills
+                    }],
+                    Address: [{
+                        country: country, state: state, City: city
+                    }] 
+                })
+                const updateUser = await User.updateOne({_id:req.params.id},{
+                    $set:{
+                        credits: user.credits-5
+                    }
+                })
+                return res.status(200).json(newJob);
+            }
         }
         res.status(403).json("User not allowed!");
     }
     catch (error) {
+        console.log(error);
         return res.status(500).json(error);
     }
 })
@@ -71,20 +116,26 @@ router.delete(`/job/delete/:jobId/:user`, async (req, res) => {
 
 router.put(`/job/:jobID/:userID`, verifyToken, async (req, res) => {
     const auth = await User.findById(req.params.userID);
+    const job = await Job.findById(req.params.jobID);
+    const author = await User.findById(job.user);
+    if(!author) return res.status(404);
     if (auth.enrolled.includes(req.params.jobID)) {
         return res.status(409).json("Already Exist");
     }
+    if(author.credits < 4) return res.status(410).json("No more acceptance");
     const user = await Job.updateOne({ _id: req.params.jobID }, {
         $push: {
             enrolled: req.params.userID
         }
     })
-    if (!user) {
-        return res.status(404).json(`User not found`);
-    }
     const userEnroll = await User.updateOne({ _id: req.params.userID }, {
         $push: {
             enrolled: req.params.jobID
+        }
+    })
+    const updateUser = await User.updateOne({_id:author},{
+        $set:{
+            credits: author.credits-3
         }
     })
     res.status(200).json({ user: userEnroll, Post: user });
@@ -163,8 +214,8 @@ router.put(`/job/user/push/:userId/:jobId/:id`, async (req, res) => {
     }
 });
 router.get(`/jobs`, async (req, res) => {
-    let {_page,_limits } = req.query;
-    const data = await Job.find().sort({ createdAt: -1 }).skip((_page-1)*_limits).limit(_limits);;
+    let {_page,_limits,_visible } = req.query;
+    const data = await Job.find({visible:_visible}).sort({ createdAt: -1 }).skip((_page-1)*_limits).limit(_limits);
     res.status(200).json(data);
 });
 router.get(`/jobs/:id`, async (req, res) => {

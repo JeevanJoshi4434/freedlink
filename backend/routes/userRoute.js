@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../model/userModal');
 const Notification = require('../model/NotificationModal');
 const Message = require('../model/MessageModal');
+const JobVerification = require('../model/JobVerification')
 const VerificationToken = require('../model/VerificationToken');
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -1004,7 +1005,7 @@ router.delete(`/users/delete/:admin/:userID`, async (req, res) => {
   }
 })
 router.post(`/user/upgrade/professional/:id`, verifyToken, async (req, res) => {
-  const { CNo, SEmail, Address, CName, GSTNum, Sector } = req.body;
+  const { CNo, SEmail, Address, CName, GSTNum, Sector,credit } = req.body;
   const user = await User.findById(req.params.id);
   if (user.role.includes("HR")) {
     return res.status(403).json("Already have an Account");
@@ -1021,7 +1022,8 @@ router.post(`/user/upgrade/professional/:id`, verifyToken, async (req, res) => {
       sector: Sector,
       GSTNumber: GSTNum,
       isHR: true,
-      role: "HR"
+      role: "HR",
+      credits:credit
     });
     res.status(200).json(data);
   } catch (error) {
@@ -1212,5 +1214,81 @@ router.get(`/databasesize`, async(req,res)=>{
   const totaltokens = await token * (122 * 0.001);
   const totalStorage = await (totalJobs+totalNotify+totalmessage+totalUsers+totalReports+totalPosts+totaltokens ) * 0.001;
   res.status(200).json(totalStorage);
+})
+router.post(`/jobverification`, async(req,res)=>{
+  // const user = await User.findById(req.user.id);
+  // const access = user.role.includes('admin');
+  // if(!access){
+  //   return res.status(301).json('User not Allowed!');
+  // }
+  const create = await JobVerification.findOne({name:"JobVerification"});
+  if(create) return res.status(301).json("Already Exist!");
+  const createVerification = await JobVerification.create({
+    name:"JobVerification",
+    stopJobUpload:false
+  })
+  res.status(200).json(createVerification);
+})
+router.get(`/jobstatus`, async(req,res)=>{
+  const create = await JobVerification.findOne({name:"JobVerification"});
+  if(create) return res.status(200).json(create.stopJobUpload);
+  const createVerification = await JobVerification.create({
+    name:"JobVerification",
+    stopJobUpload:false
+  })
+  res.status(200).json(createVerification);
+})
+
+router.put(`/stopUpload`,verifyToken, async(req,res)=>{
+  const user = await User.findById(req.user.id);
+  const access = user.role.includes('user');
+  if(access){
+    return res.status(301).json('User not Allowed!');
+  }
+  const update = await JobVerification.findOne({name:"JobVerification"});
+  if(!update) return res.status(404).json("Access not found!");
+  if(update.stopJobUpload){
+    const updateData = await JobVerification.findOneAndUpdate({name:"JobVerification"},{
+      $set:{
+        stopJobUpload:false
+      }
+    })
+    res.status(200).json({massage:"stopped!",data:updateData});
+  }else{
+    const updateData2 = await JobVerification.findOneAndUpdate({name:"JobVerification"},{
+      $set:{
+        stopJobUpload:true
+      }
+    })
+    res.status(200).json({massage:"continue!",data:updateData2});
+    
+  }
+})
+
+router.put(`/verifypost/:id`,verifyToken, async(req,res)=>{
+  const user = await User.findById(req.user.id);
+  if(user.role == "user") return res.status(301).json("You aren't allowed to make changes!");
+  const post = await Job.findOneAndUpdate({_id:req.params.id},{
+      $set:{
+        visible:true
+      }}
+      )
+
+  res.status(200).json("Verified!");
+})
+
+router.get(`/job-approval`,verifyToken,async(req,res)=>{
+  const user = await User.findById(req.user.id);
+  if(user.role.includes("user")) return res.status(301).json("Authentication failed!");
+  const job = await Job.find({visible:false});
+  res.status(200).json(job);
+})
+
+router.delete(`/job-denied/:id`,verifyToken,async(req,res)=>{
+  const user = await User.findById(req.user.id);
+  if(user.role.includes("user")) return res.status(401).json("Authentication failed!");
+  const post = await Job.findByIdAndDelete(req.params.id);
+  if(!post) return res.status(404).json("Post not found!")
+  res.status(200).json("Deleted Successfully");
 })
 module.exports = router;

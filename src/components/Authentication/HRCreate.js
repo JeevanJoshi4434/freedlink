@@ -182,7 +182,18 @@ const HRCreate = () => {
                                 progress: 0,
                                 theme: "light",
                             });
-                        } if (res.status !== 200 && res.status !== 401 && res.status !== 500 && res.status !== 403) {
+                        }else if (res.status === 402) {
+                            toast.error('Insufficient Balance! recharge to continue upload', {
+                                position: "top-center",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                closeOnClick: false,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: 0,
+                                theme: "light",
+                            });
+                        } if (res.status !== 200 && res.status !== 402  && res.status !== 401 && res.status !== 500 && res.status !== 403) {
                             toast.error('Check your Internet connection', {
                                 position: "top-center",
                                 autoClose: 2000,
@@ -323,6 +334,7 @@ const HRCreate = () => {
                                 draggable
                                 pauseOnHover
                                 theme="dark"
+                                style={{zIndex:"99999999999"}}
                             />
                             <div className='uploadSectionBatch' style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }} >
                                 <div className='uploadSectionBatchVideo' >

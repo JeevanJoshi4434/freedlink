@@ -1,12 +1,13 @@
+import React from 'react'
 import axios from 'axios';
 import { CChart } from '@coreui/react-chartjs';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import mongoSVG from './assets/mongodb-ar21.svg';
 import firebaseSVG from './assets/firebase-ar21.svg';
 import style from './Admindashboard.module.css';
-const AdminDashboard = () => {
+const Stats = () => {
     const userDetails = useSelector((state) => state.user);
     let user = userDetails?.user;
     let accessToken = user?.accessToken;
@@ -21,6 +22,7 @@ const AdminDashboard = () => {
     const [currentMessage, setCurrentMessage] = useState('');
     const [usersTraffic, setUsersTraffic] = useState();
     const [time, setTime] = useState('');
+    const [allPosts, setallPosts] = useState();
     const [visitors, setVisitors] = useState(0);
     const [users, setUsers] = useState(0);
     const [posts, setPosts] = useState(0);
@@ -31,55 +33,60 @@ const AdminDashboard = () => {
     const [verified, setVerified] = useState(0);
     const [totalStorage, setTotalStorage] = useState(0);
     useEffect(() => {
-      const getVisitors = async ()=>{
-        const res = await axios.get(`/api/visitors/all`);
-        setVisitors(res.data);
-      }
-      const getUsers = async ()=>{
-        const res = await axios.get(`/api/allusers`);
-        setUsers(res.data);
-      }
-      const getPosts = async ()=>{
-        const res = await axios.get(`/api/allposts`);
-        setPosts(res.data);
-      }
-      const getReports = async ()=>{
-        const res = await axios.get(`/api/totalreports`);
-        setReport(res.data);
-      }
-      const getJobs = async ()=>{
-        const res = await axios.get(`/api/alljobs`);
-        setJobs(res.data);
-      }
-      const getNotify = async ()=>{
-        const res = await axios.get(`/api/allnotifications`);
-        setNotify(res.data);
-      }
-      const getPending = async ()=>{
-        const res = await axios.get(`/api/verifypendingusers`);
-        setPending(res.data);
-      }
-      const getStorage = async ()=>{
-        const res = await axios.get(`/api/databasesize`);
-        var data = res.data;
-        setTotalStorage(data?.toFixed(4));
-        
-      }
-      const getVerified = async ()=>{
-        const res = await axios.get(`/api/verifiedusers`);
-        setVerified(res.data);
-      }
-      getVisitors();
-      getUsers();
-      getPosts();
-      getReports();
-      getJobs();
-      getNotify();
-      getPending();
-      getVerified();
-      getStorage();
+        const getVisitors = async () => {
+            const res = await axios.get(`/api/visitors/all`);
+            setVisitors(res.data);
+        }
+        const getUsers = async () => {
+            const res = await axios.get(`/api/allusers`);
+            setUsers(res.data);
+        }
+        const getPosts = async () => {
+            const res = await axios.get(`/api/allposts`);
+            setPosts(res.data);
+        }
+        const getReports = async () => {
+            const res = await axios.get(`/api/totalreports`);
+            setReport(res.data);
+        }
+        const getJobs = async () => {
+            const res = await axios.get(`/api/alljobs`);
+            setJobs(res.data);
+        }
+        const getNotify = async () => {
+            const res = await axios.get(`/api/allnotifications`);
+            setNotify(res.data);
+        }
+        const getPending = async () => {
+            const res = await axios.get(`/api/verifypendingusers`);
+            setPending(res.data);
+        }
+        const getAllPosts = async () => {
+            const res = await axios.get(`/api/posts/num`);
+            setallPosts(res.data);
+        }
+        const getStorage = async () => {
+            const res = await axios.get(`/api/databasesize`);
+            var data = res.data;
+            setTotalStorage(data?.toFixed(4));
+
+        }
+        const getVerified = async () => {
+            const res = await axios.get(`/api/verifiedusers`);
+            setVerified(res.data);
+        }
+        getVisitors();
+        getUsers();
+        getPosts();
+        getReports();
+        getJobs();
+        getNotify();
+        getPending();
+        getVerified();
+        getStorage();
+        getAllPosts();
     }, [])
-    // console.log(visitors)
+    // console.log(allPosts)
 
     let January = 0, February = 0, March = 0, April = 0, May = 0, June = 0, July = 0, August = 0, September = 0, October = 0, November = 0, December = 0, Year;
     var today = new Date();
@@ -137,6 +144,46 @@ const AdminDashboard = () => {
             December = December + 1;
         }
     })
+    let Jan = 0, Feb = 0, Mar = 0, Apr = 0, Ma = 0, Jun = 0, Jul = 0, Aug = 0, Sep = 0, Oct = 0, Nov = 0, Dec = 0;
+    allPosts?.allPosts?.map((i)=>{
+        // console.log(i)
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "1") {
+            Jan++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "2") {
+            Feb++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "3") {
+            Mar++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "4") {
+            Apr++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "5") {
+            Ma++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "6") {
+            Jun++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "7") {
+            Jul++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "8") {
+            Aug++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "9") {
+            Sep++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "10") {
+            Oct++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "11") {
+            Nov++;
+        }
+        if (i?.timestamp[0]?.year === year && i?.timestamp[0]?.month === "12") {
+            Dec++;
+        }
+    })
     // // console.log(January)
     var curHr = today.getHours();
     useEffect(() => {
@@ -170,13 +217,13 @@ const AdminDashboard = () => {
                             <span style={{ fontSize: "12px", color: "#aeaeae", marginRight: "5px" }} className="material-icons">web</span><span className={style.sidebarHeader} style={{ fontSize: "12px", color: "#aeaeae" }} >Pages</span>
                         </div>
                         <li className={style.sidebarItem} >
-                            <Link to="/admin/dashboard" className={style.active}>
-                                <span className='material-icons' style={{ fontSize: "16px", marginRight: "5px" }} >dashboard</span> <p className={style.alignMiddle} >Dashboard</p>
+                            <Link to="/admin/dashboard" >
+                                <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >dashboard</span> <p className={style.alignMiddle} >Dashboard</p>
                             </Link>
                         </li>
                         <li className={style.sidebarItem} >
-                            <Link to="/admin/Statistics">
-                                <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >bar_chart</span> <p className={style.alignMiddle} >Charts & Stats</p>
+                            <Link to="/admin/Statistics" className={style.active}>
+                                <span className='material-icons' style={{ fontSize: "16px", marginRight: "5px" }} >bar_chart</span> <p className={style.alignMiddle} >Charts & Stats</p>
                             </Link>
                         </li>
                         <li className={style.sidebarItem} >
@@ -211,27 +258,12 @@ const AdminDashboard = () => {
                                 <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >person</span> <p className={style.alignMiddle} >All Users</p>
                             </Link>
                         </li>
-                        <li className={style.sidebarItem} >
-                            <Link to="/admin/user/action" title='delete user suspend and more...'>
-                                <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >warning</span> <p className={style.alignMiddle} >Actions</p>
-                            </Link>
-                        </li>
-                        <li className={style.sidebarItem} title="Underconstruction" >
-                            <Link to="#">
-                                <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >groups</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >Admin List</p>
-                            </Link>
-                        </li>
-                        <li className={style.sidebarItem} title="Project option coming soon..." >
-                            <Link to="#">
-                                <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >science</span> <p style={{ color: "#aeaeae", }} className={style.alignMiddle} >Projects</p>
-                            </Link>
-                        </li>
                     </ul>
                 </div>
                 <div className={style.adminPages} >
                     <ul>
                         <div title="Payment system coming soon..." >
-                            <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >workspace_premium</span><span className={style.sidebarHeader} style={{ fontSize: "12px", color: "#aeaeae" }} >Premium Actions</span>
+                            <span className='material-icons' style={{ color: "#aeaeae", fontSize: "16px", marginRight: "5px" }} >workspace_premium</span><span className={style.sidebarHeader} style={{ fontSize: "12px", color: "#aeaeae" }} >Premium Management</span>
                         </div>
                         <li className={style.sidebarItem} title="Payment system coming soon..." >
                             <Link to="#" title="Payment system coming soon...">
@@ -265,7 +297,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className={style.adminNavRight}>
                         <div className={style.adminUserProfile} >
-                        <img src={user?.other?.img} style={{ backgroundColor: "#0000a7", height: "45px", width: "45px", borderRadius: "12px", marginRight: "10px" }} />
+                            <img src={user?.other?.img} style={{ backgroundColor: "#0000a7", height: "45px", width: "45px", borderRadius: "12px", marginRight: "10px" }} />
                             <p>{user?.other?.name}</p>
                         </div>
                     </div>
@@ -273,10 +305,170 @@ const AdminDashboard = () => {
                 <main>
                     <div>
                         <h4 style={{ fontSize: "30px", fontWeight: "500" }} >{currentMessage}{firstname}!</h4>
-                        <p>Have a nice day! {time}</p>
+                        {/* <p>Statistics & Charts</p> */}
+                    </div>
+                    <div style={{ display: 'flex', marginTop: "10px" }}>
+                        <span className='material-icons' >storage</span><h4 style={{ marginRight: "5px" }}>Storage & Core</h4><p> Analysis</p>
                     </div>
                     <div style={{ display: "flex" }}>
 
+                        {/* <div style={{
+
+                            marginTop: "10px",
+                            backgroundColor: "#fff",
+                            color: "black",
+                            height: "100%",
+                            width: "48%",
+                            borderRadius: "12px",
+                            padding: "10px 10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            boxShadow: "0 0 0.875rem 0 rgba(33,37,41,.05)"
+                        }}>
+                            <h6>User Traffic - Current year</h6>
+                            <div style={{
+                                width: "100%",
+                                height: "100%",
+                            }}>
+                                <CChart
+                                    type="line"
+                                    data={{
+                                        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                                        datasets: [
+                                            // {
+                                            //     label: "2022",
+                                            //     backgroundColor: "rgba(220, 220, 220, 0.2)",
+                                            //     borderColor: "rgba(220, 220, 220, 1)",
+                                            //     pointBackgroundColor: "rgba(220, 220, 220, 1)",
+                                            //     pointBorderColor: "#fff",
+                                            //     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 150, 300]
+                                            // },
+                                            {
+                                                label: year,
+                                                backgroundColor: "rgba(151, 187, 205, 0.2)",
+                                                borderColor: "rgba(151, 187, 205, 1)",
+                                                pointBackgroundColor: "rgba(151, 187, 205, 1)",
+                                                pointBorderColor: "#fff",
+                                                data: [January, February, March, April, May, June, July, August, September, October, November, December]
+                                            },
+                                        ],
+                                    }}
+                                />
+                            </div>
+                        </div> */}
+                        <div style={{
+                            backgroundColor: "#fff",
+                            color: "black",
+                            height: "100%",
+                            width: "auto",
+                            borderRadius: "12px",
+                            padding: "10px 10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            marginLeft: "10px",
+                            marginTop: "10px",
+                            boxShadow: "0 0 0.875rem 0 rgba(33,37,41,.05)"
+                        }}>
+                            <div style={{
+                                width: "auto",
+                                height: "100%",
+                                display: "flex"
+                            }}>
+                                <div style={{ marginRight: "10px" }}>
+                                    <img src={mongoSVG} style={{position:"absolute"}} />
+                                    <CChart
+                                        type="doughnut"
+                                        data={{
+                                            labels: ['Used MB', 'Left MB'],
+                                            datasets: [
+                                                {
+                                                    backgroundColor: ['#41B883', '#00D8FF'],
+                                                    data: [totalStorage, (520 - totalStorage)],
+                                                },
+                                            ],
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{ backgroundColor: "#fff", color: "black", height: "100%", width: "auto", borderRadius: "12px", padding: "10px 10px", display: "flex", flexDirection: "column", alignItems: "center", marginLeft: "10px", marginTop: "10px", boxShadow: "0 0 0.875rem 0 rgba(33,37,41,.05)" }}>
+                            <div style={{ width: "auto", height: "100%", display: "flex" }}>
+                                <div style={{ marginRight: "10px" }}>
+                                    <CChart
+                                        type="polarArea"
+                                        data={{
+                                            labels: ['Visitors', 'Users', 'Posts', 'Reports', 'Jobs', 'Notifications'],
+                                            datasets: [
+                                                {
+                                                    data: [visitors, users, posts, report, jobs, notify],
+                                                    backgroundColor: ['#FF6384', '#4BC0C0', '#FFCE56', '#E7E9ED', '#36A2EB', '#0000a7'],
+                                                },
+                                            ],
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', marginTop: "10px" }}>
+                        <span className='material-icons' >public</span><h4 style={{ marginRight: "5px" }}>Web Traffic</h4><p> Analysis</p>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: "1fr 1fr 1fr" }}>
+                        <div className={style.box}>
+                            <div><p>Visitors</p><span style={{
+                                width: "45px", height: "45px", borderRadius: "50%", backgroundColor: "#d3e2f7", display: 'flex', alignItems: 'center', justifyContent: "center"
+                            }}><span className='material-icons' style={{ color: '#3b7ddd' }} >person</span></span></div>
+                            <div><h4>{visitors}</h4></div>
+                        </div>
+                        <div className={style.box}>
+                            <div><p>Users</p><span style={{
+                                width: "45px", height: "45px", borderRadius: "50%", backgroundColor: "#d3e2f7", display: 'flex', alignItems: 'center', justifyContent: "center"
+                            }}><span className='material-icons' style={{ color: '#3b7ddd' }} >groups</span></span></div>
+                            <div><h4>{users}</h4></div>
+                        </div>
+                        <div className={style.box}>
+                            <div><p>Posts</p><span style={{
+                                width: "45px", height: "45px", borderRadius: "50%", backgroundColor: "#d3e2f7", display: 'flex', alignItems: 'center', justifyContent: "center"
+                            }}><span className='material-icons' style={{ color: '#3b7ddd' }} >web</span></span></div>
+                            <div><h4>{posts}</h4></div>
+                        </div>
+                        <div className={style.box}>
+                            <div><p>Reports</p><span style={{
+                                width: "45px", height: "45px", borderRadius: "50%", backgroundColor: "#d3e2f7", display: 'flex', alignItems: 'center', justifyContent: "center"
+                            }}><span className='material-icons' style={{ color: '#3b7ddd' }} >report</span></span></div>
+                            <div><h4>{report}</h4></div>
+                        </div>
+                        <div className={style.box}>
+                            <div><p>Jobs</p><span style={{
+                                width: "45px", height: "45px", borderRadius: "50%", backgroundColor: "#d3e2f7", display: 'flex', alignItems: 'center', justifyContent: "center"
+                            }}><span className='material-icons' style={{ color: '#3b7ddd' }} >work</span></span></div>
+                            <div><h4>{jobs}</h4></div>
+                        </div>
+                        <div className={style.box}>
+                            <div><p>Notifications</p><span style={{
+                                width: "45px", height: "45px", borderRadius: "50%", backgroundColor: "#d3e2f7", display: 'flex', alignItems: 'center', justifyContent: "center"
+                            }}><span className='material-icons' style={{ color: '#3b7ddd' }} >notifications</span></span></div>
+                            <div><h4>{notify}</h4></div>
+                        </div>
+                        <div className={style.box}>
+                            <div><p>Unverified Users</p><span style={{
+                                width: "45px", height: "45px", borderRadius: "50%", backgroundColor: "#d3e2f7", display: 'flex', alignItems: 'center', justifyContent: "center"
+                            }}><span className='material-icons' style={{ color: '#3b7ddd' }} >lock</span></span></div>
+                            <div><h4>{pending}</h4></div>
+                        </div>
+                        <div className={style.box}>
+                            <div><p>Verified Users</p><span style={{
+                                width: "45px", height: "45px", borderRadius: "50%", backgroundColor: "#d3e2f7", display: 'flex', alignItems: 'center', justifyContent: "center"
+                            }}><span className='material-icons' style={{ color: '#3b7ddd' }} >lock_open</span></span></div>
+                            <div><h4>{verified}</h4></div>
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', marginTop: "10px" }}>
+                        <span className='material-icons'>show_chart</span><h4 style={{ marginRight: "5px" }}>Yearly Traffic</h4><p> Analysis</p>
+                    </div>
+                    <div style={{ display: 'flex',flexDirection:'row' }}>
                         <div style={{
 
                             marginTop: "10px",
@@ -289,7 +481,7 @@ const AdminDashboard = () => {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            boxShadow:"0 0 0.875rem 0 rgba(33,37,41,.05)"
+                            boxShadow: "0 0 0.875rem 0 rgba(33,37,41,.05)"
                         }}>
                             <h6>User Traffic - Current year</h6>
                             <div style={{
@@ -322,92 +514,52 @@ const AdminDashboard = () => {
                                 />
                             </div>
                         </div>
+                        
                         <div style={{
+
+                            marginTop: "10px",
+                            marginLeft: "10px",
                             backgroundColor: "#fff",
                             color: "black",
                             height: "100%",
-                            width: "auto",
+                            width: "48%",
                             borderRadius: "12px",
                             padding: "10px 10px",
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            marginLeft: "10px",
-                            marginTop: "10px",
-                            boxShadow:"0 0 0.875rem 0 rgba(33,37,41,.05)"
+                            boxShadow: "0 0 0.875rem 0 rgba(33,37,41,.05)"
                         }}>
-                            <h6>Databases</h6>
+                            <h6>Posts Traffic - Current year</h6>
                             <div style={{
-                                width: "auto",
+                                width: "100%",
                                 height: "100%",
-                                display: "flex"
                             }}>
-                                <div style={{marginRight:"10px"}}>
-                                    <img src={mongoSVG} />
-                                    <h4>JSON Database</h4>
-                                    <h6>{totalStorage}MB/512MB Storage Used</h6>
-                                    <p style={{marginTop:"10px"}}>No subscription</p>
-                                </div>
-                                <div>
-                                    <img src={firebaseSVG} />
-                                    <h4>Image & Video Database</h4>
-                                    <h6>5GB Storage</h6>
-                                    <p style={{marginTop:"10px"}} >No subscription</p>
-                                </div>
+                                <CChart
+                                    type="line"
+                                    data={{
+                                        labels: ["Jan", "Feb", "March", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                                        datasets: [
+                                            // {
+                                            //     label: "2022",
+                                            //     backgroundColor: "rgba(220, 220, 220, 0.2)",
+                                            //     borderColor: "rgba(220, 220, 220, 1)",
+                                            //     pointBackgroundColor: "rgba(220, 220, 220, 1)",
+                                            //     pointBorderColor: "#fff",
+                                            //     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 150, 300]
+                                            // },
+                                            {
+                                                label: year,
+                                                backgroundColor: "rgba(151, 187, 205, 0.2)",
+                                                borderColor: "rgba(151, 187, 205, 1)",
+                                                pointBackgroundColor: "rgba(151, 187, 205, 1)",
+                                                pointBorderColor: "#fff",
+                                                data: [Jan, Feb, Mar, Apr, Ma, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+                                            },
+                                        ],
+                                    }}
+                                />
                             </div>
-                        </div>
-                    </div>
-                    <div style={{display:'flex',marginTop:"10px"}}>
-                        <h4 style={{marginRight:"5px"}}>Database</h4><p> Analysis {process.env.DATA}</p>
-                    </div>
-                    <div style={{display:'grid',gridTemplateColumns:"1fr 1fr 1fr"}}>
-                        <div className={style.box}>
-                            <div><p>Visitors</p><span style={{
-                                width:"45px",height:"45px",borderRadius:"50%",backgroundColor:"#d3e2f7",display:'flex',alignItems:'center',justifyContent:"center"
-                            }}><span className='material-icons' style={{color:'#3b7ddd'}} >person</span></span></div>
-                            <div><h4>{visitors}</h4></div>
-                        </div>
-                        <div className={style.box}>
-                            <div><p>Users</p><span style={{
-                                width:"45px",height:"45px",borderRadius:"50%",backgroundColor:"#d3e2f7",display:'flex',alignItems:'center',justifyContent:"center"
-                            }}><span className='material-icons' style={{color:'#3b7ddd'}} >groups</span></span></div>
-                            <div><h4>{users}</h4></div>
-                        </div>
-                        <div className={style.box}>
-                            <div><p>Posts</p><span style={{
-                                width:"45px",height:"45px",borderRadius:"50%",backgroundColor:"#d3e2f7",display:'flex',alignItems:'center',justifyContent:"center"
-                            }}><span className='material-icons' style={{color:'#3b7ddd'}} >web</span></span></div>
-                            <div><h4>{posts}</h4></div>
-                        </div>
-                        <div className={style.box}>
-                            <div><p>Reports</p><span style={{
-                                width:"45px",height:"45px",borderRadius:"50%",backgroundColor:"#d3e2f7",display:'flex',alignItems:'center',justifyContent:"center"
-                            }}><span className='material-icons' style={{color:'#3b7ddd'}} >report</span></span></div>
-                            <div><h4>{report}</h4></div>
-                        </div>
-                        <div className={style.box}>
-                            <div><p>Jobs</p><span style={{
-                                width:"45px",height:"45px",borderRadius:"50%",backgroundColor:"#d3e2f7",display:'flex',alignItems:'center',justifyContent:"center"
-                            }}><span className='material-icons' style={{color:'#3b7ddd'}} >work</span></span></div>
-                            <div><h4>{jobs}</h4></div>
-                        </div>
-                        <div className={style.box}>
-                            <div><p>Notifications</p><span style={{
-                                width:"45px",height:"45px",borderRadius:"50%",backgroundColor:"#d3e2f7",display:'flex',alignItems:'center',justifyContent:"center"
-                            }}><span className='material-icons' style={{color:'#3b7ddd'}} >notifications</span></span></div>
-                            <div><h4>{notify}</h4></div>
-                        </div>
-                        <div className={style.box}>
-                            <div><p>Unverified Users</p><span style={{
-                                width:"45px",height:"45px",borderRadius:"50%",backgroundColor:"#d3e2f7",display:'flex',alignItems:'center',justifyContent:"center"
-                            }}><span className='material-icons' style={{color:'#3b7ddd'}} >lock</span></span></div>
-                            <div><h4>{pending}</h4></div>
-                        </div>
-                        <div className={style.box}>
-                            <div><p>Verified Users</p><span style={{
-                                width:"45px",height:"45px",borderRadius:"50%",backgroundColor:"#d3e2f7",display:'flex',alignItems:'center',justifyContent:"center"
-                            }}><span className='material-icons' style={{color:'#3b7ddd'}} >lock_open</span></span></div>
-                            <div><h4>{verified}</h4></div>
                         </div>
                     </div>
                 </main>
@@ -416,4 +568,4 @@ const AdminDashboard = () => {
     )
 }
 
-export default AdminDashboard
+export default Stats

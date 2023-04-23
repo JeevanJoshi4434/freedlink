@@ -24,17 +24,19 @@ router.get(`/people`,async(req,res)=>{
         const job = await Job.find({
         $or:[
             {
-                title:{$regex:search,$options:"i"}
+                title:{$regex:search,$options:"i"},
+                visible:true
             },
             {
-                description:{$regex:search,$options:"i"}
+                description:{$regex:search,$options:"i"},
+                visible:true
             }
         ]     
        })
         .where("country")
         .in([...country])
 
-        const job1 = await Job.find({description:{$regex:search,$options:"i"}})
+        const job1 = await Job.find({description:{$regex:search,$options:"i"},visible:true})
         .where("country")
         .in([...country])
         const total = await User.countDocuments({
@@ -44,7 +46,7 @@ router.get(`/people`,async(req,res)=>{
 
         const totalJobs = await Job.countDocuments({
             country:{$in:[...country]},
-            title:{$regex:search,$options:"i"},
+            title:{$regex:search,$options:"i"},visible:true
         })
     const response = {
         error:false,
@@ -72,13 +74,16 @@ router.get(`/featured`,async(req,res)=>{
     const jobs = await Job.find({
         $or:[
             {
-                title:{$regex:data,$options:"i"}
+                title:{$regex:data,$options:"i"},
+                visible:true
             },
             {
-                description:{$regex:data,$options:"i"}
+                description:{$regex:data,$options:"i"},
+                visible:true
             },
             {
-                country:{$regex:data,$option:"i"}
+                country:{$regex:data,$option:"i"},
+                visible:true
             }
         ]     
     })

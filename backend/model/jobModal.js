@@ -79,7 +79,10 @@ const jobModal = new mongoose.Schema({
     ],
     sortlist:[
         
-    ]
+    ],
+    visible:{
+        type:Boolean
+    }
 },{timestamps:true})
 
 module.exports = mongoose.model("Jobs",jobModal);

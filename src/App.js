@@ -42,6 +42,7 @@ import Help from './components/settings/Screens/Help';
 import CheckEmail from './components/subcomponents/CheckEmail';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import Stats from './components/Admin/Stats';
+import SubAdminDashboard from './components/SubAdmin/AdminDashboard';
 import HRSoon from './components/Authentication/HRSoon';
 import PageNotFound from './components/PageNotFound';
 import SinglePost from './components/subcomponents/SinglePost';
@@ -126,7 +127,8 @@ function App() {
           <Route element={ <Verification />} path="/signup/email/verify"></Route>
           {/* <Route element={user!==null ? <Navigate to={'/'} /> :   <><Signup /></>} path="/signup">     */}
           <Route element={<><Signup /></>} path="/signup"></Route>
-          
+          {/* SubAdmin */}
+          <Route element={<><SubAdminDashboard /></>} path="/subadmin"></Route>
         </Routes>
       </BrowserRouter>
     </>

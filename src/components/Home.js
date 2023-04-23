@@ -140,9 +140,9 @@ const Home = (props) => {
   // console.log(post)
   console.log(currentUploadedPost);
   const hadleInfiniteScroll = async () => {
-    // // console.log("ScrollHeight" + document.documentElement.scrollHeight);
-    // // console.log("basicHeight" + window.innerHeight);
-    // // console.log("scrollTop" + document.documentElement.scrollTop);
+    // console.log("ScrollHeight" + document.documentElement.scrollHeight);
+    // console.log("basicHeight" + window.innerHeight);
+    // console.log("scrollTop" + document.documentElement.scrollTop);
     try {
       if (window.innerHeight + document.documentElement.scrollTop + 1 >=
         document.documentElement.scrollHeight) {
@@ -278,6 +278,18 @@ const Home = (props) => {
           <div className="sidebarRow" onClick={() => navigate("/jobs")} >
             <span className="material-icons"> business_center </span>
             <h4>Jobs</h4>
+          </div>
+          <div className="sidebarRow" onClick={() => navigate("/settings")} >
+            <span className="material-icons"> settings </span>
+            <h4>Setting</h4>
+          </div>
+          <div className="sidebarRow" onClick={() => navigate("/")} >
+            <span className="material-icons"> policy </span>
+            <h4>Policies</h4>
+          </div>
+          <div className="sidebarRow" onClick={() => navigate("/")} >
+            <span className="material-icons"> feedback </span>
+            <h4>Feedback</h4>
           </div>
           {/* 
           <div className='leftBar-notification'>

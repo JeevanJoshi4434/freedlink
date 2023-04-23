@@ -196,4 +196,5 @@ router.get(`/posts/num`,async(req,res)=>{
     const allPosts = await Post.find();
     res.status(200).json({total:totalPosts,allPosts:allPosts})
 })
+
 module.exports = router;

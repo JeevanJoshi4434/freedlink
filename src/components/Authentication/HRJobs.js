@@ -137,6 +137,10 @@ const HRJobs = () => {
 
             <div>
               <p>Uploaded Jobs.</p>
+              <p style={{fontSize:'7px',display:'flex'}}>Status code: 
+                <span style={{backgroundColor:'#ffc107',width:'10px',height:'10px',borderRadius:'50%',marginLeft:'10px',}}></span> Your job post is under approvel.
+                <span style={{backgroundColor:'#198754',width:'10px',height:'10px',borderRadius:'50%',marginLeft:'10px',}}></span> Your job post is approved.
+                </p>
             </div>
             <div style={{ marginTop: "20px" }}>
               {/* <h4 style={{ fontSize: "30px", fontWeight: "500" }} >Recent Uploaded Jobs</h4> */}
@@ -160,13 +164,15 @@ const HRJobs = () => {
                         <h4>{i?.title}</h4>
                         <h6>{i?.subject}</h6>
                         <div>
-                          <p>Requirement: {i?.qualification}</p>
+                          <p>Requirements: {i?.qualification}</p>
                           <p>{date?.slice(0, 10)}</p>
                           <p>{i?.referenceCompanyName}</p>
                         </div>
                       </div>
                     </div>
                     <div className={jobStyle.jobRight}>
+                      { !i?.visible ?<span title='Job post is under approvel' style={{backgroundColor:'#ffc107',width:'10px',height:'10px',borderRadius:'50%',marginRight:'10px'}}></span>
+                      : <span title='Job post is approved'  style={{backgroundColor:'#198754',width:'10px',height:'10px',borderRadius:'50%',marginRight:'10px'}}></span>}
                       <p>
                         {i?.CompanyName}
                       </p>

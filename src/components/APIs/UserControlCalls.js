@@ -57,3 +57,10 @@ export const SavePost =  async(user,post)=>{
         })
         
     }
+
+export const grabStatus =  async()=>{
+        await fetch(`/api/approvalstatus`,{method:"GET",headers:{"Content-Type":"application/json"}}).then((res)=>{
+            return res.status;
+        });
+        
+    }

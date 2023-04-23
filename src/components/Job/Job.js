@@ -32,7 +32,7 @@ const Job = (props) => {
     getSuggestion();
   }, [])
   const getJobs = async () => {
-    const res = await axios.get(`/api/advance/jobs?_page=${page}&_limits=${limit}`);
+    const res = await axios.get(`/api/advance/jobs?_page=${page}&_limits=${limit}&_visible=true`);
     if (page === 1) {
       setJobs(res.data);
     } else {
@@ -69,7 +69,7 @@ const Job = (props) => {
     <div className={jobStyle.mainPage} >
       <div className={jobStyle.Left}>
         <div className="sidebar">
-          {user?.other && <Link to={`profile/${user?.other?._id}`}><div className="sidebarRow">
+          {user?.other && <Link to={`/profile/${user?.other?._id}`}><div className="sidebarRow">
             <img
               className="user__avatar"
               src={user?.other?.img} alt=""
@@ -87,15 +87,27 @@ const Job = (props) => {
           <h4>Pages</h4>
         </div> */}
 
-          {user?.other && <div className="sidebarRow" onClick={() => navigate("/inbox")}>
+          {user?.other && <Link className="sidebarRow" to="/inbox">
             <span className="material-icons"> chat </span>
             <h4>Chats</h4>
-          </div>}
+          </Link>}
 
-          <div className="sidebarRow" onClick={() => navigate("/jobs")} >
+          <Link className="sidebarRow" to="/" >
             <span className="material-icons"> home </span>
             <h4>Feed</h4>
-          </div>
+          </Link>
+          <Link className="sidebarRow" to='/settings' >
+            <span className="material-icons"> settings </span>
+            <h4>Setting</h4>
+          </Link>
+          <Link className="sidebarRow" to='/settings' >
+            <span className="material-icons"> policy </span>
+            <h4>Policies</h4>
+          </Link>
+          <Link className="sidebarRow" to='/settings' >
+            <span className="material-icons"> help </span>
+            <h4>Help</h4>
+          </Link>
         </div>
       </div>
       <main className='my-5 rounded'>
