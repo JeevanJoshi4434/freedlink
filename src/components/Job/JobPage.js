@@ -161,11 +161,11 @@ const JobPage = () => {
               <div className='dropdown-content2 button-hover'>
                 <div >
                   <span className='material-icons' style={{ marginRight: "10px" }}>near_me</span>
-                  {isMobileOnly ? <p onClick={() => sharePost("Share Post", `post by @${user?.name}`, `https://${process.env.REACT_APP_CLIENTPORT}/job/${params?.id}`)} >Share</p> : <ShareContent
+                  {isMobileOnly ? <p onClick={() => sharePost("Share Post", `post by @${user?.name}`, `https://${process.env.REACT_APP_CLIENTPORT}/jobs/${params?.id}`)} >Share</p> : <ShareContent
                     label={"Share post"}
                     title={`Post by ${user?.name}`}
                     text={`Freedlink Post`}
-                    url={`https://${process.env.REACT_APP_CLIENTPORT}/job/${params?.id}`}
+                    url={`https://${process.env.REACT_APP_CLIENTPORT}/jobs/${params?.id}`}
                   />}
                 </div>
               </div>
